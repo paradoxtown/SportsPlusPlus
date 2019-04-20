@@ -9,14 +9,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
-            android:background="#888888"/>
+            android:background="#F4F4F4"/>
 
         <com.example.a1111.sprots.DataGridView
             android:id="@+id/player_data_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="4"></com.example.a1111.sprots.DataGridView>
+            android:numColumns="4">
 
-
+        </com.example.a1111.sprots.DataGridView>
 
 </LinearLayout>

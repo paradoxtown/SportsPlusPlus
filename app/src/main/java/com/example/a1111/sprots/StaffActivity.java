@@ -57,7 +57,7 @@ public class StaffActivity extends AppCompatActivity {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray PlayerInfo) throws JSONException, IOException {
+            public void onResponse(JSONArray PlayerInfo){
                 // TeamListFragment.this.initTeams(TeamInfo);
                 ret = PlayerInfo;
                 getInfo();
@@ -67,7 +67,7 @@ public class StaffActivity extends AppCompatActivity {
     }
     public void getInfo()
     {
-        Map<String,Object> mp = new HashMap<String,Object>();
+        Map<String,Object> mp = new HashMap<>();
         mp.put("playerName","姓名");
         mp.put("playerNumber","号码");
         mp.put("playerPosition","场上位置");
@@ -96,7 +96,7 @@ public class StaffActivity extends AppCompatActivity {
                 else{po = pos;num = "无信息";}
                 A.add(new StaffItem(num,po,salary,p));
             }
-            ListView StaffView = (ListView)findViewById(R.id.staffview);
+            ListView StaffView = findViewById(R.id.staffview);
             StaffAdapter adp = new StaffAdapter(A,this);
             StaffView.setAdapter(adp);
             StaffView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +104,7 @@ public class StaffActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(StaffActivity.this,PlayerActivity.class);
                     StaffItem mp = A.get(position);
-                    player p = (player)mp.getPlayer();
+                    player p = mp.getPlayer();
                     intent.putExtra("123",p);
                     startActivity(intent);
                 }
@@ -121,35 +121,35 @@ class StaffItem {
     private String playerNumber, playerPosition, playerSalary;
     private player player;
 
-    public StaffItem(String pn, String pp, String ps, player p){
+    StaffItem(String pn, String pp, String ps, player p){
         this.playerNumber = pn;
         this.playerPosition = pp;
         this.playerSalary = ps;
         this.player = p;
     }
 
-    public player getPlayer() {
+    player getPlayer() {
         return this.player;
     }
 
-    public String getPlayerNumber() {
+    String getPlayerNumber() {
         return playerNumber;
     }
 
-    public String getPlayerPosition() {
+    String getPlayerPosition() {
         return playerPosition;
     }
 
-    public String getPlayerSalary() {
+    String getPlayerSalary() {
         return playerSalary;
     }
 }
 
 class StaffAdapter extends BaseAdapter{
-    Context mContext;
-    ArrayList<StaffItem>mList;
+    private Context mContext;
+    private ArrayList<StaffItem> mList;
 
-    public StaffAdapter(ArrayList<StaffItem>mList,Context mContext){
+    StaffAdapter(ArrayList<StaffItem>mList,Context mContext){
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -175,15 +175,15 @@ class StaffAdapter extends BaseAdapter{
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder = null;
+        ViewHolder holder;
         if(convertView == null){
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_list_item, null);
-            holder.pic = (ImageView)convertView.findViewById(R.id.player_pic);
-            holder.name = (TextView) convertView.findViewById(R.id.player_name);
-            holder.number = (TextView)convertView.findViewById(R.id.player_number);
-            holder.pos = (TextView)convertView.findViewById(R.id.player_position);
-            holder.salary = (TextView)convertView.findViewById(R.id.player_salary);
+            holder.pic = convertView.findViewById(R.id.player_pic);
+            holder.name = convertView.findViewById(R.id.player_name);
+            holder.number = convertView.findViewById(R.id.player_number);
+            holder.pos = convertView.findViewById(R.id.player_position);
+            holder.salary = convertView.findViewById(R.id.player_salary);
             convertView.setTag(holder);
         }
         if(this.mList != null){
@@ -202,7 +202,7 @@ class StaffAdapter extends BaseAdapter{
         LoadImg<Bitmap> http = new LoadImg<>();
         http.setListener(new LoadImg.OnResponseListener<Bitmap>() {
             @Override
-            public void onResponse(Bitmap playerImage) throws  IOException{
+            public void onResponse(Bitmap playerImage){
                 i.setImageBitmap(playerImage);
             }
         });

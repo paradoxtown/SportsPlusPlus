@@ -14,21 +14,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".NaviActivity"
-            android:label="@string/title_activity_navi">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!--<activity-->
+            <!--android:name=".NaviActivity"-->
+            <!--android:label="@string/title_activity_navi">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name=".NaviActivity"/>
         <activity android:name=".PlayerActivity" />
         <activity android:name=".ArrangeActivity" />
         <activity android:name=".DataActivity" />
         <activity android:name=".StaffActivity" />
         <activity android:name=".TeamActivity" />
         <activity android:name=".MatchActivity" />
+        <!--<activity android:name=".justloginregistertest.loginActivity"/>-->
+        <activity
+            android:name=".justloginregistertest.loginActivity"
+            android:label=".justloginregistertest.loginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".justloginregistertest.RegisterActivity"/>
+        <activity android:name=".justloginregistertest.modiActivity"/>
     </application>
 
 </manifest>

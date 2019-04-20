@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    tools:context=".justloginregistertest.modiActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_modiactivity_top"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/color_minefragment_top">
+
+        <ImageView
+            android:id="@+id/iv_modiactivity_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_left_back"
+            android:clickable="true"
+             />
+
+        <TextView
+            android:id="@+id/tv_modiactivity_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="25dp"
+            android:layout_toRightOf="@+id/iv_modiactivity_back"
+            android:layout_centerVertical="true"
+            android:text="返回" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_modiactivity_body"
+        android:layout_width="379dp"
+        android:layout_height="431dp"
+        android:layout_below="@+id/rl_modiactivity_top"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_acttivity_password1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="原密码："
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/et_activity_password1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请输入原密码"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_modiactivity_password2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新密码："
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/et_modiactivity_password2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:inputType="textPassword"
+                android:hint="请输入新密码" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_modiactivity_password3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新密码："
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/et_modiactivity_password3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请再次输入新密码"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:inputType="textPassword"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/bt_modiactivity_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/selector_loginactivity_button"
+            android:text="修改密码"
+            android:textSize="20dp"
+            android:textColor="#fff" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

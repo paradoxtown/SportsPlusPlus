@@ -55,7 +55,7 @@ public class DataActivity extends AppCompatActivity {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray teamInfo) throws JSONException, IOException {
+            public void onResponse(JSONArray teamInfo) throws JSONException {
                 ret = teamInfo;
                 Handle(ret);
             }
@@ -76,15 +76,23 @@ public class DataActivity extends AppCompatActivity {
                     JSONObject rebounds = j.getJSONObject("场均篮板");
                     String start_year = j.getString("进入NBA");
                     String CN_name = j.getString("球队中文名");
-                    A.add(new TeamData("技术统计",""));
-                    A.add(new TeamData("",""));
-                    A.add(new TeamData("",""));
-                    A.add(new TeamData("场均助攻",""));A.add(new TeamData("排名:" , assist.getString("排名") ));A.add(new TeamData("数值:" , assist.getString("数值") ));
-                    A.add(new TeamData("场均失误",""));A.add(new TeamData("排名:" , turnover.getString("排名") ));A.add(new TeamData("数值:" , turnover.getString("数值") ));
-                    A.add(new TeamData("场均得分",""));A.add(new TeamData("排名:" , points.getString("排名") ));A.add(new TeamData("数值:" , points.getString("数值") ));
-                    A.add(new TeamData("场均篮板",""));A.add(new TeamData("排名:" , rebounds.getString("排名") ));A.add(new TeamData("数值:" , rebounds.getString("数值") ));
-                    A.add(new TeamData("进入NBA:" , start_year));
-                    GridView g = (GridView)findViewById(R.id.team_data_grid);
+//                    A.add(new TeamData("技术统计",""));
+//                    A.add(new TeamData("",""));
+//                    A.add(new TeamData("",""));
+                    A.add(new TeamData("场均助攻",""));
+                    A.add(new TeamData("排名" , assist.getString("排名") ));
+                    A.add(new TeamData("数值" , assist.getString("数值") ));
+                    A.add(new TeamData("场均失误",""));
+                    A.add(new TeamData("排名" , turnover.getString("排名") ));
+                    A.add(new TeamData("数值" , turnover.getString("数值") ));
+                    A.add(new TeamData("场均得分",""));
+                    A.add(new TeamData("排名" , points.getString("排名") ));
+                    A.add(new TeamData("数值" , points.getString("数值") ));
+                    A.add(new TeamData("场均篮板",""));
+                    A.add(new TeamData("排名" , rebounds.getString("排名") ));
+                    A.add(new TeamData("数值" , rebounds.getString("数值") ));
+                    // A.add(new TeamData("进入NBA:" , start_year));
+                    GridView g = findViewById(R.id.team_data_grid);
                     TeamDataAdapter adp = new TeamDataAdapter(A,this);
                     g.setAdapter(adp);
                 }
@@ -96,16 +104,16 @@ public class DataActivity extends AppCompatActivity {
 class TeamData{
     private String data_info;
     private String data_value;
-    public TeamData(String di,String dv){
+    TeamData(String di,String dv){
         data_info = di;
         data_value = dv;
     }
 
-    public String getData_info() {
+    String getData_info() {
         return data_info;
     }
 
-    public String getData_value() {
+    String getData_value() {
         return data_value;
     }
 }
@@ -114,7 +122,7 @@ class TeamDataAdapter extends BaseAdapter{
     private ArrayList<TeamData> mList;
     private Context mContext;
 
-    public TeamDataAdapter(ArrayList<TeamData> mList,
+    TeamDataAdapter(ArrayList<TeamData> mList,
                                Context mContext) {
         super();
         this.mList = mList;
@@ -142,17 +150,16 @@ class TeamDataAdapter extends BaseAdapter{
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.team_data_grid_item, null);
-            holder.description = (TextView) convertView.findViewById(R.id.team_data_item_description);
-            holder.value = (TextView) convertView.findViewById(R.id.team_data_item_value);
+            holder.description = convertView.findViewById(R.id.team_data_item_description);
+            holder.value = convertView.findViewById(R.id.team_data_item_value);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         if (this.mList != null) {
             TeamData i = this.mList.get(position);
             if (holder.description != null) {

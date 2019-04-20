@@ -1,4 +1,4 @@
-package com.example.a1111.sprots;
+package com.example.justloginregistertest.httptest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +34,7 @@ public  class  HttpUtil {
             URL url = new URL(BaseUrl + "GetMatch?match_id="+id);
             HttpURLConnection conn =
                     (HttpURLConnection)url.openConnection();
-            conn.setReadTimeout(10000);
+            conn.setReadTimeout(5000);
             conn.setRequestMethod("GET");
             InputStream stream = conn.getInputStream();
             BufferedReader reader = new BufferedReader(
@@ -70,7 +70,7 @@ public  class  HttpUtil {
             URL url = new URL(BaseUrl + "GetTeamInfo");
             HttpURLConnection conn =
                     (HttpURLConnection)url.openConnection();
-            conn.setReadTimeout(10000);
+            conn.setReadTimeout(5000);
             conn.setRequestMethod("GET");
             InputStream stream = conn.getInputStream();
             BufferedReader reader = new BufferedReader(
@@ -266,8 +266,9 @@ public  class  HttpUtil {
             StringBuilder buffer = new StringBuilder();
 
             int code=conn.getResponseCode();
+            System.out.println("code:"+code);
             //获取结果
-            if(code==201)
+            if(code==200)
                 return 1;
             else
                 return 0;
@@ -291,7 +292,7 @@ public  class  HttpUtil {
     static int Login(String nick_name,String password) {
         try {
 
-            URL url = new URL(BaseUrl+"login?nick_name="+URLEncoder.encode(nick_name,"UTF-8")+"&password="+URLEncoder.encode(password,"UTF-8"));
+            URL url = new URL(BaseUrl+"login?nick_name="+nick_name+"&password="+password);
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
             //传递参数
@@ -350,7 +351,7 @@ public  class  HttpUtil {
             conn.setRequestProperty("accept","application/json");
 
             //传递参数
-            String data = "nick_name="+URLEncoder.encode(username,"UTF-8")+"&password="+URLEncoder.encode(password,"UTF-8")+"&email="+URLEncoder.encode(email,"UTF-8")+"&veri_code="+URLEncoder.encode(veri_code,"UTF-8");//拼装参数
+            String data = "nick_name="+username+"&password="+password+"&email="+email+"&veri_code="+veri_code;//拼装参数
             conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
             OutputStream outputStream = conn.getOutputStream();
 
@@ -394,7 +395,7 @@ public  class  HttpUtil {
             conn.setRequestProperty("accept","application/json");
 
             //传递参数
-            String data = "username="+URLEncoder.encode(username,"UTF-8")+"&teamname="+URLEncoder.encode(teamname,"UTF-8");//拼装参数
+            String data = "username="+username+"&teamname="+teamname;//拼装参数
             conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
             OutputStream outputStream = conn.getOutputStream();
 
@@ -424,7 +425,7 @@ public  class  HttpUtil {
         try{
             //System.out.println("test1");
             URL url = new URL(BaseUrl+"Subscribe?username="+
-                    URLEncoder.encode(username,"UTF-8"));
+                    username);
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
             //传参
@@ -460,7 +461,7 @@ public  class  HttpUtil {
         try{
             //System.out.println("test1");
             URL url = new URL(BaseUrl+"Subscribe?username="+
-                    URLEncoder.encode(username,"UTF-8")+"&teamname="+URLEncoder.encode(teamname,"UTF-8"));
+                    username+"&teamname="+teamname);
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
             //传参
@@ -523,35 +524,6 @@ public  class  HttpUtil {
             e.printStackTrace();
         }
         return bm;
-    }
-    static JSONArray GetSchedule(String teamname){
-        try{
-            URL url = new URL(BaseUrl+"GetSchedule?teamname="+
-                    URLEncoder.encode(teamname,"UTF-8"));
-            HttpURLConnection conn =
-                    (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(5000);
-            conn.setRequestMethod("GET");
-            InputStream stream = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stream)
-            );
-            StringBuilder buffer = new StringBuilder();
-            String str = null;
-            while((str = reader.readLine())!=null){
-                buffer.append(str);
-            }
-            //parseJsonWithJsonObject(buffer.toString());
-            System.out.println(buffer.toString());
-            return new JSONArray(buffer.toString());
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }

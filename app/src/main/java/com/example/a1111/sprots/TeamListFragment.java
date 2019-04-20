@@ -58,7 +58,7 @@ public class TeamListFragment extends Fragment {
             TeamList.add(new Team(CnName1, EngName1 + ".png"));
 
         }
-        adapter = new TeamAdapter(this.getActivity(),R.layout.team_item, TeamList);
+        adapter = new TeamAdapter(this.getActivity(), R.layout.team_item, TeamList, false);
         gridView = view.findViewById(R.id.listview);
         gridView.setAdapter(adapter);
 

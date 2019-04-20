@@ -24,10 +24,12 @@ import java.util.List;
 
 public class TeamAdapter extends ArrayAdapter<Team> {
     private int resourceId;
-    public TeamAdapter(Context context, int textViewResourceId, List<Team> objects)
+    private boolean flag = false;
+    TeamAdapter(Context context, int textViewResourceId, List<Team> objects, boolean flag)
     {
         super(context,textViewResourceId,objects);
         resourceId = textViewResourceId;
+        this.flag = flag;
     }
 
     @Override
@@ -35,19 +37,34 @@ public class TeamAdapter extends ArrayAdapter<Team> {
     {
         Team team = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
-        ImageView TeamImage = (ImageView) view.findViewById(R.id.team_image);
-        TextView TeamName = (TextView) view.findViewById(R.id.team_name);
-        InputStream in = null;
+        ImageView TeamImage = view.findViewById(R.id.team_image);
+        TextView TeamName = view.findViewById(R.id.team_name);
+        InputStream in;
         Bitmap img = null;
-        try {
-            String fileName = team.getImage();if(fileName.contentEquals("76ers.png"))fileName = "p" + fileName;
-            in = getContext().getResources().getAssets().open(fileName);
-            img = BitmapFactory.decodeStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!flag) {
+            try {
+                String fileName = team.getImage();
+                if (fileName.contentEquals("76ers.png")) fileName = "p" + fileName;
+                in = getContext().getResources().getAssets().open(fileName);
+                img = BitmapFactory.decodeStream(in);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            TeamImage.setImageBitmap(img);
+            TeamName.setText(team.getName());
         }
-        TeamImage.setImageBitmap(img);
-        TeamName.setText(team.getName());
+        else {
+            String mark = team.getName();
+            switch (mark) {
+                case "球员" : TeamImage.setImageResource(R.drawable.boy); break;
+                case "数据" : TeamImage.setImageResource(R.drawable.pencil); break;
+                case "赛程" : TeamImage.setImageResource(R.drawable.telephone); break;
+                case "关注" : TeamImage.setImageResource(R.drawable.heart); break;
+                // case "取消关注" : TeamImage.setImageResource(R.drawable.heart); break;
+                default:
+            }
+            TeamName.setText(mark);
+        }
         return view;
     }
 

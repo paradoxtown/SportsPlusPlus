@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Team implements Serializable {
     private String name;
     private String image;
-    public Team(String name,String image)
+    Team(String name,String image)
     {
         this.name = name;
         this.image = image;
@@ -16,8 +16,11 @@ public class Team implements Serializable {
     {
         return name;
     }
-    public String getImage()
+    String getImage()
     {
         return image;
+    }
+    void setName(String name) {
+        this.name = name;
     }
 }

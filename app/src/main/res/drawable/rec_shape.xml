@@ -7,9 +7,8 @@
 
     <stroke
     android:width="1dp"
-    android:color="#123143"
+    android:color="@color/colorInternal"
     />
-    
 
     <corners
         android:radius="8dp"

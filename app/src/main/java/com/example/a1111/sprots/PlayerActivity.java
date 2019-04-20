@@ -1,50 +1,42 @@
 package com.example.a1111.sprots;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PlayerActivity extends AppCompatActivity {
     private DataInfoSet A ;
     private static JSONArray ret;
-    private static ArrayList<DataInfoSet> setArray = new ArrayList<DataInfoSet>();
-    private  Handler handler=new Handler(){
+    @SuppressLint("HandlerLeak")
+    private static Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what == 1){
-                ImageView img = (ImageView)findViewById(R.id.playerimage);
-                img.setImageBitmap((Bitmap)msg.obj);
-            }
+//            if(msg.what == 1){
+//                ImageView img = (ImageView)findViewById(R.id.playerimage);
+//                img.setImageBitmap((Bitmap)msg.obj);
+//            }
         }
     };
 
@@ -62,7 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
         LoadImg<Bitmap> http = new LoadImg<>();
         http.setListener(new LoadImg.OnResponseListener<Bitmap>() {
             @Override
-            public void onResponse(Bitmap playerImage) throws  IOException {
+            public void onResponse(Bitmap playerImage) {
                 System.out.println("123");
                 Message message = handler.obtainMessage();
                 message.what = 1;
@@ -77,7 +69,7 @@ public class PlayerActivity extends AppCompatActivity {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray PlayerCareer) throws JSONException, IOException {
+            public void onResponse(JSONArray PlayerCareer) throws JSONException{
                 // TeamListFragment.this.initTeams(TeamInfo);
                 ret = PlayerCareer;
                 Handle(p);
@@ -86,15 +78,20 @@ public class PlayerActivity extends AppCompatActivity {
         http.execute("GetPlayerCareer", p.getNumber());
     }
     private void Handle(player p) throws JSONException {
-        setArray = new ArrayList<>();
-        DataGridView playerView = (DataGridView) findViewById(R.id.player_data_grid);
-        ListView playerList = (ListView)findViewById(R.id.playerview);
+        ArrayList<DataInfoSet> setArray = new ArrayList<>();
+        DataGridView playerView = findViewById(R.id.player_data_grid);
+        ListView playerList = findViewById(R.id.playerview);
         A = new DataInfoSet("基本信息");
-        newItem("姓名" , p.getChiName());newItem("位置:" , p.getPos());
-        newItem("体重" , p.getWeight());newItem("合同:" , p.getContract());
-        newItem("国籍" , p.getNationality());newItem("学校:" , p.getSchool());
-        newItem("序号" , p.getNumber());newItem("本赛季薪金:" , p.getSalary());
-        newItem("生日" , p.getBirth());newItem("身高:" , p.getHeight());
+        newItem("姓名" , p.getChiName());
+        newItem("位置" , p.getPos());
+        newItem("体重" , p.getWeight());
+        newItem("合同" , p.getContract());
+        newItem("国籍" , p.getNationality());
+        newItem("学校" , p.getSchool());
+        newItem("序号" , p.getNumber());
+        newItem("本赛季薪金" , p.getSalary());
+        newItem("生日" , p.getBirth());
+        newItem("身高" , p.getHeight());
         newItem("选秀" , p.getDraft());
         setArray.add(A);
         for(int i = 0;i < ret.length();i++){
@@ -104,10 +101,10 @@ public class PlayerActivity extends AppCompatActivity {
                     A = new DataInfoSet("本赛季常规赛平均数据");
                     break;
                 case 1:
-                    A = new DataInfoSet("生涯常规赛平均数据");
+                    A = new DataInfoSet("生涯季后赛平均数据");
                     break;
                 case 2:
-                    A = new DataInfoSet("生涯季后赛平均数据");
+                    A = new DataInfoSet("生涯常规赛平均数据");
                     break;
                 default:
                     break;
@@ -148,16 +145,16 @@ class DataGridView extends GridView{
 class DataInfoSet{
     private String description;
     private List<DataInfo> infoList;
-    public DataInfoSet(String d){
+    DataInfoSet(String d){
         description = d;
-        infoList = new ArrayList<DataInfo>() ;
+        infoList = new ArrayList<>() ;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public List<DataInfo> getInfoList() {
+    List<DataInfo> getInfoList() {
         return infoList;
     }
     public void add(DataInfo i){
@@ -168,14 +165,14 @@ class DataInfoSet{
 class DataInfo{
     private String dataDescription;
     private String data;
-    public DataInfo(String dd,String d)
+    DataInfo(String dd,String d)
     {
         dataDescription = dd;data = d;
     }
-    public String getData() {
+    String getData() {
         return data;
     }
-    public String getDataDescription() {
+    String getDataDescription() {
         return dataDescription;
     }
 }
@@ -184,7 +181,7 @@ class DataGridViewAdapter extends BaseAdapter{
     private List<DataInfo> mList;
     private Context mContext;
 
-    public DataGridViewAdapter(List<DataInfo> mList,
+    DataGridViewAdapter(List<DataInfo> mList,
                                Context mContext) {
         super();
         this.mList = mList;
@@ -212,12 +209,12 @@ class DataGridViewAdapter extends BaseAdapter{
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_item, null);
-            holder.data_info = (TextView) convertView.findViewById(R.id.player_item_name);
-            holder.data_item = (TextView) convertView.findViewById(R.id.player_item_data);
+            holder.data_info = convertView.findViewById(R.id.player_item_name);
+            holder.data_item = convertView.findViewById(R.id.player_item_data);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -230,10 +227,13 @@ class DataGridViewAdapter extends BaseAdapter{
                 holder.data_info.setTextSize(12);
                 holder.data_info.setTextColor(Color.GRAY);
                 holder.data_item.setText(i.getData());
-                holder.data_item.setTextSize(20);
+                if (i.getDataDescription().equals("合同")) {
+                    holder.data_item.setTextSize(12);
+                }
+                else holder.data_item.setTextSize(16);
                 holder.data_item.setTextColor(Color.BLACK);
-                TextPaint textPaint = holder.data_item.getPaint();
-                textPaint.setFakeBoldText(true);
+                // TextPaint textPaint = holder.data_item.getPaint();
+                // textPaint.setFakeBoldText(true);
             }
         }
         return convertView;
@@ -251,7 +251,7 @@ class NewListViewAdapter extends BaseAdapter {
     private List<DataInfoSet> mList;
     private Context mContext;
 
-    public NewListViewAdapter(List<DataInfoSet> mList,
+    NewListViewAdapter(List<DataInfoSet> mList,
                                    Context mContext) {
         super();
         this.mList = mList;
@@ -283,12 +283,12 @@ class NewListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_list_item, null);
-            holder.gridView = (GridView) convertView.findViewById(R.id.player_data_grid);
-            holder.description = (TextView) convertView.findViewById(R.id.data_type_description);
+            holder.gridView =  convertView.findViewById(R.id.player_data_grid);
+            holder.description =  convertView.findViewById(R.id.data_type_description);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
