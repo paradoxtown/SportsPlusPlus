@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/arrange_list"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="赛程列表" />
+
+    <item
+        android:id="@+id/team_list"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="球队一览" />
+
+    <item
+        android:id="@+id/my_match"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="我的比赛" />
+
+    <item
+        android:id="@+id/personal_center"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="个人中心" />
+
+
+</menu>

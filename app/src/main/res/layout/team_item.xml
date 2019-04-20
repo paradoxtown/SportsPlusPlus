@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:orientation="vertical"
+    android:background="@color/colorInternal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorInternal">
+    <LinearLayout
+        android:id="@+id/team_bar_item1"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:background="@color/colorContentWhite"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp">
+        <ImageView
+            android:id="@+id/team_image"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorPureBlack"
+            android:gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

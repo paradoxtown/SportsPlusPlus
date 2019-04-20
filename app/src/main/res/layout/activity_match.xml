@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:srlEnableLoadMore="false"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MatchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/head_division"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="323dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="151dp"
+                    android:layout_height="65dp"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView_away"
+                        android:layout_width="75dp"
+                        android:layout_height="66dp"
+                        android:contentDescription="主队"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                    <TextView
+                        android:id="@+id/textView_score1"
+                        android:layout_width="93dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/textView_vs"
+                    android:layout_width="22dp"
+                    android:layout_height="63dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/vs" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="65dp"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_score2"
+                        android:layout_width="77dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center" />
+
+                    <ImageView
+                        android:id="@+id/imageView_home"
+                        android:layout_width="73dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="客队"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+
+            <com.bin.david.form.core.SmartTable
+                android:id="@+id/table_sum"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginTop="8dp" />
+
+            <com.bin.david.form.core.SmartTable
+                android:id="@+id/table1"
+                android:layout_width="match_parent"
+                android:layout_height="470dp"
+                android:layout_marginTop="0dp" />
+
+            <com.bin.david.form.core.SmartTable
+                android:id="@+id/table2"
+                android:layout_width="match_parent"
+                android:layout_height="470dp"
+                android:layout_marginTop="0dp" />
+
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
