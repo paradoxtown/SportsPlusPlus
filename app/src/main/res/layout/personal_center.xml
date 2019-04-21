@@ -11,7 +11,7 @@
         android:id="@+id/personCenterHead"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/person_center_bg"
+        android:background="@mipmap/person_center_bg"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">

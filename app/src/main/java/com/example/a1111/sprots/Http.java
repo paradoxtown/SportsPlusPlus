@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 public class Http<T> extends AsyncTask<String,Void,T> {
 
     private OnResponseListener<T> listener;
-    private JSONObject result;
+    private JSONObject result = new JSONObject();
     public void setListener(OnResponseListener<T> listener) {
         this.listener = listener;
     }
@@ -31,7 +31,8 @@ public class Http<T> extends AsyncTask<String,Void,T> {
         if(params[0].equals("Register"))
         {
             try {
-                result.put("result",""+HttpUtil.Register(params[1],params[2],params[3],params[4]));
+                // System.out.println(HttpUtil.Register(params[1],params[2],params[3],params[4]));
+                result.put("result","" + HttpUtil.Register(params[1],params[2],params[3],params[4]));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

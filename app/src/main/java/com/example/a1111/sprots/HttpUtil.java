@@ -267,7 +267,7 @@ public  class  HttpUtil {
 
             int code=conn.getResponseCode();
             //获取结果
-            if(code==201)
+            if(code==200)
                 return 1;
             else
                 return 0;
@@ -295,7 +295,6 @@ public  class  HttpUtil {
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
             //传递参数
-            //System.out.println(BaseUrl+"register?email="+email);
 
             //设置响应头参数
             conn.setReadTimeout(10000);
@@ -360,20 +359,20 @@ public  class  HttpUtil {
             System.out.println(data);
 
             int code=conn.getResponseCode();
+            System.out.println("register_code " + code);
             //获取结果
             if(code==201)
                 return 1;
             else
                 return 0;
         }catch(MalformedURLException e){
-
             e.printStackTrace();
         }catch(IOException e){
-
             e.printStackTrace();
         }
         return 0;
     }
+
     static int RequestPost(String username,String teamname)
     {
         try {

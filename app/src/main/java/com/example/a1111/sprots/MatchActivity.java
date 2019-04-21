@@ -42,7 +42,8 @@ public class MatchActivity extends AppCompatActivity {
     private static JSONObject matchRet = null;
     private static JSONArray playerRet = null;
     private static Bitmap imgRet = null;
-    private String home_team, away_team, gameId;
+    private String home_team;
+    private String away_team;
     private AllMap allMap = new AllMap();
 
     @Override
@@ -129,9 +130,9 @@ public class MatchActivity extends AppCompatActivity {
         http.execute("GetPlayerSummary", id);
     }
 
-    void setHeadView() throws JSONException, IOException {
+    void setHeadView() throws JSONException {
         LinearLayout headDivision = findViewById(R.id.head_division);
-        headDivision.setBackgroundResource(R.drawable.head_img);
+        headDivision.setBackgroundResource(R.mipmap.head_img);
 //        JSONObject team1 = ret.getJSONObject(0);
 //        JSONObject team2 = ret.getJSONObject(1);
 //        if (team1.getInt("home_away") == 1) {
@@ -362,7 +363,7 @@ public class MatchActivity extends AppCompatActivity {
         table2.getConfig().setShowYSequence(false);
     }
 
-    void setGameId(String id){
-        gameId = id;
-    }
+//    void setGameId(String id){
+//        String gameId = id;
+//    }
 }

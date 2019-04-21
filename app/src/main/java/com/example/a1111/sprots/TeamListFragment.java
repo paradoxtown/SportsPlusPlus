@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -46,7 +44,6 @@ public class TeamListFragment extends Fragment {
         });
         http.execute("GetTeamInfo", "");
     }
-
 
 
     private void initTeams(JSONArray TeamInfo) throws JSONException, IOException {
