@@ -59,9 +59,7 @@ public class NaviActivity extends AppCompatActivity {
                     transaction.commit();
                     return true;
                 case R.id.my_match:
-                    if(f3 == null){
-                    }
-                    else{
+                    if (f3 != null) {
                         transaction.show(f3);
                     }
                     transaction.commit();
