@@ -20,6 +20,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
             android:orientation="vertical"
+            android:background="@mipmap/head_img"
             >
 
             <LinearLayout

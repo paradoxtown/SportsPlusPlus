@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.a1111.sprots">
+    package="com.free.app.spp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAM_STORAGE" />
@@ -23,16 +23,16 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
-        <activity android:name=".NaviActivity"/>
-        <activity android:name=".PlayerActivity" />
-        <activity android:name=".ArrangeActivity" />
-        <activity android:name=".DataActivity" />
-        <activity android:name=".StaffActivity" />
-        <activity android:name=".TeamActivity" />
-        <activity android:name=".MatchActivity" />
+        <activity android:name="com.free.app.spp.NaviActivity"/>
+        <activity android:name="com.free.app.spp.PlayerActivity" />
+        <activity android:name="com.free.app.spp.ArrangeActivity" />
+        <activity android:name="com.free.app.spp.DataActivity" />
+        <activity android:name="com.free.app.spp.StaffActivity" />
+        <activity android:name="com.free.app.spp.TeamActivity" />
+        <activity android:name="com.free.app.spp.MatchActivity" />
         <!--<activity android:name=".justloginregistertest.loginActivity"/>-->
         <activity
-            android:name=".justloginregistertest.loginActivity"
+            android:name="com.free.app.spp.justloginregistertest.loginActivity"
             android:label=".justloginregistertest.loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,8 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".justloginregistertest.RegisterActivity"/>
-        <activity android:name=".justloginregistertest.modiActivity"/>
+        <activity android:name="com.free.app.spp.justloginregistertest.RegisterActivity"/>
+        <activity android:name="com.free.app.spp.justloginregistertest.modiActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#00bfff</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorInternal">#F4F4F4</color>
@@ -10,5 +10,5 @@
     <color name="lightSlateGray">#778899</color>
     <color name="ivory">#FFFFF0</color>
     <color name="snow2">#EEE9E9</color>
-    <color name="color_minefragment_top">#20B2AA</color>
+    <color name="color_minefragment_top">#00bfff</color>
 </resources>

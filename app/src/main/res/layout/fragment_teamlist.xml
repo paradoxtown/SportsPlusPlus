@@ -19,7 +19,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ball"
+                android:background="@mipmap/ball"
                 android:layout_gravity="center_vertical" />
 
             <TextView
