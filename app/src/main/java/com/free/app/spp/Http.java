@@ -81,8 +81,16 @@ public class Http<T> extends AsyncTask<String,Void,T> {
             return (T)HttpUtil.GetPlayerCareer(params[1]);
         if(params[0].equals("GetSchedule"))
             return (T)HttpUtil.GetSchedule(params[1]) ;
+        if(params[0].equals("Changepassword"))
+        {
+            try {
+                result.put("result",""+HttpUtil.Changepassword(params[1],params[2],params[3]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
         return null;
-
     }
 
     @Override

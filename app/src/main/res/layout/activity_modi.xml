@@ -23,7 +23,7 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/ic_left_back"
             android:clickable="true"
-             />
+            android:onClick="onClick" />
 
         <TextView
             android:id="@+id/tv_modiactivity_back"
@@ -51,13 +51,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/tv_acttivity_password1"
+                android:id="@+id/tv_modiacttivity_password1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="原密码："
                 android:textSize="20dp"/>
             <EditText
-                android:id="@+id/et_activity_password1"
+                android:id="@+id/et_modiactivity_password1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="请输入原密码"
@@ -112,6 +112,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/selector_loginactivity_button"
+            android:onClick="onClick"
             android:text="修改密码"
             android:textSize="20dp"
             android:textColor="#fff" />

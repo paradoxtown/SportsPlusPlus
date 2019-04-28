@@ -554,4 +554,38 @@ class  HttpUtil {
         return null;
     }
 
+    static int Changepassword(String username,String oldpassword,String newpassword) {
+        try {
+
+            URL url = new URL(BaseUrl+"Changepassword?username="+username+"&oldpassword="+oldpassword
+                    +"&new="+newpassword);
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+            //传递参数
+            //System.out.println(BaseUrl+"register?email="+email);
+
+            //设置响应头参数
+            conn.setReadTimeout(10000);
+            conn.setRequestMethod("PUT");
+            //获取结果
+            InputStream stream = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(stream)
+            );
+            int code = conn.getResponseCode();
+            if(code == 200){
+                return 1;
+            }else {
+                return 0;
+            }
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
