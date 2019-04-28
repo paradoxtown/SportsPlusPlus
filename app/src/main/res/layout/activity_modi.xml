@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
-    tools:context=".justloginregistertest.modiActivity">
+    tools:context=".modiActivity">
 
 
     <RelativeLayout
@@ -51,16 +51,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/tv_modiacttivity_password1"
+                android:id="@+id/tv_modiacttivity_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="原密码："
+                android:text="用户名："
                 android:textSize="20dp"/>
             <EditText
-                android:id="@+id/et_modiactivity_password1"
+                android:id="@+id/et_modiactivity_username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="请输入原密码"
+                android:hint="请输入用户名"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 />
@@ -73,7 +73,7 @@
                 android:id="@+id/tv_modiactivity_password2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新密码："
+                android:text="原密码："
                 android:textSize="20dp"/>
             <EditText
                 android:id="@+id/et_modiactivity_password2"
@@ -82,7 +82,7 @@
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:inputType="textPassword"
-                android:hint="请输入新密码" />
+                android:hint="请输入原密码" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                 android:id="@+id/et_modiactivity_password3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="请再次输入新密码"
+                android:hint="请输入新密码"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:inputType="textPassword"
