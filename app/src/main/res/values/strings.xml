@@ -21,4 +21,6 @@
     <string name="username">username</string>
     <string name="vs">-</string>
     <string name="team_list">球队一览</string>
+    <string name="my_game_list">我的比赛</string>
+    <string name="create_game">创建比赛</string>
 </resources>

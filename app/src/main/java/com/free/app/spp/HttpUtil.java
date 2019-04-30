@@ -59,8 +59,8 @@ class  HttpUtil {
     //Method.    : GET
     //Params.    : 无
     //Return       : status=200  获取成功
-    //	       返回球队数据
-    //		status=400 获取失败
+    //         返回球队数据
+    //      status=400 获取失败
     static JSONArray GetTeamInfo(){
         try{
             URL url = new URL(BaseUrl + "GetTeamInfo");
@@ -128,7 +128,7 @@ class  HttpUtil {
     //Path.         : api/GetPlayerSummary
     //Method.    : GET
     //Params.    : match_id
-    public static JSONArray GetPlayerSummary(String match_id){
+    static JSONArray GetPlayerSummary(String match_id){
         try{
             //System.out.println("test");
             URL url = new URL(BaseUrl+"GetPlayerSummary?match_id="+
@@ -203,7 +203,7 @@ class  HttpUtil {
     //Method.    : GET
     //Params.    : player_index（球员的序号）
     //Return       :
-    //	       返回球员职业生涯数据
+    //         返回球员职业生涯数据
     static JSONArray GetPlayerCareer(String player_index){
         try{
             //System.out.println("test");
@@ -286,7 +286,7 @@ class  HttpUtil {
     //Method.    : GET
     //Params.    : nick_name , password
     //Return       : status=400. 登录失败
-    //	        status=200  登录成功
+    //          status=200  登录成功
     static int Login(String nick_name,String password) {
         try {
 
@@ -327,7 +327,7 @@ class  HttpUtil {
     //Method.    : POST
     //Params.    : email , nick_name , password , veri_code
     //Return       : status=201  创建成功
-    //	        status=400. 验证码错误
+    //          status=400. 验证码错误
     static int Register(String username,String password,String email,String veri_code)
     {
         try {

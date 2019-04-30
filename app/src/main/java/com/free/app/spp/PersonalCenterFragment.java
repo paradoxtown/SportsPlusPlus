@@ -1,7 +1,7 @@
 package com.free.app.spp;
 
-import android.content.Intent;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.free.app.spp.justloginregistertest.loginActivity;
@@ -32,9 +30,10 @@ public class PersonalCenterFragment extends Fragment {
     private String userNameContent;
     private JSONArray likedTeam;
     private AllMap allMap = new AllMap();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.personal_center, container, false);
         super.onCreate(savedInstanceState);
         userNameContent = getActivity().getIntent().getStringExtra("UserName");
@@ -60,7 +59,7 @@ public class PersonalCenterFragment extends Fragment {
         MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
         attentionList.setAdapter(adapter);
 
-        attentionLayout.setOnClickListener(new View.OnClickListener(){
+        attentionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getLikedTeam();
@@ -77,7 +76,7 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener(){
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), loginActivity.class);
@@ -103,16 +102,16 @@ public class PersonalCenterFragment extends Fragment {
                             teamList.add(new TeamItem(
                                     allMap.getCnNameFromCnLocName(jso.getString("球队中文名"))));
                         }
-                    isVisible = false;
-                    attentionList.setVisibility(View.VISIBLE);
-                    modifyPassword.setVisibility(View.GONE);
-                    logout.setVisibility(View.GONE);
-                } else {
-                    modifyPassword.setVisibility(View.VISIBLE);
-                    logout.setVisibility(View.VISIBLE);
-                    attentionList.setVisibility(View.GONE);
-                    isVisible = true;
-                }
+                        isVisible = false;
+                        attentionList.setVisibility(View.VISIBLE);
+                        modifyPassword.setVisibility(View.GONE);
+                        logout.setVisibility(View.GONE);
+                    } else {
+                        modifyPassword.setVisibility(View.VISIBLE);
+                        logout.setVisibility(View.VISIBLE);
+                        attentionList.setVisibility(View.GONE);
+                        isVisible = true;
+                    }
                 }
             }
         });
