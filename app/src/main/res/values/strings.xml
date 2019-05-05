@@ -25,4 +25,8 @@
     <string name="create_game">创建比赛</string>
     <string name="schedule">比赛赛程</string>
     <string name="edit_schedule">编辑赛程</string>
+    <string name="coach">球队主教练</string>
+    <string name="team_info">球队简介</string>
+    <string name="enter_year">进入NBA的年份</string>
+    <string name="tips">提示：柱状图越高，表示该球队的该项数据在联盟中战力越强。</string>
 </resources>

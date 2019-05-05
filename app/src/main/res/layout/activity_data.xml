@@ -6,12 +6,68 @@
     tools:context=".DataActivity"
     android:orientation="vertical">
 
-   <GridView
-       android:id="@+id/team_data_grid"
+   <LinearLayout
+       android:layout_marginTop="20dp"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:numColumns="3">
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
 
-   </GridView>
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/coach"/>
+      <TextView
+          android:id="@+id/team_coach_name"
+          android:layout_marginLeft="77dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="20sp"
+          android:layout_marginStart="77dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_marginTop="10dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/enter_year"/>
+         <TextView
+             android:id="@+id/enter_year"
+             android:layout_marginLeft="50dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="20sp"
+             android:layout_marginStart="50dp" />
+      </LinearLayout>
+
+      <TextView
+          android:layout_marginTop="10dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/team_info"/>
+
+      <TextView
+          android:id="@+id/team_info_content"
+          android:layout_marginTop="5dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+   </LinearLayout>
+   <TextView
+       android:layout_marginTop="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="20dp"
+       android:text="@string/tips"/>
+   <lecho.lib.hellocharts.view.ColumnChartView
+       android:id="@+id/chart"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 
 </LinearLayout>

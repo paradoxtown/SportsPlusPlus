@@ -32,7 +32,7 @@ public class StaffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_staff);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("123");
+        String name = intent.getStringExtra("cnName");
         String eng_name = Maps.CntoEng.get(name);
         GetPlayerInfo(eng_name);
     }
@@ -89,7 +89,7 @@ public class StaffActivity extends AppCompatActivity {
                     Intent intent = new Intent(StaffActivity.this,PlayerActivity.class);
                     StaffItem mp = A.get(position);
                     player p = mp.getPlayer();
-                    intent.putExtra("123",p);
+                    intent.putExtra("player",p);
                     startActivity(intent);
                 }
             });

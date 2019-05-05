@@ -17,8 +17,17 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class DataActivity extends AppCompatActivity {
 
@@ -34,7 +43,8 @@ public class DataActivity extends AppCompatActivity {
         this.setTitle("球队数据");
         Toast.makeText(DataActivity.this,"data",Toast.LENGTH_SHORT).show();
         Intent i = getIntent();
-        name = i.getStringExtra("123");
+        name = i.getStringExtra("cnName");
+        System.out.println(name);
         GetTeamInfo();
     }
 
@@ -50,7 +60,7 @@ public class DataActivity extends AppCompatActivity {
         http.execute("GetTeamInfo", "");
     }
     private void Handle(JSONArray e) throws JSONException {
-        for(int i = 0;i < e.length();i++){
+        for(int i = 0; i < e.length(); i++){
             JSONObject j = e.getJSONObject(i);
             String cn_name = j.getString("球队中文名");
             if(cn_name.contentEquals(Maps.CntoFull.get(name))){
@@ -63,22 +73,65 @@ public class DataActivity extends AppCompatActivity {
                 JSONObject rebounds = j.getJSONObject("场均篮板");
                 String start_year = j.getString("进入NBA");
                 String CN_name = j.getString("球队中文名");
-                A.add(new TeamData("场均助攻",""));
-                A.add(new TeamData("排名" , assist.getString("排名") ));
-                A.add(new TeamData("数值" , assist.getString("数值") ));
-                A.add(new TeamData("场均失误",""));
-                A.add(new TeamData("排名" , turnover.getString("排名") ));
-                A.add(new TeamData("数值" , turnover.getString("数值") ));
-                A.add(new TeamData("场均得分",""));
-                A.add(new TeamData("排名" , points.getString("排名") ));
-                A.add(new TeamData("数值" , points.getString("数值") ));
-                A.add(new TeamData("场均篮板",""));
-                A.add(new TeamData("排名" , rebounds.getString("排名") ));
-                A.add(new TeamData("数值" , rebounds.getString("数值") ));
-                // A.add(new TeamData("进入NBA:" , start_year));
-                GridView g = findViewById(R.id.team_data_grid);
-                TeamDataAdapter adp = new TeamDataAdapter(A,this);
-                g.setAdapter(adp);
+                TextView teamCoachName = findViewById(R.id.team_coach_name);
+                TextView enterYear = findViewById(R.id.enter_year);
+                TextView teamInfo = findViewById(R.id.team_info_content);
+                teamCoachName.setText(coach);
+                enterYear.setText(start_year);
+                teamInfo.setText(intro);
+
+                ColumnChartView chart = findViewById(R.id.chart);
+                List<String> title = new ArrayList<>();
+
+                List<Integer> color = new ArrayList<>();
+
+                List<AxisValue> axisXValues = new ArrayList<>();
+
+                List<Column> columns = new ArrayList<>();
+
+                title.add("场均助攻");
+                title.add("场均失误");
+                title.add("场均得分");
+                title.add("场均篮板");
+
+                color.add(Color.parseColor("#D81B60"));
+                color.add(Color.parseColor("#00574B"));
+                color.add(Color.parseColor("#00bfff"));
+                color.add(Color.parseColor("#2F4F4F"));
+
+                for (int t = 0; t < 4; t ++){
+                    JSONObject jsonData = j.getJSONObject(title.get(t));
+                    float data = 30 - Float.parseFloat(jsonData.getString("排名"));
+                    axisXValues.add(new AxisValue(t).setLabel(title.get(t) + ": " + jsonData.getString("数值")));
+                    Column column = new Column();
+                    List<SubcolumnValue> mPointValues = new ArrayList<>();
+                    mPointValues.add(new SubcolumnValue(data, color.get(t)));
+                    column.setValues(mPointValues);
+                    column.setHasLabels(true);
+                    column.setHasLabelsOnlyForSelected(false);
+                    columns.add(column);
+                }
+                ColumnChartData columnChartData = new ColumnChartData(columns);
+                Axis axisBottom = new Axis(axisXValues);
+                axisBottom.setHasLines(false);
+                // axisBottom.setLineColor(Color.parseColor("#ff0000"));
+                // axisBottom.setTextColor(Color.parseColor("#666666"));
+                axisBottom.setTextSize(10);
+                axisBottom.setHasTiltedLabels(true);
+                axisBottom.setTextColor(Color.BLACK);
+                axisBottom.setMaxLabelChars(10);
+                axisBottom.setHasSeparationLine(true);
+                columnChartData.setAxisXBottom(axisBottom);
+                Axis axisLeft = new Axis();
+                axisLeft.setHasLines(false);
+                axisLeft.setHasTiltedLabels(true);
+                axisLeft.setTextColor(Color.BLACK);
+                // axisLeft.setTextColor(Color.parseColor("#666666"));
+                columnChartData.setAxisYLeft(axisLeft);
+                columnChartData.setFillRatio(0.7f);
+
+                chart.setInteractive(false);
+                chart.setColumnChartData(columnChartData);
             }
         }
     }

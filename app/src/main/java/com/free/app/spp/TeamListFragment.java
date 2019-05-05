@@ -22,7 +22,9 @@ public class TeamListFragment extends Fragment {
 
     private ArrayList<Team> TeamList = new ArrayList<>();
     private static JSONArray ret = null;private TeamAdapter adapter;
-    private GridView gridView;TextView tx;private View view;
+    private GridView gridView;
+    TextView tx;
+    private View view;
     private String userName;
     private AllMap mp = new AllMap();
 
@@ -73,7 +75,7 @@ public class TeamListFragment extends Fragment {
                         }
                     }
                 }
-                Intent intent = new Intent(getActivity(),TeamActivity.class);
+                Intent intent = new Intent(getActivity(), TeamActivity.class);
                 intent.putExtra("cnName", cnName);
                 intent.putExtra("isLiked", isLiked);
                 intent.putExtra("UserName", userName);

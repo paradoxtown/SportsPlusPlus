@@ -65,7 +65,7 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
-                String name = intent.getStringExtra("123");
+                String name = intent.getStringExtra("cnName");
                 Team item = items.get(position);
                 switch (item.getName()) {
                     case "球员":
@@ -77,7 +77,7 @@ public class TeamActivity extends AppCompatActivity {
                     //case "赛程": intent = new Intent(TeamActivity.this,ArrangeActivity.class);break;
                     default:
                 }
-                intent.putExtra("123", name);
+                intent.putExtra("cnName", name);
                 startActivity(intent);
             }
         });

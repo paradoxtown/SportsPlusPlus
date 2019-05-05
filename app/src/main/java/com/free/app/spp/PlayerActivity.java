@@ -43,7 +43,7 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         Intent i = getIntent();
-        player p = (player)i.getSerializableExtra("123");
+        player p = (player)i.getSerializableExtra("player");
         this.setTitle(p.getChiName());
         GetPlayerImage(p.getChiName());
         GetPlayerCareer(p);
@@ -54,7 +54,6 @@ public class PlayerActivity extends AppCompatActivity {
         http.setListener(new LoadImg.OnResponseListener<Bitmap>() {
             @Override
             public void onResponse(Bitmap playerImage) {
-                System.out.println("123");
                 Message message = handler.obtainMessage();
                 message.what = 1;
                 message.obj=playerImage;
