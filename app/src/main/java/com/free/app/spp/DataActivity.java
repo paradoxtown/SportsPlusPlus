@@ -49,40 +49,39 @@ public class DataActivity extends AppCompatActivity {
         });
         http.execute("GetTeamInfo", "");
     }
-        private void Handle(JSONArray e) throws JSONException {
-            for(int i = 0;i < e.length();i++){
-                JSONObject j = e.getJSONObject(i);
-                String cn_name = j.getString("球队中文名");
-                if(cn_name.contentEquals(Maps.CntoFull.get(name))){
-                    String coach = j.getString("主教练");
-                    String intro = j.getString("介绍");
-                    JSONObject assist = j.getJSONObject("场均助攻");
-                    JSONObject loss = j.getJSONObject("场均失分");
-                    JSONObject turnover = j.getJSONObject("场均失误");
-                    JSONObject points = j.getJSONObject("场均得分");
-                    JSONObject rebounds = j.getJSONObject("场均篮板");
-                    String start_year = j.getString("进入NBA");
-                    String CN_name = j.getString("球队中文名");
-                    A.add(new TeamData("场均助攻",""));
-                    A.add(new TeamData("排名" , assist.getString("排名") ));
-                    A.add(new TeamData("数值" , assist.getString("数值") ));
-                    A.add(new TeamData("场均失误",""));
-                    A.add(new TeamData("排名" , turnover.getString("排名") ));
-                    A.add(new TeamData("数值" , turnover.getString("数值") ));
-                    A.add(new TeamData("场均得分",""));
-                    A.add(new TeamData("排名" , points.getString("排名") ));
-                    A.add(new TeamData("数值" , points.getString("数值") ));
-                    A.add(new TeamData("场均篮板",""));
-                    A.add(new TeamData("排名" , rebounds.getString("排名") ));
-                    A.add(new TeamData("数值" , rebounds.getString("数值") ));
-                    // A.add(new TeamData("进入NBA:" , start_year));
-                    GridView g = findViewById(R.id.team_data_grid);
-                    TeamDataAdapter adp = new TeamDataAdapter(A,this);
-                    g.setAdapter(adp);
-                }
+    private void Handle(JSONArray e) throws JSONException {
+        for(int i = 0;i < e.length();i++){
+            JSONObject j = e.getJSONObject(i);
+            String cn_name = j.getString("球队中文名");
+            if(cn_name.contentEquals(Maps.CntoFull.get(name))){
+                String coach = j.getString("主教练");
+                String intro = j.getString("介绍");
+                JSONObject assist = j.getJSONObject("场均助攻");
+                JSONObject loss = j.getJSONObject("场均失分");
+                JSONObject turnover = j.getJSONObject("场均失误");
+                JSONObject points = j.getJSONObject("场均得分");
+                JSONObject rebounds = j.getJSONObject("场均篮板");
+                String start_year = j.getString("进入NBA");
+                String CN_name = j.getString("球队中文名");
+                A.add(new TeamData("场均助攻",""));
+                A.add(new TeamData("排名" , assist.getString("排名") ));
+                A.add(new TeamData("数值" , assist.getString("数值") ));
+                A.add(new TeamData("场均失误",""));
+                A.add(new TeamData("排名" , turnover.getString("排名") ));
+                A.add(new TeamData("数值" , turnover.getString("数值") ));
+                A.add(new TeamData("场均得分",""));
+                A.add(new TeamData("排名" , points.getString("排名") ));
+                A.add(new TeamData("数值" , points.getString("数值") ));
+                A.add(new TeamData("场均篮板",""));
+                A.add(new TeamData("排名" , rebounds.getString("排名") ));
+                A.add(new TeamData("数值" , rebounds.getString("数值") ));
+                // A.add(new TeamData("进入NBA:" , start_year));
+                GridView g = findViewById(R.id.team_data_grid);
+                TeamDataAdapter adp = new TeamDataAdapter(A,this);
+                g.setAdapter(adp);
             }
         }
-
+    }
 }
 
 class TeamData{

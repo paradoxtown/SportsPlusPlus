@@ -104,6 +104,7 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
             }
             guest_image.setImageBitmap(BitmapFactory.decodeStream(img));
             try {
+                assert img != null;
                 img.close();
             } catch (IOException e) {
                 e.printStackTrace();

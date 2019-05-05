@@ -23,4 +23,6 @@
     <string name="team_list">球队一览</string>
     <string name="my_game_list">我的比赛</string>
     <string name="create_game">创建比赛</string>
+    <string name="schedule">比赛赛程</string>
+    <string name="edit_schedule">编辑赛程</string>
 </resources>

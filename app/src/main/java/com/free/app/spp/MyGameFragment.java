@@ -2,12 +2,14 @@ package com.free.app.spp;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -42,6 +44,13 @@ public class MyGameFragment extends Fragment {
         ListView myGames = view.findViewById(R.id.my_game_list);
         MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
         myGames.setAdapter(myGameAdapter);
+        myGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(), MyGameActivity.class);
+                startActivity(i);
+            }
+        });
         return view;
     }
 }
