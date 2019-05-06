@@ -101,7 +101,7 @@ public class DataActivity extends AppCompatActivity {
 
                 for (int t = 0; t < 4; t ++){
                     JSONObject jsonData = j.getJSONObject(title.get(t));
-                    float data = 30 - Float.parseFloat(jsonData.getString("排名"));
+                    float data = 31 - Float.parseFloat(jsonData.getString("排名"));
                     axisXValues.add(new AxisValue(t).setLabel(title.get(t) + ": " + jsonData.getString("数值")));
                     Column column = new Column();
                     List<SubcolumnValue> mPointValues = new ArrayList<>();

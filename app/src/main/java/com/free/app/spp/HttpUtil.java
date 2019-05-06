@@ -557,7 +557,7 @@ class  HttpUtil {
     static int Changepassword(String username,String oldpassword,String newpassword) {
         try {
 
-            URL url = new URL(BaseUrl+"Changepassword?username="+username+"&oldpassword="+oldpassword
+            URL url = new URL(BaseUrl+"Changepassword?username="+username+"&old="+oldpassword
                     +"&new="+newpassword);
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
