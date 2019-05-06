@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MyGameActivity"></activity>
-        <!-- <activity -->
+        <activity android:name=".RecorderActivity"></activity>
+        <activity android:name=".MyGameActivity" /> <!-- <activity -->
         <!-- android:name=".NaviActivity" -->
         <!-- android:label="@string/title_activity_navi"> -->
         <!-- <intent-filter> -->

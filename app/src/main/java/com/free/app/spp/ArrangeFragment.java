@@ -71,8 +71,7 @@ public class ArrangeFragment extends Fragment {
         Matches.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mData.get(position).getClass() == MatchDate.class) { }
-                else {
+                if (!(mData.get(position).getClass() == MatchDate.class)) {
                     Match m = (Match) mData.get(position);
                     Intent i = new Intent(getActivity(), MatchActivity.class);
                     i.putExtra("123", m.getId());

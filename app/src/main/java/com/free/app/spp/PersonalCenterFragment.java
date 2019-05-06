@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.free.app.spp.justloginregistertest.loginActivity;
+import com.free.app.spp.justloginregistertest.modiActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,7 @@ public class PersonalCenterFragment extends Fragment {
     private String userNameContent;
     private JSONArray likedTeam;
     private AllMap allMap = new AllMap();
+    private List<String> attentionSet = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +78,14 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
+        modifyPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), modiActivity.class);
+                startActivity(intent);
+            }
+        });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,12 +105,16 @@ public class PersonalCenterFragment extends Fragment {
             if (isVisible) {
                 teamList.clear();
                 likedTeam = jsonArray;
+                attentionSet.clear();
                 if (likedTeam != null) {
                     for (int i = 0; i < likedTeam.length(); i++) {
                         JSONObject jso = (JSONObject) likedTeam.get(i);
                         jso = (JSONObject) jso.get("team");
-                        teamList.add(new TeamItem(
-                                allMap.getCnNameFromCnLocName(jso.getString("球队中文名"))));
+                        String cN = allMap.getCnNameFromCnLocName(jso.getString("球队中文名"));
+                        if (!attentionSet.contains(cN)) {
+                            teamList.add(new TeamItem(cN));
+                            attentionSet.add(cN);
+                        }
                     }
                     isVisible = false;
                     attentionList.setVisibility(View.VISIBLE);
@@ -112,6 +126,12 @@ public class PersonalCenterFragment extends Fragment {
                     attentionList.setVisibility(View.GONE);
                     isVisible = true;
                 }
+            }
+            else {
+                modifyPassword.setVisibility(View.VISIBLE);
+                logout.setVisibility(View.VISIBLE);
+                attentionList.setVisibility(View.GONE);
+                isVisible = true;
             }
             }
         });

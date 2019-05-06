@@ -17,16 +17,19 @@
           android:layout_height="wrap_content"
           android:orientation="horizontal">
       <TextView
+          android:layout_marginLeft="10dp"
+          android:layout_marginStart="10dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textColor="@color/colorPureBlack"
           android:text="@string/coach"/>
       <TextView
           android:id="@+id/team_coach_name"
-          android:layout_marginLeft="77dp"
+          android:layout_marginLeft="47dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:layout_marginStart="77dp" />
+          android:textSize="18sp"
+          android:layout_marginStart="47dp" />
       </LinearLayout>
 
       <LinearLayout
@@ -35,36 +38,48 @@
           android:layout_height="wrap_content"
           android:orientation="horizontal">
          <TextView
+             android:layout_marginLeft="10dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="@string/enter_year"/>
+             android:textColor="@color/colorPureBlack"
+             android:text="@string/enter_year"
+             android:layout_marginStart="10dp" />
          <TextView
              android:id="@+id/enter_year"
-             android:layout_marginLeft="50dp"
+             android:layout_marginLeft="20dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:textSize="20sp"
-             android:layout_marginStart="50dp" />
+             android:textSize="18sp"
+             android:layout_marginStart="20dp" />
       </LinearLayout>
 
       <TextView
+          android:layout_marginLeft="10dp"
           android:layout_marginTop="10dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/team_info"/>
+          android:text="@string/team_info"
+          android:textColor="@color/colorPureBlack"
+          android:layout_marginStart="10dp" />
 
       <TextView
           android:id="@+id/team_info_content"
           android:layout_marginTop="5dp"
+          android:textSize="14sp"
+          android:layout_marginLeft="10dp"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp" />
 
    </LinearLayout>
    <TextView
-       android:layout_marginTop="20dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
        android:layout_width="match_parent"
        android:layout_height="20dp"
-       android:text="@string/tips"/>
+       android:textSize="12sp"
+       android:text="@string/tips"
+       android:layout_marginStart="10dp" />
    <lecho.lib.hellocharts.view.ColumnChartView
        android:id="@+id/chart"
        android:layout_width="match_parent"

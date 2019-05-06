@@ -33,6 +33,7 @@
             android:text="六系篮球赛，老少咸宜，不管你头发是多是少，在这里都将被公平对待。六系篮球赛，你真正热爱的好比赛。" />
 
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,6 +63,7 @@
             android:textSize="15sp"
             android:text="@string/edit_schedule" />
     </RelativeLayout>
+
     <de.halfbit.pinnedsection.PinnedSectionListView
         android:id="@+id/list_my_game_match"
         android:layout_width="match_parent"

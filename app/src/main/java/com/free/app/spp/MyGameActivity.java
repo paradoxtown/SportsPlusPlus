@@ -1,7 +1,7 @@
 package com.free.app.spp;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +46,15 @@ public class MyGameActivity extends AppCompatActivity {
         MyGameMatchAdapter myGameMatchAdapter = new MyGameMatchAdapter(mData, this);
         ListView matches = findViewById(R.id.list_my_game_match);
         matches.setAdapter(myGameMatchAdapter);
+        matches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (!(mData.get(position) == MatchDate.class)) {
+                    Intent intent = new Intent(MyGameActivity.this, RecorderActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
 
@@ -114,7 +118,9 @@ class MyGameMatchAdapter extends BaseAdapter implements PinnedSectionListView.Pi
             String p1 = a.getScore1();
             String p2 = a.getScore2();
             teamName1.setText(a.getTeamName1());
+            teamName1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             teamName2.setText(a.getTeamName2());
+            teamName2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             teamScore1.setText(p1);
             teamScore1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             teamScore2.setText(p2);
