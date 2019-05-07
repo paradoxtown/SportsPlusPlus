@@ -1,11 +1,14 @@
 package com.free.app.spp.justloginregistertest;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,6 +29,8 @@ import butterknife.OnClick;
 public class loginActivity extends AppCompatActivity {
     private int Result_log;
     private String username, password;
+    SharedPreferences sp;
+    SharedPreferences.Editor e;
 
     private void Login(){
         Http<JSONArray> http2 = new Http<>();
@@ -37,6 +42,9 @@ public class loginActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
                     if(Result_log == 1){
                         Toast.makeText(loginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        e.putString("username",username);
+                        e.putString("password",password);
+                        e.commit();
                         Intent intent = new Intent(loginActivity.this, NaviActivity.class);
                         intent.putExtra("UserName", username);
                         startActivity(intent);
@@ -57,7 +65,15 @@ public class loginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sp = getSharedPreferences("login", Context.MODE_PRIVATE);
+        e = sp.edit();
+        if(sp.getString("username",null) != null){
+            username = sp.getString("username",null);
+            password = sp.getString("password",null);
+            Login();
+        }
         ButterKnife.bind(this);
+
     }
 
     @BindView(R.id.tv_loginactivity_register)
@@ -89,6 +105,3 @@ public class loginActivity extends AppCompatActivity {
         }
     }
 }
-
-
-

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/hint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参赛队伍1：" />
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/hint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参赛队伍2：" />
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/hint2"
+            android:layout_toRightOf="@+id/hint2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/hint3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="比赛地点：" />
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/hint4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="比赛时间：" />
+
+        <EditText
+            android:id="@+id/edit4"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="保存"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyGameCreatorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/ic_launcher"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/SaveButton"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:background="#00FFFF"
+                android:text="保存" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:hint="请输入比赛名" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:background="#C0C0C0"
+        />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:background="#C0C0C0"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="开始时间"
+            android:gravity="center"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/days"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:background="#C0C0C0"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:text="赛事简介"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            />
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="30dp"
+            android:hint="输入简介"
+            android:gravity="top"
+            android:background="@drawable/profile"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:background="#C0C0C0"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:text="添加管理员"
+            android:gravity="left"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+        <Button
+            android:id="@+id/NewAdButton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:text="+"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:textColor="#000000"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:background="#C0C0C0"
+        />
+
+    <ListView
+        android:id="@+id/AdministerListView"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:divider="#C0C0C0"
+        android:dividerHeight="1dp"
+        android:background="@drawable/profile"
+        android:layout_gravity="center"></ListView>
+
+
+</LinearLayout>

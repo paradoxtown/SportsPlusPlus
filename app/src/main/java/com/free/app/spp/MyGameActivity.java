@@ -32,6 +32,13 @@ public class MyGameActivity extends AppCompatActivity {
         if (!is_admin) {
             edit_schedule.setVisibility(View.GONE);
         }
+        edit_schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyGameActivity.this, SerialArrangeActivity.class);
+                startActivity(intent);
+            }
+        });
         dataHandle();
     }
 

@@ -30,4 +30,5 @@
     <string name="enter_year">进入NBA的年份</string>
     <string name="tips">提示：数值越高，表示该球队的该项数据在联盟中战力越强。</string>
     <string name="update_data">更新数据</string>
+    <string name="save">保存</string>
 </resources>

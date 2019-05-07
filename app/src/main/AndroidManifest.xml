@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RecorderActivity"></activity>
+        <activity android:name=".MyGameCreatorActivity"></activity>
+        <activity android:name=".RecorderActivity" />
         <activity android:name=".MyGameActivity" /> <!-- <activity -->
         <!-- android:name=".NaviActivity" -->
         <!-- android:label="@string/title_activity_navi"> -->
@@ -30,6 +31,8 @@
         <activity android:name=".DataActivity" />
         <activity android:name=".StaffActivity" />
         <activity android:name=".TeamActivity" />
+        <activity android:name=".SerialArrangeActivity" />
+        <activity android:name=".NewArrangeActivity" />
         <activity android:name=".MatchActivity" /> <!-- <activity android:name=".justloginregistertest.loginActivity"/> -->
         <activity
             android:name=".justloginregistertest.loginActivity"

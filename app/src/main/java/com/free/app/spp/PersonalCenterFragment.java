@@ -1,7 +1,9 @@
 package com.free.app.spp;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,8 @@ public class PersonalCenterFragment extends Fragment {
     private JSONArray likedTeam;
     private AllMap allMap = new AllMap();
     private List<String> attentionSet = new ArrayList<>();
+    private SharedPreferences sp ;
+    private SharedPreferences.Editor e;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +65,8 @@ public class PersonalCenterFragment extends Fragment {
         MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
         attentionList.setAdapter(adapter);
 
+        sp = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        e = sp.edit();
         attentionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +96,7 @@ public class PersonalCenterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), loginActivity.class);
+                e.clear().commit();
                 startActivity(intent);
             }
         });
