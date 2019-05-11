@@ -56,7 +56,7 @@ public class PersonalCenterFragment extends Fragment {
         ImageView userImg = view.findViewById(R.id.userImg);
         userName.setText(userNameContent);
         userName.setTextSize(36);
-        description.setText("开发组很懒，这个功能都还没写。");
+        description.setText(userNameContent + "的个人中心");
         attentionTeamText.setTextSize(16);
         modifyPwText.setTextSize(16);
         logoutText.setTextSize(16);

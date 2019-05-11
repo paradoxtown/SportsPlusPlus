@@ -9,37 +9,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginLeft="20dp"
-            android:background="@mipmap/ic_launcher"
-            android:layout_marginTop="20dp" />
+        <!--<ImageView-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="120dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:background="@mipmap/ic_launcher"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginStart="20dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/SaveButton"
-                android:layout_width="100dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
-                android:background="#00FFFF"
-                android:text="保存" />
+            android:orientation="horizontal">
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:hint="请输入比赛名" />
+
+            <Button
+                android:id="@+id/SaveButton"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="25dp"
+                android:background="#00FFFF"
+                android:text="保存" />
 
         </LinearLayout>
 
@@ -130,7 +131,8 @@
             android:text="添加管理员"
             android:gravity="left"
             android:textColor="#000000"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:layout_marginStart="40dp" />
 
         <Button
             android:id="@+id/NewAdButton"
@@ -138,7 +140,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
             android:text="+"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:gravity="center"
             android:textColor="#000000"
             />
@@ -158,7 +160,9 @@
         android:divider="#C0C0C0"
         android:dividerHeight="1dp"
         android:background="@drawable/profile"
-        android:layout_gravity="center"></ListView>
+        android:layout_gravity="center">
+
+    </ListView>
 
 
 </LinearLayout>

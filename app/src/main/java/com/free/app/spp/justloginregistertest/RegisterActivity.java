@@ -45,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText mEtRegisteractivityPhonecodes;
     @BindView(R.id.rl_registeractivity_bottom)
     RelativeLayout mRlRegisteractivityBottom;
-    private String realCode = "666666";
     private int Result_gec;
     private int Result_rg;
     private String username, password1, password2, emailCode, email;
@@ -84,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                         && !TextUtils.isEmpty(password2) && !TextUtils.isEmpty(emailCode)
                         && !TextUtils.isEmpty(email)) {
                     if (password1.equals(password2)) {
-                        if (Result_rg == 1 && emailCode.equals(realCode)) {
+                        if (Result_rg == 1) {
                             Intent intent2 = new Intent(RegisterActivity.this, NaviActivity.class);
                             intent2.putExtra("UserName", username);
                             startActivity(intent2);

@@ -1,8 +1,8 @@
 package com.free.app.spp.justloginregistertest;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,37 +26,34 @@ import butterknife.OnClick;
 
 public class modiActivity extends AppCompatActivity {
     private String username;
-    private String password1,password2;
+    private String password1, password2;
     private int Result_cw;
 
-    private void  changePassword(){
+    private void changePassword() {
         Http<JSONArray> http1 = new Http<>();
         http1.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray Change) throws JSONException, IOException {
-                System.out.println("result:"+Change.getJSONObject(0).get("result"));
+                System.out.println("result:" + Change.getJSONObject(0).get("result"));
                 Result_cw = Integer.parseInt(String.valueOf(Change.getJSONObject(0).get("result")));
-                if(!TextUtils.isEmpty(password1)  && !TextUtils.isEmpty(password2) && !TextUtils.isEmpty(username)){
-                    if(Result_cw == 1){
+                if (!TextUtils.isEmpty(password1) && !TextUtils.isEmpty(password2) && !TextUtils.isEmpty(username)) {
+                    if (Result_cw == 1) {
                         Intent intent2 = new Intent(modiActivity.this, loginActivity.class);
                         startActivity(intent2);
                         finish();
                         Toast.makeText(modiActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(modiActivity.this, "密码修改失败，请检查是否正确输入", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(modiActivity.this, "输入信息不能为空", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-        http1.execute("Changepassword",username,password1,password2);
+        http1.execute("Changepassword", username, password1, password2);
 
     }
-
 
 
     @Override
@@ -67,6 +64,7 @@ public class modiActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
     }
+
     @BindView(R.id.rl_modiactivity_top)
     RelativeLayout ModiactivityTop;
     @BindView(R.id.iv_modiactivity_back)
@@ -88,10 +86,10 @@ public class modiActivity extends AppCompatActivity {
     })
 
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_modiactivity_back:
-                Intent intent1 = new Intent(modiActivity.this, loginActivity.class );
+                Intent intent1 = new Intent(modiActivity.this, loginActivity.class);
                 startActivity(intent1);
                 finish();
                 break;

@@ -1,6 +1,5 @@
 package com.free.app.spp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,24 +22,22 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         A.add("金泽");
         A.add("金泽");
         A.add("刘启航");
-        ListView l = (ListView)findViewById(R.id.AdministerListView);
+        ListView l = findViewById(R.id.AdministerListView);
         ArrayAdapter<String>adp;
-        Button newAdButton = (Button)findViewById(R.id.NewAdButton);
+        Button newAdButton = findViewById(R.id.NewAdButton);
         newAdButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         });
-        Button saveButton = (Button)findViewById(R.id.SaveButton);
+        Button saveButton = findViewById(R.id.SaveButton);
         saveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-
-        adp = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,A);
+        adp = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,A);
         l.setAdapter(adp);
     }
 }
