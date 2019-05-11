@@ -36,7 +36,7 @@ class MyGameMatch {
         return score2;
     }
 
-    public String getPlace() {
+    String getPlace() {
         return place;
     }
 }

@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MyGameCreatorActivity"></activity>
+        <activity android:name=".OfflineMatchActivity"></activity>
+        <activity android:name=".MyGameCreatorActivity" />
         <activity android:name=".RecorderActivity" />
         <activity android:name=".MyGameActivity" /> <!-- <activity -->
         <!-- android:name=".NaviActivity" -->
