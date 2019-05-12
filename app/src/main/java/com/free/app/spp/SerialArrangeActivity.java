@@ -26,7 +26,7 @@ public class SerialArrangeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_serialarrange);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        list = (ListView) findViewById(R.id.ArrangeList);
+        list = findViewById(R.id.ArrangeList);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,16 +48,13 @@ public class SerialArrangeActivity extends AppCompatActivity {
     protected void onActivityResult ( int requestCode, int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         //这里要通过请求码来判断数据的来源
-        switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK) {
-                    ArrangeListItem getData = (ArrangeListItem)data.getSerializableExtra("123");
-                    A.add(getData);
-                    adp = new ArrangeListAdapter(A,this);
-                    list.setAdapter(adp);
-                }
-                break;
-            default:
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                ArrangeListItem getData = (ArrangeListItem) data.getSerializableExtra("123");
+                A.add(getData);
+                adp = new ArrangeListAdapter(A, this);
+                list.setAdapter(adp);
+            }
         }
     }
 }
@@ -97,7 +94,7 @@ class ArrangeListAdapter extends BaseAdapter{
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.arrangelist_item, null);
+            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.arrangelist_item, parent, false);
             holder.text1 = convertView.findViewById(R.id.text1);
             holder.text2 = convertView.findViewById(R.id.text2);
             holder.text3 = convertView.findViewById(R.id.text3);

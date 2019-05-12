@@ -47,6 +47,4 @@ public class ArrangeActivity extends AppCompatActivity {
 
         }
     }
-
-
 }
