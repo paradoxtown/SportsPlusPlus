@@ -18,7 +18,6 @@ import com.free.app.spp.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         Http<JSONArray> http1 = new Http<>();
         http1.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray emailCode) throws JSONException, IOException {
+            public void onResponse(JSONArray emailCode) throws JSONException {
                 System.out.println("email_result: " + emailCode.getJSONObject(0).get("result"));
                 System.out.println("email " + email);
                 System.out.println("isEmail" + isEmail(email));
@@ -108,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean checkUsername(String name) {
         Pattern pattern = Pattern.compile("^[A-Za-z0-9-]{3,20}$");
         Matcher m = pattern.matcher(name);
-
         return m.matches();
     }
 

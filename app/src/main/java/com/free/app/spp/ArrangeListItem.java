@@ -2,6 +2,7 @@ package com.free.app.spp;
 
 import java.io.Serializable;
 
+
 class ArrangeListItem implements Serializable {
     private String teamA,teamB,pos,time;
     ArrangeListItem(String a,String b,String p,String t){
