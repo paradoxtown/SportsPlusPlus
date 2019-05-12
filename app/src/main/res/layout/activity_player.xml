@@ -7,6 +7,252 @@
     android:orientation="vertical"
     tools:context=".PlayerActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/name_player_color"
+            android:text="姓名" />
+
+        <TextView
+            android:id="@+id/name_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginRight="150dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/pos_player_color"
+            android:text="位置" />
+
+        <TextView
+            android:id="@+id/pos_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="287dp"
+            android:layout_marginLeft="287dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginRight="150dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/school_player_color"
+            android:text="学校" />
+
+        <TextView
+            android:id="@+id/school_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="287dp"
+            android:layout_marginLeft="287dp"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/nation_player_color"
+            android:text="国籍" />
+
+        <TextView
+            android:id="@+id/nation_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/salary_player_color"
+            android:text="工资" />
+
+        <TextView
+            android:id="@+id/money_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="80dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginRight="150dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/weight_player_color"
+            android:text="体重" />
+
+        <TextView
+            android:id="@+id/weight_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="287dp"
+            android:layout_marginLeft="287dp"
+            android:layout_marginTop="80dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="110dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/birth_player_color"
+            android:text="生日" />
+
+        <TextView
+            android:id="@+id/birthday_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginRight="150dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/height_player_color"
+            android:text="身高" />
+
+        <TextView
+            android:id="@+id/height_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="287dp"
+            android:layout_marginLeft="287dp"
+            android:layout_marginTop="110dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="140dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/draft_player_color"
+            android:text="选秀" />
+
+        <TextView
+            android:id="@+id/draft_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="140dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="170dp"
+            android:gravity="center"
+            android:textColor="@color/colorPureBlack"
+            android:background="@color/compact_player_color"
+            android:text="合同"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/compact_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="20dp"/>
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/playerview"
         android:layout_width="match_parent"

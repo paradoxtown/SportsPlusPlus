@@ -11,4 +11,14 @@
     <color name="ivory">#FFFFF0</color>
     <color name="snow2">#EEE9E9</color>
     <color name="color_minefragment_top">#00bfff</color>
+    <color name='name_player_color'>#FFFFE0</color>
+    <color name='pos_player_color'>#87CEFA</color>
+    <color name='nation_player_color'>#E0FFFF</color>
+    <color name='school_player_color'>#FA8072</color>
+    <color name='salary_player_color'>#FFBBFF</color>
+    <color name='weight_player_color'>#FFE1FF</color>
+    <color name='height_player_color'>#FFB5C5</color>
+    <color name='birth_player_color'>#FF7256</color>
+    <color name='draft_player_color'>#FFEC8B</color>
+    <color name='compact_player_color'>#9AFF9A</color>
 </resources>
