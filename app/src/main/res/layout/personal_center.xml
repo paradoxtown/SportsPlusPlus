@@ -99,20 +99,44 @@
 
         <LinearLayout
             android:background="@drawable/linear_layout_bg"
-            android:id="@+id/modify_password"
+            android:id="@+id/my_game_attention_teams"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/key_ico"
+                android:id="@+id/my_game_ball_ico"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/snowboard"/>
+                android:background="@drawable/basketball"/>
+
+            <TextView
+                android:id="@+id/my_game_attention_teams_text"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/attention_offline"
+                android:layout_marginStart="10dp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/my_game_attention_list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </ListView>
+
+        <LinearLayout
+            android:background="@drawable/linear_layout_bg"
+            android:id="@+id/modify_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/modify_password_text"
@@ -120,7 +144,8 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="@string/modify_password" />
+                android:text="@string/modify_password"
+                android:layout_marginStart="10dp" />
 
         </LinearLayout>
 

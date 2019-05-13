@@ -1,5 +1,6 @@
 package com.free.app.spp;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +27,9 @@ import java.util.List;
 
 public class PersonalCenterFragment extends Fragment {
     private boolean isVisible = true;
+    private boolean offlineIsVisible = true;
     private ListView attentionList;
+    private ListView attentionOfflineList;
     private List<TeamItem> teamList = new ArrayList<>();
     private LinearLayout modifyPassword;
     private LinearLayout logout;
@@ -37,6 +40,7 @@ public class PersonalCenterFragment extends Fragment {
     private SharedPreferences sp ;
     private SharedPreferences.Editor e;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,10 +48,13 @@ public class PersonalCenterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         userNameContent = getActivity().getIntent().getStringExtra("UserName");
         LinearLayout attentionLayout = view.findViewById(R.id.attention_teams);
+        LinearLayout attentionOfflineLayout = view.findViewById(R.id.my_game_attention_teams);
         modifyPassword = view.findViewById(R.id.modify_password);
         logout = view.findViewById(R.id.log_out);
         attentionList = view.findViewById(R.id.attention_list);
         attentionList.setVisibility(View.GONE);
+        attentionOfflineList = view.findViewById(R.id.my_game_attention_list);
+        attentionOfflineList.setVisibility(View.GONE);
         TextView userName = view.findViewById(R.id.userName);
         TextView description = view.findViewById(R.id.description);
         TextView attentionTeamText = view.findViewById(R.id.attention_teams_text);
@@ -74,6 +81,13 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
+        attentionOfflineLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getOfflineLikedTeam();
+            }
+        });
+
         attentionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,7 +110,7 @@ public class PersonalCenterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), loginActivity.class);
-                e.clear().commit();
+                e.clear().apply();
                 startActivity(intent);
             }
         });
@@ -143,5 +157,22 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
         http.execute("RequestGet", userNameContent);
+    }
+
+    private void getOfflineLikedTeam() {
+        if (offlineIsVisible) {
+            offlineIsVisible = false;
+            attentionOfflineList.setVisibility(View.VISIBLE);
+            attentionList.setVisibility(View.GONE);
+            isVisible = true;
+            logout.setVisibility(View.GONE);
+            modifyPassword.setVisibility(View.GONE);
+        }
+        else {
+            modifyPassword.setVisibility(View.VISIBLE);
+            logout.setVisibility(View.VISIBLE);
+            attentionOfflineList.setVisibility(View.GONE);
+            offlineIsVisible = false;
+        }
     }
 }
