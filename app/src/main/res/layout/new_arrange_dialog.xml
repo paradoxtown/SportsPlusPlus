@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="参赛队伍1："
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/teamA_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入参赛队伍1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="参赛队伍2："
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/teamB_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入参赛队伍2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="比赛地点："
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/pos_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入比赛地点"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="比赛时间"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/time_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入比赛时间"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="比赛日期"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/date_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入比赛日期"/>
+
+
+</LinearLayout>

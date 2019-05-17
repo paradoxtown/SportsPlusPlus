@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/recorder_section"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="20dp"
@@ -9,6 +10,7 @@
         android:id="@+id/recorder_team"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"/>
+        android:layout_height="20dp"
+        />
 
 </LinearLayout>

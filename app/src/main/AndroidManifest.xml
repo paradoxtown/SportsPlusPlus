@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.free.app.spp">
+    package="com.free.app.spp"
+    >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAM_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/basketball"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -33,12 +34,11 @@
         <activity android:name=".StaffActivity" />
         <activity android:name=".TeamActivity" />
         <activity android:name=".SerialArrangeActivity" />
-        <activity android:name=".NewArrangeActivity" />
         <activity android:name=".MatchActivity" /> <!-- <activity android:name=".justloginregistertest.loginActivity"/> -->
         <activity
             android:name=".justloginregistertest.loginActivity"
             android:label=".justloginregistertest.loginActivity">
-            <intent-filter>
+            <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

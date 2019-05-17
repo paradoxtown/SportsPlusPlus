@@ -123,37 +123,37 @@ public class PersonalCenterFragment extends Fragment {
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException {
-            if (isVisible) {
-                teamList.clear();
-                likedTeam = jsonArray;
-                attentionSet.clear();
-                if (likedTeam != null) {
-                    for (int i = 0; i < likedTeam.length(); i++) {
-                        JSONObject jso = (JSONObject) likedTeam.get(i);
-                        jso = (JSONObject) jso.get("team");
-                        String cN = allMap.getCnNameFromCnLocName(jso.getString("球队中文名"));
-                        if (!attentionSet.contains(cN)) {
-                            teamList.add(new TeamItem(cN));
-                            attentionSet.add(cN);
+                if (isVisible) {
+                    teamList.clear();
+                    likedTeam = jsonArray;
+                    attentionSet.clear();
+                    if (likedTeam != null) {
+                        for (int i = 0; i < likedTeam.length(); i++) {
+                            JSONObject jso = (JSONObject) likedTeam.get(i);
+                            jso = (JSONObject) jso.get("team");
+                            String cN = allMap.getCnNameFromCnLocName(jso.getString("球队中文名"));
+                            if (!attentionSet.contains(cN)) {
+                                teamList.add(new TeamItem(cN));
+                                attentionSet.add(cN);
+                            }
                         }
+                        isVisible = false;
+                        attentionList.setVisibility(View.VISIBLE);
+                        modifyPassword.setVisibility(View.GONE);
+                        logout.setVisibility(View.GONE);
+                    } else {
+                        modifyPassword.setVisibility(View.VISIBLE);
+                        logout.setVisibility(View.VISIBLE);
+                        attentionList.setVisibility(View.GONE);
+                        isVisible = true;
                     }
-                    isVisible = false;
-                    attentionList.setVisibility(View.VISIBLE);
-                    modifyPassword.setVisibility(View.GONE);
-                    logout.setVisibility(View.GONE);
-                } else {
+                }
+                else {
                     modifyPassword.setVisibility(View.VISIBLE);
                     logout.setVisibility(View.VISIBLE);
                     attentionList.setVisibility(View.GONE);
                     isVisible = true;
                 }
-            }
-            else {
-                modifyPassword.setVisibility(View.VISIBLE);
-                logout.setVisibility(View.VISIBLE);
-                attentionList.setVisibility(View.GONE);
-                isVisible = true;
-            }
             }
         });
         http.execute("RequestGet", userNameContent);

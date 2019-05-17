@@ -2,7 +2,7 @@ package com.free.app.spp;
 
 import java.io.Serializable;
 
-class player implements Serializable {
+public class player implements Serializable {
     private String ChiName;
     private String pos;
     private String weight;
@@ -20,69 +20,69 @@ class player implements Serializable {
 //    private PlayerData season_regular_data;
 //    private PlayerData career_regular_data;
 //    private PlayerData career_playoffs_data;
-    player(String cn,String p,String w,String con,String nat,String sh,String num,String sal,String t,String bir,String en,String hei,String d)
+    public player(String cn,String p,String w,String con,String nat,String sh,String num,String sal,String t,String bir,String en,String hei,String d)
     {
         this.ChiName = cn;
         this.pos = p;this.weight = w;this.contract = con;this.nationality = nat;this.school = sh;this.number = num;
         this.salary = sal;this.team  = t;this.birth = bir;this.height = hei;this.draft =d;
-        if(this.ChiName == null) this.ChiName = this.EngName;
+        if(this.ChiName == null)this.ChiName = this.EngName;
 //        this.portrait = por;this.season_regular_data = srd;this.career_regular_data = crd;
 //        this.career_playoffs_data = cpd;
     }
-    String getChiName(){return this.ChiName;}
-    String getPos() { return this.pos; }
-    String getWeight()
+    public String getChiName(){return this.ChiName;}
+    public String getPos() { return this.pos; }
+    public String getWeight()
     {
         return this.weight;
     }
-    String getContract()
+    public String getContract()
     {
         return this.contract;
     }
-    String getNationality()
+    public String getNationality()
     {
         return this.nationality;
     }
-    String getSchool()
+    public String getSchool()
     {
         return this.school;
     }
-    String getNumber(){return this.number;}
-    String getSalary()
+    public String getNumber(){return this.number;}
+    public String getSalary()
     {
         return this.salary;
     }
-    String getTeam()
+    public String getTeam()
     {
         return this.team;
     }
-    String getBirth()
+    public String getBirth()
     {
         return this.birth;
     }
-    String getEngName(){return this.EngName;}
-    String getHeight()
+    public String getEngName(){return this.EngName;}
+    public String getHeight()
     {
         return this.height;
     }
-    String getDraft()
+    public String getDraft()
     {
         return this.draft;
     }
-//    String getPortrait()
+//    public String getPortrait()
 //    {
 //        return this.portrait;
 //    }
 //
-//    PlayerData getCareer_playoffs_data() {
+//    public PlayerData getCareer_playoffs_data() {
 //        return career_playoffs_data;
 //    }
 //
-//    PlayerData getCareer_regular_data() {
+//    public PlayerData getCareer_regular_data() {
 //        return career_regular_data;
 //    }
 //
-//    PlayerData getSeason_regular_data() {
+//    public PlayerData getSeason_regular_data() {
 //        return season_regular_data;
 //    }
 }

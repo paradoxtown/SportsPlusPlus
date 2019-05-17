@@ -219,7 +219,7 @@ class DataGridViewAdapter extends BaseAdapter{
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_item, parent, false);
+            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_item, null);
             holder.data_info = convertView.findViewById(R.id.player_item_name);
             holder.data_item = convertView.findViewById(R.id.player_item_data);
             holder.wrap = convertView.findViewById(R.id.player_info_wrap);
@@ -296,7 +296,7 @@ class NewListViewAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_list_item, parent, false);
+            convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_list_item, null);
             holder.gridView =  convertView.findViewById(R.id.player_data_grid);
             holder.description =  convertView.findViewById(R.id.data_type_description);
             convertView.setTag(holder);

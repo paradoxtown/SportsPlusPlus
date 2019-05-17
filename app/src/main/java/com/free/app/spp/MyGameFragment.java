@@ -16,39 +16,41 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.free.app.spp.justloginregistertest.User;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MyGameFragment extends Fragment {
     private View view;
     private List<MyGame> mData = new ArrayList<>();
-
+    private List<MyGame> myAdministrationMatch = new ArrayList<>();
+    private ListView myGames;
+    private String UserName;
+    private JSONArray json;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Intent i = getActivity().getIntent();
+        UserName = i.getStringExtra("UserName");
         view = inflater.inflate(R.layout.fragment_my_game, container, false);
         super.onCreate(savedInstanceState);
-        mData.add(new MyGame("6系篮球赛"));
-        mData.add(new MyGame("21系篮球赛"));
-        mData.add(new MyGame("2系篮球赛"));
-        mData.add(new MyGame("3系篮球赛"));
-        mData.add(new MyGame("18系篮球赛"));
-        mData.add(new MyGame("4系篮球赛"));
-        mData.add(new MyGame("5系篮球赛"));
-        mData.add(new MyGame("1系篮球赛"));
-        mData.add(new MyGame("9系篮球赛"));
-        mData.add(new MyGame("15系篮球赛"));
-        mData.add(new MyGame("16系篮球赛"));
-        mData.add(new MyGame("11系篮球赛"));
-        ListView myGames = view.findViewById(R.id.my_game_list);
-        MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
-        myGames.setAdapter(myGameAdapter);
+        myGames = view.findViewById(R.id.my_game_list);
+        getAllSchedule();
         myGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), MyGameActivity.class);
+                i.putExtra("123",mData.get(position));
+                i.putExtra("UserName",UserName);
                 startActivity(i);
             }
         });
@@ -57,10 +59,91 @@ public class MyGameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), MyGameCreatorActivity.class);
-                startActivity(i);
+                startActivityForResult(i,100);
             }
         });
         return view;
+    }
+
+    private void getAllSchedule(){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("124erw2wef");
+                json = jsonArray;
+                for(int i = 0;i < json.length();i++){
+                    JSONObject j = json.getJSONObject(i);
+                    String name = j.getString("名称");
+                    String intro = j.getString("简介");
+                    String time = j.getString("时间");
+                    String id = j.getString("id");
+                    mData.add(new MyGame(name,time,intro,id,null));
+                }
+                MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
+                myGames.setAdapter(myGameAdapter);
+            }
+        });
+        h.execute("GetAllSchedule",UserName);
+    }
+
+    private void getMySchedule(){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("124erw2wef");
+                json = jsonArray;
+                for(int i = 0;i < json.length();i++){
+                    JSONObject j = json.getJSONObject(i);
+                    j = j.getJSONObject("赛程");
+                    String name = j.getString("名称");
+                    String intro = j.getString("简介");
+                    String time = j.getString("创建时间");
+                    String id = j.getString("id");
+                    myAdministrationMatch.add(new MyGame(name,time,intro,id,null));
+                }
+            }
+        });
+        h.execute("GetMySchedule",UserName);
+    }
+
+    private void POSTMySchedule(String time,String matchName,String intro,ArrayList<String> admin){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("wffewfdsfe");
+            }
+        });
+        String s = "";
+        for (String ss:admin) {
+            if(s.contentEquals(""))s = s  + ss;
+            else s = s + "+" + ss;
+        }
+        h.execute("POSTMySchedule",UserName,time,matchName,intro,s);
+    }
+
+
+
+    public void onActivityResult ( int requestCode, int resultCode,Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        //这里要通过请求码来判断数据的来源
+        switch (requestCode) {
+            case 100:
+                if (resultCode == RESULT_OK) {
+                    String name = data.getStringExtra("name");
+                    String intro = data.getStringExtra("intro");
+                    String date = data.getStringExtra("date");
+                    ArrayList<String>admins = data.getStringArrayListExtra("admin");
+                    mData.add(new MyGame(name,date,intro,"50",admins));
+                    MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
+                    myGames.setAdapter(myGameAdapter);
+                    POSTMySchedule(date,name,intro,admins);
+                }
+                break;
+            default:
+        }
     }
 }
 

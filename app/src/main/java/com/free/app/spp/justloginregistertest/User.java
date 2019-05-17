@@ -1,4 +1,4 @@
-package com.free.justloginregistertest;
+package com.free.app.spp.justloginregistertest;
 
 public class User {
     private String name;            //用户名

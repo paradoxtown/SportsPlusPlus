@@ -79,6 +79,7 @@ public class ArrangeFragment extends Fragment {
                 }
             }
         });
+        Matches.setSelection(mData.size());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.free.app.spp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.RecognizerResultsIntent;
@@ -11,9 +12,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,19 +40,36 @@ public class RecorderActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++) {
             recordList.add(new RecorderPlayer());
         }
+        Intent i = getIntent();
+        String first = i.getStringExtra("第一节");
+        EditText text1 = (EditText)findViewById(R.id.editText5);
+        EditText text2 = (EditText)findViewById(R.id.editText2);
+        EditText text3 = (EditText)findViewById(R.id.editText3);
+        EditText text4 = (EditText)findViewById(R.id.editText4);
+
         final RecorderAdapter recorderAdapter = new RecorderAdapter(recordList, this);
         final ListView players = findViewById(R.id.my_game_players);
         players.setAdapter(recorderAdapter);
-        System.out.print(recordList.toString());
         Button updateButton = findViewById(R.id.update_data);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // players.setAdapter(recorderAdapter);
                 System.out.println("###############################");
-                System.out.print(recordList.toString());
             }
         });
+    }
+
+    public void PUTMyMatch()
+    {
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("success");
+            }
+        });
+        h.execute("PUTMyMatch");
     }
 }
 
@@ -120,8 +143,15 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
         } else if (itemViewType == ITEM_SECTION) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_recorder_team, parent, false);
             convertView.setBackgroundColor(Color.rgb(240, 240, 240));
+            LinearLayout linearLayout = convertView.findViewById(R.id.recorder_section);
             TextView team1 = convertView.findViewById(R.id.recorder_team);
             String teamName = (String) RecorderActivity.recordList.get(position);
+            if (teamName.equals("队伍一")) {
+                linearLayout.setBackgroundResource(R.color.team_1_pink);
+            }
+            else {
+                linearLayout.setBackgroundResource(R.color.team_2_blue);
+            }
             team1.setText(teamName);
         }
         return convertView;

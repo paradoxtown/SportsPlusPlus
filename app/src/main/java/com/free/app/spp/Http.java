@@ -90,6 +90,72 @@ public class Http<T> extends AsyncTask<String,Void,T> {
             }
             return (T) (new JSONArray().put(result));
         }
+        if(params[0].equals("GetMySchedule"))
+        {
+            return (T)MyGameInterface.GetMySchedule(params[1]);
+        }
+        if(params[0].equals("POSTMySchedule"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.POSTMySchedule(params[1],params[2],params[3],params[4],params[5]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("GetMyMatch"))
+        {
+            return (T) MyGameInterface.GetMyMatch(params[1]);
+        }
+        if(params[0].equals("POSTMyMatch"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.POSTMyMatch(params[1],params[2],params[3],params[4],params[5],params[6]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("GetPlayer"))
+        {
+            return (T) MyGameInterface.GetPlayer(params[1]);
+        }
+        if(params[0].equals("POSTPlayer"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.POSTPlayer(params[1],params[2],params[3],params[4]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("GetAllSchedule"))
+        {
+            return (T) MyGameInterface.GetAllSchedule();
+        }
+        if(params[0].equals("POSTAllSchedule"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.POSTAllSchedule(params[1],params[2]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("GetSubforgame"))
+        {
+            return (T) MyGameInterface.GetSubforgame(params[1]);
+        }
+        if(params[0].equals("POSTSubforgame"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.POSTSubforgame(params[1],params[2]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+
         return null;
     }
 

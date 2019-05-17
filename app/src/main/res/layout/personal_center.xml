@@ -58,117 +58,117 @@
         android:id="@+id/scroll_center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <LinearLayout
-        android:id="@+id/personCenterItems"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
         <LinearLayout
-            android:background="@drawable/linear_layout_bg"
-            android:id="@+id/attention_teams"
+            android:id="@+id/personCenterItems"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ball_ico"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/basketball"/>
-
-            <TextView
-                android:id="@+id/attention_teams_text"
-                android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:background="@drawable/linear_layout_bg"
+                android:id="@+id/attention_teams"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="@string/attention_teams"
-                android:layout_marginStart="10dp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ball_ico"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/basketball"/>
+
+                <TextView
+                    android:id="@+id/attention_teams_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="@string/attention_teams"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/attention_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+            </ListView>
+
+            <LinearLayout
+                android:background="@drawable/linear_layout_bg"
+                android:id="@+id/my_game_attention_teams"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/my_game_ball_ico"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/basketball"/>
+
+                <TextView
+                    android:id="@+id/my_game_attention_teams_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="@string/attention_offline"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/my_game_attention_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+            </ListView>
+
+            <LinearLayout
+                android:background="@drawable/linear_layout_bg"
+                android:id="@+id/modify_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/modify_password_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="@string/modify_password"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/linear_layout_bg"
+                android:id="@+id/log_out"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="150dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/log_out_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/log_out" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/attention_list"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-        </ListView>
-
-        <LinearLayout
-            android:background="@drawable/linear_layout_bg"
-            android:id="@+id/my_game_attention_teams"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/my_game_ball_ico"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/basketball"/>
-
-            <TextView
-                android:id="@+id/my_game_attention_teams_text"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="@string/attention_offline"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/my_game_attention_list"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-        </ListView>
-
-        <LinearLayout
-            android:background="@drawable/linear_layout_bg"
-            android:id="@+id/modify_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/modify_password_text"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="@string/modify_password"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@drawable/linear_layout_bg"
-            android:id="@+id/log_out"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="150dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/log_out_text"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/colorAccent"
-                android:text="@string/log_out" />
-
-        </LinearLayout>
-
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
