@@ -112,25 +112,38 @@ public class MatchActivity extends AppCompatActivity {
     void setHeadView() throws JSONException, IOException {
         away_team = matchRet.getString("客场球队中文名");
         home_team = matchRet.getString("主场球队中文名");
-        setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"));
+        setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"),matchRet.getString("胜率"));
         setImageView();
     }
 
-    private void setTextView(String score1, String score2) {
+    private void setTextView(String score1, String score2,String rate) {
+        int i = Integer.parseInt(rate);
+        String rate2 = Integer.toString(100-i);
         TextView textView_vs = findViewById(R.id.textView_vs);
         TextView textView_score1 = findViewById(R.id.textView_score1);
         TextView textView_score2 = findViewById(R.id.textView_score2);
+        TextView textView_rate1 = findViewById(R.id.textView_Homerate);     ////
+        TextView textView_rate2 = findViewById(R.id.textView_Awayrate);     ////
         textView_vs.setTextColor(Color.WHITE);
         textView_score1.setText(score1);
         textView_score2.setText(score2);
+        textView_rate1.setText(rate2+"%");////
+        textView_rate2.setText(rate+"%");                        ////
         textView_score1.setTextColor(Color.WHITE);
         textView_score2.setTextColor(Color.WHITE);
+        textView_rate1.setTextColor(Color.WHITE);            ////
+        textView_rate2.setTextColor(Color.WHITE);            ////
         textView_vs.setTextSize(25);
         textView_vs.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         textView_score1.setTextSize(25);
         textView_score1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         textView_score2.setTextSize(25);
         textView_score2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        textView_rate1.setTextSize(15);
+        textView_rate1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        textView_rate2.setTextSize(15);
+        textView_rate2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     }
 
     private void setImageView() throws IOException {

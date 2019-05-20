@@ -31,7 +31,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class OfflineMatchActivity extends AppCompatActivity {
     private static JSONArray teamRet = null;
@@ -40,17 +42,20 @@ public class OfflineMatchActivity extends AppCompatActivity {
     private String home_team;
     private String away_team;
     private AllMap allMap = new AllMap();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         Intent i = getIntent();
-        String id = i.getStringExtra("123");
-        getTeamSummary(id);
-        getMatch(id);
-        System.out.println(id);
-        getPlayerSummary(id);
+        Bundle b = i.getExtras();
+        String match_id = b.getString("id");
+        String schedule_id = b.getString("schedule_id");
+        home_team = b.getString("主场");
+        away_team = b.getString("客场");
+        getMyMatch(schedule_id,match_id);
+        getPlayerSummary(match_id);
+
         RefreshLayout refreshLayout = findViewById(R.id.container);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -66,7 +71,7 @@ public class OfflineMatchActivity extends AppCompatActivity {
         });
     }
 
-    private void getMatch(String id) {
+    private void getMyMatch(String schedule_id,String match_id) {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
@@ -76,7 +81,7 @@ public class OfflineMatchActivity extends AppCompatActivity {
                 OfflineMatchActivity.this.setSumTableConfig();
             }
         });
-        http.execute("GetMatch", id);
+        http.execute("GetMyMatch", schedule_id,match_id);
     }
 
     private void getTeamSummary(String id) {
@@ -100,12 +105,12 @@ public class OfflineMatchActivity extends AppCompatActivity {
                 OfflineMatchActivity.this.setTeamTableConfig(playerRet);
             }
         });
-        http.execute("GetPlayerSummary", id);
+        http.execute("GetPlayer", id);
     }
 
     void setHeadView() throws JSONException, IOException {
-        away_team = matchRet.getString("客场球队中文名");
-        home_team = matchRet.getString("主场球队中文名");
+        away_team = matchRet.getString("客场");
+        home_team = matchRet.getString("主场");
         setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"));
     }
 
@@ -128,14 +133,14 @@ public class OfflineMatchActivity extends AppCompatActivity {
 
     private List<GameItem> setSumList() throws JSONException {
         List<GameItem> list = new ArrayList<>();
-        list.add(new GameItem(matchRet.getString("客场球队中文名"), matchRet.getString("客场第一节"),
+        list.add(new GameItem(matchRet.getString("客场"), matchRet.getString("客场第一节"),
                 matchRet.getString("客场第二节"), matchRet.getString("客场第三节"), matchRet.getString("客场第四节"),
-                matchRet.getString("客场加时一"), matchRet.getString("客场加时二"), matchRet.getString("客场加时三"),
-                matchRet.getString("客场加时四"), matchRet.getString("客场总分")));
-        list.add(new GameItem(matchRet.getString("主场球队中文名"), matchRet.getString("主场第一节"),
+                matchRet.getString("客场加时1"), matchRet.getString("客场加时2"), matchRet.getString("客场加时3"),
+                matchRet.getString("客场加时4"), matchRet.getString("客场总分")));
+        list.add(new GameItem(matchRet.getString("主场"), matchRet.getString("主场第一节"),
                 matchRet.getString("主场第二节"), matchRet.getString("主场第三节"), matchRet.getString("主场第四节"),
-                matchRet.getString("主场加时一"), matchRet.getString("主场加时二"), matchRet.getString("主场加时三"),
-                matchRet.getString("主场加时四"), matchRet.getString("主场总分")));
+                matchRet.getString("主场加时1"), matchRet.getString("主场加时2"), matchRet.getString("主场加时3"),
+                matchRet.getString("主场加时4"), matchRet.getString("主场总分")));
         return list;
     }
 
@@ -147,13 +152,13 @@ public class OfflineMatchActivity extends AppCompatActivity {
         final Column<String> sec4Col = new Column<>("第4节", "sec4");
         final Column<String> totCol = new Column<>("总分", "total");
         nameCol.setFixed(true);
-        if (!matchRet.getString("客场加时一").equals("0")) {
+        if (!matchRet.getString("客场加时1").equals("0")) {
             final Column<String> extra1Col = new Column<>("加时一", "extra1");
-            if (!matchRet.getString("客场加时二").equals("0")) {
+            if (!matchRet.getString("客场加时2").equals("0")) {
                 final Column<String> extra2Col = new Column<>("加时二", "extra2");
-                if (!matchRet.getString("客场加时三").equals("0")) {
+                if (!matchRet.getString("客场加时3").equals("0")) {
                     final Column<String> extra3Col = new Column<>("加时三", "extra3");
-                    if (!matchRet.getString("客场加时四").equals("0")) {
+                    if (!matchRet.getString("客场加时4").equals("0")) {
                         final Column<String> extra4Col = new Column<>("加时四", "extra4");
                         return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, extra3Col, extra4Col, totCol);
                     }
@@ -203,28 +208,28 @@ public class OfflineMatchActivity extends AppCompatActivity {
     private TableData initTableData(List<PlayerItem> list, String home_away) {
         final Column<String> nameCol = new Column<>("姓名", "name");
         final Column<String> posCol = new Column<>("位置", "pos");
-        final Column<String> shotCol = new Column<>("投篮", "shots");
+//        final Column<String> shotCol = new Column<>("投篮", "shots");
         final Column<String> tPointsCol = new Column<>("三分", "threePoints");
         final Column<String> pShotCol = new Column<>("罚球", "penaltyShots");
         final Column<String> rebCol = new Column<>("篮板", "rebs");
         final Column<String> assistsCol = new Column<>("助攻", "assists");
-        final Column<String> foulsCol = new Column<>("犯规", "fouls");
+//        final Column<String> foulsCol = new Column<>("犯规", "fouls");
         final Column<String> faultsCol = new Column<>("失误", "faults");
         final Column<String> scoreCol = new Column<>("得分", "score");
         nameCol.setFixed(true);
-        return new TableData<>(home_away, list, nameCol, posCol, shotCol, tPointsCol,
-                pShotCol, rebCol, assistsCol, foulsCol,
+        return new TableData<>(home_away, list, nameCol, posCol, tPointsCol,
+                pShotCol, rebCol, assistsCol,
                 faultsCol, scoreCol);
     }
 
     private PlayerItem getPlayerItemObject(JSONObject player) throws JSONException {
         return new PlayerItem(player.getString("球员名"), player.getString("位置"),
-                "", player.getString("投篮"),
+                "", "未记录",
                 player.getString("三分"), player.getString("罚球"),
                 "", "",
                 player.getString("篮板"), player.getString("助攻"),
-                player.getString("犯规"), player.getString("抢断"),
-                player.getString("失误"), player.getString("封盖"),
+                "未记录", player.getString("抢断"),
+                player.getString("失误"), "无信息",
                 player.getString("得分"), "");
     }
 
@@ -233,7 +238,7 @@ public class OfflineMatchActivity extends AppCompatActivity {
         List<PlayerItem> away_list = new ArrayList<>();
         for (int i = 0; i < data.length(); i ++) {
             JSONObject playerData = data.getJSONObject(i);
-            if (playerData.getString("主客场").equals(home_team)) {
+            if (playerData.getString("球队名").equals(home_team)) {
                 home_list.add(getPlayerItemObject(playerData));
             }
             else away_list.add(getPlayerItemObject(playerData));

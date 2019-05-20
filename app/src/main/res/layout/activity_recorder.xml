@@ -26,6 +26,7 @@
 
         <EditText
             android:id="@+id/editText1"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -51,6 +52,7 @@
 
         <EditText
             android:id="@+id/editText2"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -76,6 +78,7 @@
 
         <EditText
             android:id="@+id/editText3"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -101,6 +104,7 @@
 
         <EditText
             android:id="@+id/editText4"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -126,6 +130,7 @@
 
         <EditText
             android:id="@+id/editText5"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -151,6 +156,7 @@
 
         <EditText
             android:id="@+id/editText6"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -176,6 +182,7 @@
 
         <EditText
             android:id="@+id/editText7"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -201,6 +208,7 @@
 
         <EditText
             android:id="@+id/editText8"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -253,6 +261,7 @@
 
         <EditText
             android:id="@+id/editText9"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -278,6 +287,7 @@
 
         <EditText
             android:id="@+id/editText10"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -303,6 +313,7 @@
 
         <EditText
             android:id="@+id/editText11"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -328,6 +339,7 @@
 
         <EditText
             android:id="@+id/editText12"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -353,6 +365,7 @@
 
         <EditText
             android:id="@+id/editText13"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -378,6 +391,7 @@
 
         <EditText
             android:id="@+id/editText14"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -403,6 +417,7 @@
 
         <EditText
             android:id="@+id/editText15"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -428,6 +443,7 @@
 
         <EditText
             android:id="@+id/editText16"
+            android:gravity="center"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -446,6 +462,18 @@
             android:layout_marginTop="80dp"
             android:text="队伍二"
             />
+
+        <Button
+            android:id="@+id/newPlayerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="306dp"
+            android:layout_marginLeft="306dp"
+            android:layout_marginTop="15dp"
+            android:text="添加新球员" />
 
     </RelativeLayout>
     <de.halfbit.pinnedsection.PinnedSectionListView

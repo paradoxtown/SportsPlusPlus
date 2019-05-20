@@ -18,6 +18,11 @@ import android.view.View.OnClickListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -42,29 +47,66 @@ public class MyGameCreatorActivity extends AppCompatActivity {
             }
         });
         Button saveButton = (Button)findViewById(R.id.SaveButton);
-        final EditText e1 = (EditText)findViewById(R.id.match_name_edit);
-        final EditText e2  =(EditText)findViewById(R.id.match_intro_edit);
+        final EditText nameEditText = (EditText)findViewById(R.id.match_name_edit);
+        final EditText introEditText  =(EditText)findViewById(R.id.match_intro_edit);
         final Spinner s = (Spinner)findViewById(R.id.date_spinner);
-//        ArrayList<String>dates = new ArrayList<>();
-//        Calendar c = Calendar.getInstance();
-//        int year = c.get(Calendar.YEAR);
-//        ArrayAdapter<String>adpForS = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,dates);
-//        s.setAdapter(adpForS);
         saveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getIntent();
-                intent.putExtra("name",e1.getText().toString())
-                        .putExtra("intro",e2.getText().toString())
-                        .putExtra("date",s.getSelectedItem().toString())
-                        .putStringArrayListExtra("admin",A);
+                if (introEditText.getText().toString().trim().length() > 100) {
+                    Toast.makeText(MyGameCreatorActivity.this, "介绍应在100个字符以内", Toast.LENGTH_LONG).show();
+                }
+                else if (nameEditText.getText().toString().trim().length() > 10) {
+                    Toast.makeText(MyGameCreatorActivity.this, "比赛名应在10个字符以内", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent intent = getIntent();
+                    intent.putExtra("name", nameEditText.getText().toString())
+                            .putExtra("intro", introEditText.getText().toString())
+                            .putExtra("date", s.getSelectedItem().toString())
+                            .putStringArrayListExtra("admin", A);
 
-                setResult(RESULT_OK,intent);
-                finish();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
         adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, A);
         l.setAdapter(adp);
+    }
+    protected void validateUser(final String username) throws JSONException {
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                JSONObject j = jsonArray.getJSONObject(0);
+                int flag = Integer.parseInt(j.getString("result"));
+                for(String name:A){
+                    if(name.contentEquals(username)){
+                        Toast.makeText(MyGameCreatorActivity.this, "该用户已经被添加为管理员了", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                if (username.contentEquals("")) {
+                    Toast.makeText(MyGameCreatorActivity.this, "请输入管理员用户名", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(flag != 1){
+                    Toast.makeText(MyGameCreatorActivity.this, "该用户不存在", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    Toast.makeText(MyGameCreatorActivity.this, "添加成功", Toast.LENGTH_LONG).show();
+                    A.add(username);
+                    adp = new ArrayAdapter<String>(MyGameCreatorActivity.this, android.R.layout.simple_list_item_1, A);
+                    l.setAdapter(adp);
+                }
+            }
+        });
+        JSONObject p = new JSONObject();
+        p.put("method","user");
+        p.put("username",username);
+        h.execute("Validate",p.toString());
     }
 
     protected void CreateDialog() {
@@ -80,13 +122,10 @@ public class MyGameCreatorActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 EditText e = (EditText) v.findViewById(R.id.new_administrator_edit);
                 String text = e.getText().toString();
-                if (text.contentEquals("")) {
-                    Toast.makeText(MyGameCreatorActivity.this, "请输入管理员用户名！", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(MyGameCreatorActivity.this, "添加成功", Toast.LENGTH_LONG).show();
-                    A.add(text);
-                    adp = new ArrayAdapter<String>(MyGameCreatorActivity.this, android.R.layout.simple_list_item_1, A);
-                    l.setAdapter(adp);
+                try {
+                    validateUser(text);
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
                 }
             }
         });

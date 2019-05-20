@@ -105,12 +105,21 @@ public class Http<T> extends AsyncTask<String,Void,T> {
         }
         if(params[0].equals("GetMyMatch"))
         {
-            return (T) MyGameInterface.GetMyMatch(params[1]);
+            return (T) MyGameInterface.GetMyMatch(params[1],params[2]);
         }
         if(params[0].equals("POSTMyMatch"))
         {
             try {
                 result.put("result",""+MyGameInterface.POSTMyMatch(params[1],params[2],params[3],params[4],params[5],params[6]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("PUTMyMatch"))
+        {
+            try {
+                result.put("result",""+MyGameInterface.PUTMyMatch(params[1],params[2],params[3],params[4],params[5],params[6],params[7],params[8],params[9],params[10],params[11],params[12],params[13],params[14],params[15],params[16],params[17],params[18],params[19],params[20]));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -150,6 +159,46 @@ public class Http<T> extends AsyncTask<String,Void,T> {
         {
             try {
                 result.put("result",""+MyGameInterface.POSTSubforgame(params[1],params[2]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("PlayerScore")) {
+            try {
+                result.put("result", "" + MyGameInterface.PlayerScore(new JSONArray(params[1])));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("MatchScore")) {
+            try {
+                result.put("result", "" + MyGameInterface.MatchScore(new JSONObject(params[1])));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("DeleteSchedule")) {
+            try {
+                result.put("result", "" + MyGameInterface.DeleteSchedule(params[1]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0].equals("DeleteMatch")) {
+            try {
+                result.put("result", "" + MyGameInterface.DeleteMatch(params[1]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return (T) (new JSONArray().put(result));
+        }
+        if(params[0]=="Validate") {
+            try {
+                result.put("result", "" + MyGameInterface.Validate(params[1]));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

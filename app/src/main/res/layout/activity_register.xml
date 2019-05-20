@@ -66,7 +66,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:hint="请输入用户名" />
+                android:hint="字母开头，6-12位，字母数字或下划线" />
         </LinearLayout>
         <!-- 第二个文本编辑框  输入密码 -->
         <LinearLayout
@@ -86,7 +86,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:hint="请输入密码"
+                android:hint="请输入字母或数字组成的6-16位密码"
                 android:inputType="textPassword" />
         </LinearLayout>
         <!-- 第三个文本编辑框  再次输入密码 -->

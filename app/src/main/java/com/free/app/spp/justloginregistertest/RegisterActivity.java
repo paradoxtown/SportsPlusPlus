@@ -49,6 +49,17 @@ public class RegisterActivity extends AppCompatActivity {
     private int Result_rg;
     private String username, password1, password2, emailCode, email;
 
+    private boolean checkUsername(String name){
+        Pattern pattern = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_]{5,11}$");
+        Matcher m = pattern.matcher(name);
+        return m.matches();
+    }
+    private boolean checkPassword(String password){
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{6,16}$");
+        Matcher m = pattern.matcher(password);
+        return m.matches();
+    }
+
     private void getEmailCode() {
         Http<JSONArray> http1 = new Http<>();
         http1.setListener(new Http.OnResponseListener<JSONArray>() {
@@ -79,38 +90,20 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(JSONArray user) throws JSONException {
                 System.out.println("register_result:" + user.getJSONObject(0).get("result"));
                 Result_rg = Integer.parseInt(String.valueOf(user.getJSONObject(0).get("result")));
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password1)
-                        && !TextUtils.isEmpty(password2) && !TextUtils.isEmpty(emailCode)
-                        && !TextUtils.isEmpty(email)) {
-                    if (password1.equals(password2)) {
-                        if (Result_rg == 1) {
-                            Intent intent2 = new Intent(RegisterActivity.this, NaviActivity.class);
-                            intent2.putExtra("UserName", username);
-                            startActivity(intent2);
-                            finish();
-                            Toast.makeText(RegisterActivity.this, "验证通过，注册成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "注册失败，用户名或邮箱已经被注册", Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "请输入前后一致的密码", Toast.LENGTH_SHORT).show();
-                    }
-
+                if (Result_rg == 1) {
+                    Intent intent2 = new Intent(RegisterActivity.this, NaviActivity.class);
+                    intent2.putExtra("UserName", username);
+                    startActivity(intent2);
+                    finish();
+                    Toast.makeText(RegisterActivity.this, "验证通过，注册成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "未完善信息，注册失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "注册失败，请检查注册信息是否正确", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         http2.execute("Register", username, password2, email, emailCode);
     }
 
-    private boolean checkUsername(String name) {
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9-]{3,20}$");
-        Matcher m = pattern.matcher(name);
-
-        return m.matches();
-    }
 
     public boolean isEmail(String email) {
         String str = "^([a-zA-Z0-9_\\-.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$";
@@ -154,7 +147,25 @@ public class RegisterActivity extends AppCompatActivity {
                 emailCode = mEtRegisteractivityPhonecodes.getText().toString().toLowerCase();
                 email = registeractivityemail.getText().toString().trim();
                 //注册验证
-                Register();
+                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password1)
+                        && !TextUtils.isEmpty(password2) && !TextUtils.isEmpty(emailCode)
+                        && !TextUtils.isEmpty(email)) {
+                    if (password1.equals(password2)) {
+                        if(checkUsername(username) && checkPassword(password2)){
+                            Register();
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "用户名或者密码格式错误", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "请输入前后一致的密码", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(RegisterActivity.this, "未完善信息，注册失败", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

@@ -27,11 +27,11 @@
 
             <EditText
                 android:id="@+id/match_name_edit"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_width="201dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="25dp"
-                android:hint="请输入比赛名" />
+                android:hint="请输入比赛名（字数在10个字以内）" />
 
             <Button
                 android:id="@+id/SaveButton"
@@ -111,7 +111,7 @@
             android:layout_width="350dp"
             android:layout_height="100dp"
             android:layout_marginLeft="30dp"
-            android:hint="输入简介"
+            android:hint="输入简介（字数在100字以内）"
             android:gravity="top"
             android:background="@drawable/profile"/>
     </LinearLayout>

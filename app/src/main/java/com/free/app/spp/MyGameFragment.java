@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.free.app.spp.justloginregistertest.User;
 import com.like.LikeButton;
@@ -33,10 +34,10 @@ import static android.app.Activity.RESULT_OK;
 public class MyGameFragment extends Fragment {
     private View view;
     private List<MyGame> mData = new ArrayList<>();
-    private List<MyGame> myAdministrationMatch = new ArrayList<>();
+    private List<MyGame> myAdministrationMatchList = new ArrayList<>();
+    private List<MyGame> myLikedMatchList = new ArrayList<>();
     private ListView myGames;
     private String UserName;
-    private JSONArray json;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Intent i = getActivity().getIntent();
@@ -44,7 +45,10 @@ public class MyGameFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_game, container, false);
         super.onCreate(savedInstanceState);
         myGames = view.findViewById(R.id.my_game_list);
+        getSubforgame();
+        getMySchedule();
         getAllSchedule();
+
         myGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,17 +74,22 @@ public class MyGameFragment extends Fragment {
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
-                System.out.println("124erw2wef");
-                json = jsonArray;
-                for(int i = 0;i < json.length();i++){
-                    JSONObject j = json.getJSONObject(i);
+                for(int i = 0;i < jsonArray.length();i++){
+                    JSONObject j = jsonArray.getJSONObject(i);
                     String name = j.getString("名称");
                     String intro = j.getString("简介");
                     String time = j.getString("时间");
                     String id = j.getString("id");
-                    mData.add(new MyGame(name,time,intro,id,null));
+                    MyGame newGame = new MyGame(name,time,intro,id);
+                    for(MyGame mg : myLikedMatchList){
+                        if(mg.getId().contentEquals(id))newGame.setIs_liked(true);
+                    }
+                    for(MyGame mg :myAdministrationMatchList){
+                        if(mg.getId().contentEquals(id))newGame.setIs_administrator(true);
+                    }
+                    mData.add(newGame);
                 }
-                MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
+                MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext(),UserName);
                 myGames.setAdapter(myGameAdapter);
             }
         });
@@ -92,16 +101,14 @@ public class MyGameFragment extends Fragment {
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
-                System.out.println("124erw2wef");
-                json = jsonArray;
-                for(int i = 0;i < json.length();i++){
-                    JSONObject j = json.getJSONObject(i);
+                for(int i = 0;i < jsonArray.length();i++){
+                    JSONObject j = jsonArray.getJSONObject(i);
                     j = j.getJSONObject("赛程");
                     String name = j.getString("名称");
                     String intro = j.getString("简介");
                     String time = j.getString("创建时间");
                     String id = j.getString("id");
-                    myAdministrationMatch.add(new MyGame(name,time,intro,id,null));
+                    myAdministrationMatchList.add(new MyGame(name,time,intro,id));
                 }
             }
         });
@@ -123,6 +130,25 @@ public class MyGameFragment extends Fragment {
         }
         h.execute("POSTMySchedule",UserName,time,matchName,intro,s);
     }
+    private void getSubforgame(){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                for(int i = 0;i < jsonArray.length();i++){
+                    JSONObject j = jsonArray.getJSONObject(i);
+                    j = j.getJSONObject("赛程");
+                    String name = j.getString("名称");
+                    String intro = j.getString("简介");
+                    String time = j.getString("创建时间");
+                    String id = j.getString("id");
+                    myLikedMatchList.add(new MyGame(name,time,intro,id));
+                }
+
+            }
+        });
+        h.execute("GetSubforgame",UserName);
+    }
 
 
 
@@ -136,10 +162,10 @@ public class MyGameFragment extends Fragment {
                     String intro = data.getStringExtra("intro");
                     String date = data.getStringExtra("date");
                     ArrayList<String>admins = data.getStringArrayListExtra("admin");
-                    mData.add(new MyGame(name,date,intro,"50",admins));
-                    MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext());
-                    myGames.setAdapter(myGameAdapter);
                     POSTMySchedule(date,name,intro,admins);
+                    mData.add(new MyGame(name,date,intro,"50"));
+                    MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext(),UserName);
+                    myGames.setAdapter(myGameAdapter);
                 }
                 break;
             default:
@@ -150,10 +176,12 @@ public class MyGameFragment extends Fragment {
 class MyGameAdapter extends BaseAdapter {
     private List mData;
     private Context mContext;
+    private String UserName;
 
-    MyGameAdapter(List mData, Context mContext) {
+    MyGameAdapter(List mData, Context mContext,String userName) {
         this.mData = mData;
         this.mContext = mContext;
+        this.UserName = userName;
     }
 
     @Override
@@ -171,23 +199,52 @@ class MyGameAdapter extends BaseAdapter {
         return position;
     }
 
+    private void POSTAllSchedule(String schedule_id){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("Successfully fix attention!");
+            }
+        });
+        h.execute("POSTAllSchedule",schedule_id,UserName);
+    }
+
+    private void POSTSubforgame(String schedule_id){
+        Http <JSONArray> h = new Http<>();
+        h.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                System.out.println("Successfully cancel attention!");
+            }
+        });
+        h.execute("POSTSubforgame",schedule_id,UserName);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.mygame_item, parent, false);
         TextView gameName = convertView.findViewById(R.id.my_game_name);
-        MyGame myGame = (MyGame) mData.get(position);
+        final MyGame myGame = (MyGame) mData.get(position);
         gameName.setText(myGame.getGameName());
         LikeButton likeButton = convertView.findViewById(R.id.my_team_star_button);
-        likeButton.setLiked(false);
-        likeButton.setOnLikeListener(new OnLikeListener() {
+        if(myGame.getIs_liked() || myGame.getIs_administrator())likeButton.setLiked(true);
+        else likeButton.setLiked(false);
+        if(!myGame.getIs_administrator())likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-
+                Toast.makeText(mContext,"成功关注",Toast.LENGTH_LONG).show();
+                POSTAllSchedule(myGame.getId());
+                myGame.setIs_liked(true);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-
+                if(myGame.getIs_administrator() == false) {
+                    Toast.makeText(mContext,"成功取消关注",Toast.LENGTH_LONG).show();
+                    POSTSubforgame(myGame.getId());
+                    myGame.setIs_liked(false);
+                }
             }
         });
         return convertView;

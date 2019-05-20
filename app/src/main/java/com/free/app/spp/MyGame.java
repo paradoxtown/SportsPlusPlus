@@ -8,30 +8,46 @@ class MyGame implements Serializable {
     private String date;
     private String intro;
     private String id;
-    private List<String> admins;
+    private boolean is_liked;
+    private boolean is_administrator;
 
-    MyGame(String gameName,String d,String description,String id,List<String>admins) {
+    MyGame(String gameName,String d,String description,String id) {
         this.gameName = gameName;this.intro = description;
-        this.admins = admins;date = d;this.id = id;
+        date = d;this.id = id;
+        this.is_liked = false;
+        this.is_administrator = false;
     }
 
-    public String getGameName() {
+    String getGameName() {
         return gameName;
     }
 
-    public List<String> getAdmins() {
-        return admins;
-    }
 
     public String getDate() {
         return date;
     }
 
-    public String getIntro() {
+    String getIntro() {
         return intro;
     }
 
     public String getId() {
         return id;
+    }
+
+    boolean getIs_administrator() {
+        return is_administrator;
+    }
+
+    boolean getIs_liked() {
+        return is_liked;
+    }
+
+    void setIs_administrator(boolean is_administrator) {
+        this.is_administrator = is_administrator;
+    }
+
+    void setIs_liked(boolean is_liked) {
+        this.is_liked = is_liked;
     }
 }

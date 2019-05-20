@@ -2,6 +2,7 @@ package com.free.app.spp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -183,10 +184,10 @@ public class MyGameInterface {
         }
         return 0;
     }
-    static JSONArray GetMyMatch(String gameid){
+    static JSONArray GetMyMatch(String gameid ,String matchid){
         try{
             URL url = new URL(BaseUrl+"MyMatch?gameid="+
-                    URLEncoder.encode(gameid,"UTF-8"));
+                    URLEncoder.encode(gameid,"UTF-8")+"&matchid="+URLEncoder.encode(matchid,"UTF-8"));
             HttpURLConnection conn =
                     (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(5000);
@@ -427,6 +428,246 @@ public class MyGameInterface {
             e.printStackTrace();
         }catch(IOException e){
 
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public static int PlayerScore(JSONArray playerlist)
+    {
+        try {
+            //球员信息
+//            JSONObject player=new JSONObject();
+//
+//            player.put("id",1);
+//            player.put("得分","2");
+//            player.put("篮板","1");
+//            player.put("助攻","1");
+//            player.put("三分","1");
+//            player.put("罚球","1");
+//            player.put("抢断","1");
+//            player.put("助攻","1");
+//            player.put("失误","1");
+//            player.put("号码","1");
+//
+//            JSONArray test =new JSONArray();
+//
+//            test.put(player);
+
+            URL url = new URL(BaseUrl+"PlayerInfo");
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+
+            //设置响应头参数
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Charset", "UTF-8");
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+            conn.setRequestProperty("accept","application/json");
+
+            //传递参数
+            String data =playerlist.toString();//拼装参数
+
+            conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            OutputStream outputStream = conn.getOutputStream();
+
+            outputStream.write(data.getBytes());//上传参数
+            outputStream.flush();
+            outputStream.close();
+            System.out.println(data);
+
+            int code=conn.getResponseCode();
+            //获取结果
+            if(code==201)
+                return 1;
+            else
+                return 0;
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public static int MatchScore(JSONObject matchscore)
+    {
+        try {
+            URL url = new URL(BaseUrl+"MyMatch");
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+
+            //设置响应头参数
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Charset", "UTF-8");
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+            conn.setRequestProperty("accept","application/json");
+
+            //传递参数
+            String data =matchscore.toString();//拼装参数
+
+            conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            OutputStream outputStream = conn.getOutputStream();
+
+            outputStream.write(data.getBytes());//上传参数
+            outputStream.flush();
+            outputStream.close();
+            System.out.println(data);
+
+            int code=conn.getResponseCode();
+            //获取结果
+            if(code==201)
+                return 1;
+            else
+                return 0;
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public static int DeleteSchedule(String scheduleid)
+    {
+        try {
+            URL url = new URL(BaseUrl+"MySchedule");
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+
+            //设置响应头参数
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Charset", "UTF-8");
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+            conn.setRequestProperty("accept","application/json");
+
+            //传递参数
+            String data =new JSONObject().put("scheduleid",scheduleid).toString();//拼装参数
+
+            conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            OutputStream outputStream = conn.getOutputStream();
+
+            outputStream.write(data.getBytes());//上传参数
+            outputStream.flush();
+            outputStream.close();
+
+
+            int code=conn.getResponseCode();
+            //获取结果
+            if(code==204)
+                return 1;
+            else
+                return 0;
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public static int DeleteMatch(String matchid)
+    {
+        try {
+            URL url = new URL(BaseUrl+"MyMatch");
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+            //设置响应头参数
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Charset", "UTF-8");
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+            conn.setRequestProperty("accept","application/json");
+            //传递参数
+            String data =new JSONObject().put("matchid",matchid).toString();//拼装参数
+            conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(data.getBytes());//上传参数
+            outputStream.flush();
+            outputStream.close();
+            int code=conn.getResponseCode();
+            //获取结果
+            if(code==204)
+                return 1;
+            else
+                return 0;
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public static int Validate(String para)
+    {
+        try {
+            JSONObject dataob = new JSONObject(para);
+
+            URL url = new URL(BaseUrl+"Validate");
+            HttpURLConnection conn =
+                    (HttpURLConnection) url.openConnection();
+
+            //设置响应头参数
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Charset", "UTF-8");
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+            conn.setRequestProperty("accept","application/json");
+
+            //传递参数
+            String data = dataob.toString();//拼装参数
+
+            conn.setRequestProperty("Content-Length", String.valueOf(data.getBytes().length));
+            OutputStream outputStream = conn.getOutputStream();
+
+            outputStream.write(data.getBytes());//上传参数
+            outputStream.flush();
+            outputStream.close();
+
+
+            int code=conn.getResponseCode();
+            //获取结果
+            if(code==200)
+                return 1;
+            else
+                return 0;
+        }catch(MalformedURLException e){
+
+            e.printStackTrace();
+        }catch(IOException e){
+
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return 0;

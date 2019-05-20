@@ -1,6 +1,5 @@
 package com.free.app.spp;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 class MyGameMatch {
@@ -11,7 +10,7 @@ class MyGameMatch {
     private String score1, score2;
     private JSONObject js;
 
-    MyGameMatch(String teamName1, String teamName2,String date, String time, String place, String score1, String score2,JSONObject jsonArray) {
+    MyGameMatch(String teamName1, String teamName2, String date, String time, String place, String score1, String score2, JSONObject jsonArray) {
         this.teamName1 = teamName1;
         this.teamName2 = teamName2;
         this.time = time;
@@ -21,32 +20,31 @@ class MyGameMatch {
         this.score2 = score2;
         this.js = jsonArray;
     }
-
-    public String getTeamName1() {
+    String getTeamName1() {
         return teamName1;
     }
 
-    public JSONObject getJs() {
+    JSONObject getJs() {
         return js;
     }
 
-    public String getTeamName2() {
+    String getTeamName2() {
         return teamName2;
     }
 
-   public String getTime() {
+    String getTime() {
         return time;
     }
 
-    public String getScore1() {
+    String getScore1() {
         return score1;
     }
 
-   public String getScore2() {
+    String getScore2() {
         return score2;
     }
 
-    public String getPlace() {
+    String getPlace() {
         return place;
     }
 }

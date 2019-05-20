@@ -17,7 +17,7 @@
         android:id="@+id/teamA_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入参赛队伍1"/>
+        android:hint="长度在10个字符以内"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:id="@+id/teamB_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入参赛队伍2"/>
+        android:hint="长度在10个字符以内"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:id="@+id/pos_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入比赛地点"/>
+        android:hint="长度在10个字符以内"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         android:id="@+id/time_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入比赛时间"/>
+        android:hint="请按照HH:MM的格式输入"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
         android:id="@+id/date_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入比赛日期"/>
+        android:hint="请按照YYYY-MM-DD的格式输入"/>
 
 
 </LinearLayout>
