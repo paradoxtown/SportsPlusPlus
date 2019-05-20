@@ -134,21 +134,23 @@ public class MyGameActivity extends AppCompatActivity {
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
                 mData = new ArrayList<>();
                 System.out.println("Successfully obtained");
-                JSONArray json = jsonArray;
-                for(int i = 0;i < json.length();i++){
-                    JSONObject j = json.getJSONObject(i);
-                    String date = j.getString("日期");
-                    String time = j.getString("时间");
-                    String pos = j.getString("地点");
-                    String id = j.getString("id");
-                    String teamA = j.getString("主场");
-                    String teamB = j.getString("客场");
-                    String scoreA = j.getString("主场总分");
-                    String scoreB = j.getString("客场总分");
-                    mData.add(new MyGameMatch(teamA,teamB,date,time,pos,scoreA,scoreB,j));
+                JSONArray jsa = jsonArray;
+                if (jsa != null) {
+                    for (int i = 0; i < jsa.length(); i++) {
+                        JSONObject j = jsa.getJSONObject(i);
+                        String date = j.getString("日期");
+                        String time = j.getString("时间");
+                        String pos = j.getString("地点");
+                        String id = j.getString("id");
+                        String teamA = j.getString("主场");
+                        String teamB = j.getString("客场");
+                        String scoreA = j.getString("主场总分");
+                        String scoreB = j.getString("客场总分");
+                        mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j));
+                    }
+                    MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
+                    matches.setAdapter(adp);
                 }
-                MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
-                matches.setAdapter(adp);
             }
         });
         h.execute("GetMyMatch",schedule_id,"");

@@ -58,6 +58,7 @@ public class MyGameFragment extends Fragment {
                 startActivity(i);
             }
         });
+
         Button createGameButton = view.findViewById(R.id.add_new_game_button);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override

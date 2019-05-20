@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.speech.RecognizerResultsIntent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,6 +56,7 @@ public class RecorderActivity extends AppCompatActivity {
     String teamA;
     String teamB;
     ListView players;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,22 +72,22 @@ public class RecorderActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        editText1 = (EditText)findViewById(R.id.editText1);
-        editText2 = (EditText)findViewById(R.id.editText2);
-        editText3 = (EditText)findViewById(R.id.editText3);
-        editText4 = (EditText)findViewById(R.id.editText4);
-        editText5 = (EditText)findViewById(R.id.editText5);
-        editText6 = (EditText)findViewById(R.id.editText6);
-        editText7 = (EditText)findViewById(R.id.editText7);
-        editText8 = (EditText)findViewById(R.id.editText8);
-        editText9 = (EditText)findViewById(R.id.editText9);
-        editText10 = (EditText)findViewById(R.id.editText10);
-        editText11 = (EditText)findViewById(R.id.editText11);
-        editText12 = (EditText)findViewById(R.id.editText12);
-        editText13 = (EditText)findViewById(R.id.editText13);
-        editText14 = (EditText)findViewById(R.id.editText14);
-        editText15 = (EditText)findViewById(R.id.editText15);
-        editText16 = (EditText)findViewById(R.id.editText16);
+        editText1 = (EditText) findViewById(R.id.editText1);
+        editText2 = (EditText) findViewById(R.id.editText2);
+        editText3 = (EditText) findViewById(R.id.editText3);
+        editText4 = (EditText) findViewById(R.id.editText4);
+        editText5 = (EditText) findViewById(R.id.editText5);
+        editText6 = (EditText) findViewById(R.id.editText6);
+        editText7 = (EditText) findViewById(R.id.editText7);
+        editText8 = (EditText) findViewById(R.id.editText8);
+        editText9 = (EditText) findViewById(R.id.editText9);
+        editText10 = (EditText) findViewById(R.id.editText10);
+        editText11 = (EditText) findViewById(R.id.editText11);
+        editText12 = (EditText) findViewById(R.id.editText12);
+        editText13 = (EditText) findViewById(R.id.editText13);
+        editText14 = (EditText) findViewById(R.id.editText14);
+        editText15 = (EditText) findViewById(R.id.editText15);
+        editText16 = (EditText) findViewById(R.id.editText16);
         display();
         players = findViewById(R.id.my_game_players);
         Button updateButton = findViewById(R.id.update_data);
@@ -105,7 +104,7 @@ public class RecorderActivity extends AppCompatActivity {
                 System.out.println("###############################");
             }
         });
-        Button newPlayerButton = (Button)findViewById(R.id.newPlayerButton);
+        Button newPlayerButton = (Button) findViewById(R.id.newPlayerButton);
         newPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +112,7 @@ public class RecorderActivity extends AppCompatActivity {
             }
         });
     }
+
     protected void CreateDialog() {
         LayoutInflater li = LayoutInflater.from(RecorderActivity.this);
         final View v = li.inflate(R.layout.new_player_dialog, null);
@@ -130,20 +130,18 @@ public class RecorderActivity extends AppCompatActivity {
                 String name = player_name_edit.getText().toString().trim();
                 String team = player_team_edit.getText().toString().trim();
                 String pos = player_pos_edit.getText().toString().trim();
-                RecorderPlayer rp = new RecorderPlayer(name,pos,"","","","","","","","");
-                if(team.contentEquals("team1")){
+                RecorderPlayer rp = new RecorderPlayer(name, pos, "", "", "", "", "", "", "", "");
+                if (team.contentEquals("team1")) {
                     team = teamA;
                     teamAList.add(rp);
-                }
-                else if(team.contentEquals("team2")){
+                } else if (team.contentEquals("team2")) {
                     team = teamB;
                     teamBList.add(rp);
-                }
-                else{
-                    Toast.makeText(RecorderActivity.this,"请在所属队伍一栏中输入team1或team2！",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RecorderActivity.this, "请在所属队伍一栏中输入team1或team2！", Toast.LENGTH_LONG).show();
                     return;
                 }
-                POSTplayer(team,name,pos);
+                POSTplayer(team, name, pos);
                 try {
                     GETAllplayer();
                 } catch (JSONException e) {
@@ -157,23 +155,23 @@ public class RecorderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void AddAllToRecord(){
+    public void AddAllToRecord() {
         recordList = new ArrayList<>();
-        for(int i = 0;i < teamAList.size();i++)recordList.add(teamAList.get(i));
-        for(int i = 0;i < teamBList.size();i++)recordList.add(teamBList.get(i));
+        for (int i = 0; i < teamAList.size(); i++) recordList.add(teamAList.get(i));
+        for (int i = 0; i < teamBList.size(); i++) recordList.add(teamBList.get(i));
     }
 
-    public boolean isNumeric(String str){
+    public boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if( !isNum.matches() ){
+        if (!isNum.matches()) {
             return false;
         }
         return true;
     }
 
-    public void PUTAllplayer() throws JSONException{
-        Http <JSONArray> h = new Http<>();
+    public void PUTAllplayer() throws JSONException {
+        Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
@@ -181,20 +179,20 @@ public class RecorderActivity extends AppCompatActivity {
             }
         });
         JSONArray total = new JSONArray();
-        for(int i = 0;i < recordList.size();i++){
-            if(recordList.get(i) instanceof RecorderPlayer){
-                RecorderPlayer tmp = (RecorderPlayer)recordList.get(i);
+        for (int i = 0; i < recordList.size(); i++) {
+            if (recordList.get(i) instanceof RecorderPlayer) {
+                RecorderPlayer tmp = (RecorderPlayer) recordList.get(i);
                 JSONObject player = new JSONObject();
-                player.put("号码",tmp.getNumber());
-                player.put("id",tmp.getId());
-                player.put("得分",tmp.getScore());
-                player.put("篮板",tmp.getReb());
+                player.put("号码", tmp.getNumber());
+                player.put("id", tmp.getId());
+                player.put("得分", tmp.getScore());
+                player.put("篮板", tmp.getReb());
 
-                player.put("三分",tmp.getThreePoint());
-                player.put("罚球",tmp.getPen());
-                player.put("抢断","未记录");
-                player.put("助攻",tmp.getAssist());
-                player.put("失误",tmp.getFault_());
+                player.put("三分", tmp.getThreePoint());
+                player.put("罚球", tmp.getPen());
+                player.put("抢断", "未记录");
+                player.put("助攻", tmp.getAssist());
+                player.put("失误", tmp.getFault_());
                 total.put(player);
 
 
@@ -208,22 +206,23 @@ public class RecorderActivity extends AppCompatActivity {
 //            player.put("号码","1");
             }
         }
-        h.execute("PlayerScore",total.toString());
+        h.execute("PlayerScore", total.toString());
     }
-    public void POSTplayer(String team,String name,String pos){
-        Http <JSONArray> h = new Http<>();
+
+    public void POSTplayer(String team, String name, String pos) {
+        Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
-                Toast.makeText(RecorderActivity.this,"成功添加球员",Toast.LENGTH_LONG).show();
+                Toast.makeText(RecorderActivity.this, "成功添加球员", Toast.LENGTH_LONG).show();
             }
         });
-        h.execute("POSTPlayer",match_id,team,name,pos);
+        h.execute("POSTPlayer", match_id, team, name, pos);
     }
 
 
-    public void GETAllplayer() throws JSONException{
-        Http <JSONArray> h = new Http<>();
+    public void GETAllplayer() throws JSONException {
+        Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
@@ -231,7 +230,7 @@ public class RecorderActivity extends AppCompatActivity {
                 teamBList = new ArrayList<>();
                 teamAList.add("队伍一");
                 teamBList.add("队伍二");
-                for(int i = 0;i < jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject j = jsonArray.getJSONObject(i);
                     String id = j.getString("id");
                     String team = j.getString("球队名");
@@ -244,10 +243,10 @@ public class RecorderActivity extends AppCompatActivity {
                     String ass = j.getString("助攻");
                     String fault = j.getString("失误");
                     String num = j.getString("号码");
-                    RecorderPlayer rp = new RecorderPlayer(name,pos,num,score,
-                            tp,reb,ass,pen,"0",fault);
+                    RecorderPlayer rp = new RecorderPlayer(name, pos, num, score,
+                            tp, reb, ass, pen, "0", fault);
                     rp.setId(id);
-                    if(team.contentEquals(teamA))teamAList.add(rp);
+                    if (team.contentEquals(teamA)) teamAList.add(rp);
                     else teamBList.add(rp);
                 }
                 AddAllToRecord();
@@ -255,12 +254,12 @@ public class RecorderActivity extends AppCompatActivity {
                 players.setAdapter(recorderAdapter);
             }
         });
-        h.execute("GetPlayer",match_id);
+        h.execute("GetPlayer", match_id);
     }
 
 
     public void PUTMyMatch() throws JSONException {
-        Http <JSONArray> h = new Http<>();
+        Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
@@ -288,47 +287,65 @@ public class RecorderActivity extends AppCompatActivity {
         String str14 = editText14.getText().toString().trim();
         String str15 = editText15.getText().toString().trim();
         String str16 = editText16.getText().toString().trim();
-        if(!isNumeric(str1)||!isNumeric(str2)||!isNumeric(str3)||!isNumeric(str4)||
-        !isNumeric(str5)||!isNumeric(str6)||!isNumeric(str7)||!isNumeric(str8)||
-                !isNumeric(str9)||!isNumeric(str10)||!isNumeric(str11)||!isNumeric(str12)||
-                !isNumeric(str13)||!isNumeric(str14)||!isNumeric(str15)||!isNumeric(str16)){
-            Toast.makeText(RecorderActivity.this,"得分处请输入自然数！",Toast.LENGTH_LONG);
+        if (!isNumeric(str1) || !isNumeric(str2) || !isNumeric(str3) || !isNumeric(str4) ||
+                !isNumeric(str5) || !isNumeric(str6) || !isNumeric(str7) || !isNumeric(str8) ||
+                !isNumeric(str9) || !isNumeric(str10) || !isNumeric(str11) || !isNumeric(str12) ||
+                !isNumeric(str13) || !isNumeric(str14) || !isNumeric(str15) || !isNumeric(str16)) {
+            Toast.makeText(RecorderActivity.this, "得分处请输入自然数！", Toast.LENGTH_LONG);
         }
-        if(!str5.contentEquals("0")){overtime++;totScoreA += Integer.parseInt(str5);totScoreB += Integer.parseInt(str13);}
-        if(!str6.contentEquals("0")){overtime++;totScoreA += Integer.parseInt(str6);totScoreB += Integer.parseInt(str14);}
-        if(!str7.contentEquals("0")){overtime++;totScoreA += Integer.parseInt(str7);totScoreB += Integer.parseInt(str15);}
-        if(!str8.contentEquals("0")){overtime++;;totScoreA += Integer.parseInt(str8);totScoreB += Integer.parseInt(str16);}
-        String strA = String.valueOf(totScoreA);String strB = String.valueOf(totScoreB);
+        if (!str5.contentEquals("0")) {
+            overtime++;
+            totScoreA += Integer.parseInt(str5);
+            totScoreB += Integer.parseInt(str13);
+        }
+        if (!str6.contentEquals("0")) {
+            overtime++;
+            totScoreA += Integer.parseInt(str6);
+            totScoreB += Integer.parseInt(str14);
+        }
+        if (!str7.contentEquals("0")) {
+            overtime++;
+            totScoreA += Integer.parseInt(str7);
+            totScoreB += Integer.parseInt(str15);
+        }
+        if (!str8.contentEquals("0")) {
+            overtime++;
+            ;
+            totScoreA += Integer.parseInt(str8);
+            totScoreB += Integer.parseInt(str16);
+        }
+        String strA = String.valueOf(totScoreA);
+        String strB = String.valueOf(totScoreB);
         String ot = String.valueOf(overtime);
         JSONObject total = new JSONObject();
-        total.put("matchid",match_id);
+        total.put("matchid", match_id);
 
-            total.put("home1",str1);
-            total.put("home2",str2);
-            total.put("home3",str3);
-            total.put("home4",str4);
-            total.put("home5",str5);
-            total.put("home6",str6);
-            total.put("home7",str7);
-            total.put("home8",str8);
+        total.put("home1", str1);
+        total.put("home2", str2);
+        total.put("home3", str3);
+        total.put("home4", str4);
+        total.put("home5", str5);
+        total.put("home6", str6);
+        total.put("home7", str7);
+        total.put("home8", str8);
 
-            total.put("away1",str9);
-            total.put("away2",str10);
-            total.put("away3",str11);
-            total.put("away4",str12);
-            total.put("away5",str13);
-            total.put("away6",str14);
-            total.put("away7",str15);
-            total.put("away8",str16);
+        total.put("away1", str9);
+        total.put("away2", str10);
+        total.put("away3", str11);
+        total.put("away4", str12);
+        total.put("away5", str13);
+        total.put("away6", str14);
+        total.put("away7", str15);
+        total.put("away8", str16);
 
-            total.put("OT",ot);
-            total.put("home_total",strA);
-            total.put("away_total",strB);
+        total.put("OT", ot);
+        total.put("home_total", strA);
+        total.put("away_total", strB);
 
-        h.execute("MatchScore",total.toString());
+        h.execute("MatchScore", total.toString());
     }
-    public void display()
-    {
+
+    public void display() {
         Intent i = getIntent();
         editText1.setText(i.getStringExtra("主场第一节"));
         editText2.setText(i.getStringExtra("主场第二节"));
@@ -350,13 +367,13 @@ public class RecorderActivity extends AppCompatActivity {
 }
 
 class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.PinnedSectionListAdapter {
-     private ArrayList mData;
+    private ArrayList mData;
     private Context mContext;
     private final int ITEM_NORMAL = 0;
     private final int ITEM_SECTION = 1;
 
     RecorderAdapter(ArrayList mData, Context mContext) {
-         this.mData = mData;
+        this.mData = mData;
         this.mContext = mContext;
     }
 
@@ -393,16 +410,15 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
     public View getView(int position, View convertView, ViewGroup parent) {
         int itemViewType = getItemViewType(position);
         if (itemViewType == ITEM_NORMAL) {
-            final RecorderPlayer rp = (RecorderPlayer)mData.get(position);
+            final RecorderPlayer rp = (RecorderPlayer) mData.get(position);
             ViewHolder vh;
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_recorder_player, parent, false);
                 convertView.setBackgroundColor(Color.WHITE);
                 vh = new ViewHolder(convertView);
                 convertView.setTag(vh);
-            }
-            else {
-                vh = (ViewHolder)convertView.getTag();
+            } else {
+                vh = (ViewHolder) convertView.getTag();
             }
             vh.playerName.clearFocus();
             vh.playerPos.clearFocus();
@@ -444,16 +460,16 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
             if (vh.playerFault.getTag() instanceof TextWatcher) {
                 vh.playerFault.removeTextChangedListener((TextWatcher) (vh.playerFault.getTag()));
             }
-            vh.playerName.setText(TextUtils.isEmpty(rp.getPlayerName())?"":rp.getPlayerName());
-            vh.playerPos.setText(TextUtils.isEmpty(rp.getPosition())?"":rp.getPosition());
-            vh.playerNum.setText(TextUtils.isEmpty(rp.getNumber())?"":rp.getNumber());
-            vh.playerScore.setText(TextUtils.isEmpty(rp.getScore())?"":rp.getScore());
-            vh.playerReb.setText(TextUtils.isEmpty(rp.getReb())?"":rp.getReb());
-            vh.playerTp.setText(TextUtils.isEmpty(rp.getThreePoint())?"":rp.getThreePoint());
-            vh.playerAss.setText(TextUtils.isEmpty(rp.getAssist())?"":rp.getAssist());
-            vh.playerPen.setText(TextUtils.isEmpty(rp.getPen())?"":rp.getPen());
-            vh.playerFoul.setText(TextUtils.isEmpty(rp.getFoul())?"":rp.getFoul());
-            vh.playerFault.setText(TextUtils.isEmpty(rp.getFault_())?"":rp.getFault_());
+            vh.playerName.setText(TextUtils.isEmpty(rp.getPlayerName()) ? "" : rp.getPlayerName());
+            vh.playerPos.setText(TextUtils.isEmpty(rp.getPosition()) ? "" : rp.getPosition());
+            vh.playerNum.setText(TextUtils.isEmpty(rp.getNumber()) ? "" : rp.getNumber());
+            vh.playerScore.setText(TextUtils.isEmpty(rp.getScore()) ? "" : rp.getScore());
+            vh.playerReb.setText(TextUtils.isEmpty(rp.getReb()) ? "" : rp.getReb());
+            vh.playerTp.setText(TextUtils.isEmpty(rp.getThreePoint()) ? "" : rp.getThreePoint());
+            vh.playerAss.setText(TextUtils.isEmpty(rp.getAssist()) ? "" : rp.getAssist());
+            vh.playerPen.setText(TextUtils.isEmpty(rp.getPen()) ? "" : rp.getPen());
+            vh.playerFoul.setText(TextUtils.isEmpty(rp.getFoul()) ? "" : rp.getFoul());
+            vh.playerFault.setText(TextUtils.isEmpty(rp.getFault_()) ? "" : rp.getFault_());
             TextWatcher nameWatcher = new MyTextChangeListener() {
                 @Override
                 public void afterTextChanged(Editable s) {
@@ -575,8 +591,7 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
             vh.playerNum.addTextChangedListener(numWatcher);
             vh.playerNum.setTag(numWatcher);
 
-        }
-        else if (itemViewType == ITEM_SECTION) {
+        } else if (itemViewType == ITEM_SECTION) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_recorder_team, parent, false);
             convertView.setBackgroundColor(Color.rgb(240, 240, 240));
             LinearLayout linearLayout = convertView.findViewById(R.id.recorder_section);
@@ -584,14 +599,14 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
             String teamName = (String) mData.get(position);
             if (teamName.equals("队伍一")) {
                 linearLayout.setBackgroundResource(R.color.team_1_pink);
-            }
-            else {
+            } else {
                 linearLayout.setBackgroundResource(R.color.team_2_blue);
             }
             team1.setText(teamName);
         }
         return convertView;
     }
+
     class ViewHolder {
         EditText playerName;
         EditText playerPos;
@@ -603,7 +618,8 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
         EditText playerPen;
         EditText playerFoul;
         EditText playerFault;
-        ViewHolder(View convertView){
+
+        ViewHolder(View convertView) {
             playerName = convertView.findViewById(R.id.player_name_input);
             playerPos = convertView.findViewById(R.id.player_pos_input);
             playerNum = convertView.findViewById(R.id.player_number_input);
@@ -630,6 +646,7 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
                                   int count) {
         }
     }
+
     @Override
     public boolean isItemViewTypePinned(int viewType) {
         return viewType == ITEM_SECTION;
@@ -637,20 +654,21 @@ class RecorderAdapter extends BaseAdapter implements PinnedSectionListView.Pinne
 }
 
 class RecorderPlayer {
-    private String playerName, position, number, score, threePoint, reb, assist, pen, foul, fault_,id;
-    RecorderPlayer(String pn,String ps,String num,String sc,
-                   String tp,String r,String ass,String p,String fou,String fau) {
-            playerName = pn;
-            position = ps;
-            number = num;
-            score = sc;
-            threePoint = tp;
-            reb = r;
-            assist = ass;
-            pen = p;
-            foul = fou;
-            fault_ = fau;
-            id = "";
+    private String playerName, position, number, score, threePoint, reb, assist, pen, foul, fault_, id;
+
+    RecorderPlayer(String pn, String ps, String num, String sc,
+                   String tp, String r, String ass, String p, String fou, String fau) {
+        playerName = pn;
+        position = ps;
+        number = num;
+        score = sc;
+        threePoint = tp;
+        reb = r;
+        assist = ass;
+        pen = p;
+        foul = fou;
+        fault_ = fau;
+        id = "";
     }
 
     void setPlayerName(String playerName) {

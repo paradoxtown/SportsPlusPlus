@@ -36,6 +36,8 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -62,6 +64,8 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -88,6 +92,8 @@
             android:layout_marginLeft="170dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -114,6 +120,8 @@
             android:layout_marginLeft="241dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -140,6 +148,8 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -166,6 +176,8 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -192,6 +204,8 @@
             android:layout_marginLeft="170dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -218,6 +232,8 @@
             android:layout_marginLeft="241dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <Button
@@ -271,6 +287,8 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -297,6 +315,8 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -323,6 +343,8 @@
             android:layout_marginLeft="170dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -349,6 +371,8 @@
             android:layout_marginLeft="241dp"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -375,6 +399,8 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -401,6 +427,8 @@
             android:layout_marginLeft="95dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -427,6 +455,8 @@
             android:layout_marginLeft="170dp"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="numberDecimal" />
 
         <TextView

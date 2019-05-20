@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.CellInfo;
@@ -20,28 +23,23 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
-import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class OfflineMatchActivity extends AppCompatActivity {
-    private static JSONArray teamRet = null;
     private static JSONObject matchRet = null;
     private static JSONArray playerRet = null;
+    private static String schedule_id;
+    private static String match_id;
     private String home_team;
     private String away_team;
     private AllMap allMap = new AllMap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,29 +47,31 @@ public class OfflineMatchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match);
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        String match_id = b.getString("id");
-        String schedule_id = b.getString("schedule_id");
+        match_id = b.getString("id");
+        schedule_id = b.getString("schedule_id");
         home_team = b.getString("主场");
         away_team = b.getString("客场");
-        getMyMatch(schedule_id,match_id);
+        getMyMatch(schedule_id, match_id);
         getPlayerSummary(match_id);
 
         RefreshLayout refreshLayout = findViewById(R.id.container);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                getMyMatch(schedule_id, match_id);
+                getPlayerSummary(match_id);
+                refreshlayout.finishRefresh(2000);
             }
         });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
-        });
+//        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
+//                refreshlayout.finishLoadMore(2000);
+//            }
+//        });
     }
 
-    private void getMyMatch(String schedule_id,String match_id) {
+    private void getMyMatch(String schedule_id, String match_id) {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
@@ -81,19 +81,7 @@ public class OfflineMatchActivity extends AppCompatActivity {
                 OfflineMatchActivity.this.setSumTableConfig();
             }
         });
-        http.execute("GetMyMatch", schedule_id,match_id);
-    }
-
-    private void getTeamSummary(String id) {
-        Http<JSONArray> http = new Http<>();
-        http.setListener(new Http.OnResponseListener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray games) throws JSONException, IOException {
-                teamRet = games;
-                System.out.println(teamRet.toString());
-            }
-        });
-        http.execute("GetTeamSummary", id);
+        http.execute("GetMyMatch", schedule_id, match_id);
     }
 
     private void getPlayerSummary(String id) {
@@ -108,7 +96,7 @@ public class OfflineMatchActivity extends AppCompatActivity {
         http.execute("GetPlayer", id);
     }
 
-    void setHeadView() throws JSONException, IOException {
+    void setHeadView() throws JSONException {
         away_team = matchRet.getString("客场");
         home_team = matchRet.getString("主场");
         setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"));
@@ -161,16 +149,13 @@ public class OfflineMatchActivity extends AppCompatActivity {
                     if (!matchRet.getString("客场加时4").equals("0")) {
                         final Column<String> extra4Col = new Column<>("加时四", "extra4");
                         return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, extra3Col, extra4Col, totCol);
-                    }
-                    else {
+                    } else {
                         return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, extra3Col, totCol);
                     }
-                }
-                else {
+                } else {
                     return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, totCol);
                 }
-            }
-            else {
+            } else {
                 return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, totCol);
             }
         }
@@ -236,12 +221,11 @@ public class OfflineMatchActivity extends AppCompatActivity {
     private void setTeamTableConfig(JSONArray data) throws JSONException {
         List<PlayerItem> home_list = new ArrayList<>();
         List<PlayerItem> away_list = new ArrayList<>();
-        for (int i = 0; i < data.length(); i ++) {
+        for (int i = 0; i < data.length(); i++) {
             JSONObject playerData = data.getJSONObject(i);
             if (playerData.getString("球队名").equals(home_team)) {
                 home_list.add(getPlayerItemObject(playerData));
-            }
-            else away_list.add(getPlayerItemObject(playerData));
+            } else away_list.add(getPlayerItemObject(playerData));
         }
         SmartTable table1 = findViewById(R.id.table1);
         SmartTable table2 = findViewById(R.id.table2);

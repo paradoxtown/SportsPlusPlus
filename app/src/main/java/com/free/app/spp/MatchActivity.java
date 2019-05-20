@@ -43,6 +43,7 @@ public class MatchActivity extends AppCompatActivity {
     private static JSONObject matchRet = null;
     private static JSONArray playerRet = null;
     private static Bitmap imgRet = null;
+    private static String id;
     private String home_team;
     private String away_team;
     private AllMap allMap = new AllMap();
@@ -52,7 +53,7 @@ public class MatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         Intent i = getIntent();
-        String id = i.getStringExtra("123");
+        id = i.getStringExtra("123");
         getTeamSummary(id);
         getMatch(id);
         System.out.println(id);
@@ -61,15 +62,17 @@ public class MatchActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                getMatch(id);
+                getPlayerSummary(id);
+                refreshlayout.finishRefresh(2000);
             }
         });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
-        });
+//        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
+//                refreshlayout.finishLoadMore(2000);
+//            }
+//        });
     }
 
     private void getMatch(String id) {
