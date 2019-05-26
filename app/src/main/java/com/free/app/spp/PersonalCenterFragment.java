@@ -76,11 +76,11 @@ public class PersonalCenterFragment extends Fragment {
         logoutText.setTextSize(16);
 
         userImg.setImageResource(R.drawable.person_img);
-        MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
-        attentionList.setAdapter(adapter);
-        AttentionGameAdapterInPersonalCenter adp
-                = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());
-        attentionOfflineList.setAdapter(adp);
+//        MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
+//        attentionList.setAdapter(adapter);
+//        AttentionGameAdapterInPersonalCenter adp
+//                = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());
+//        attentionOfflineList.setAdapter(adp);
         sp = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         e = sp.edit();
         attentionLayout.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +185,8 @@ public class PersonalCenterFragment extends Fragment {
                                 attentionSet.add(cN);
                             }
                         }
+                        MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
+                        attentionList.setAdapter(adapter);
                         isVisible = false;
                         attentionList.setVisibility(View.VISIBLE);
                         attentionOfflineLayout.setVisibility(View.VISIBLE);
@@ -226,6 +228,9 @@ public class PersonalCenterFragment extends Fragment {
                             String id = j.getString("id");
                             matchList.add(new MyGame(name, time, intro, id));
                         }
+                        AttentionGameAdapterInPersonalCenter adp
+                                = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());
+                        attentionOfflineList.setAdapter(adp);
                         attentionOfflineList.setVisibility(View.VISIBLE);
                         attentionList.setVisibility(View.GONE);
                         isVisible = true;
