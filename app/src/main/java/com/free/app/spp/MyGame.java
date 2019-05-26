@@ -1,7 +1,6 @@
 package com.free.app.spp;
 
 import java.io.Serializable;
-import java.util.List;
 
 class MyGame implements Serializable {
     private String gameName;
@@ -11,9 +10,11 @@ class MyGame implements Serializable {
     private boolean is_liked;
     private boolean is_administrator;
 
-    MyGame(String gameName,String d,String description,String id) {
-        this.gameName = gameName;this.intro = description;
-        date = d;this.id = id;
+    MyGame(String gameName, String d, String description, String id) {
+        this.gameName = gameName;
+        this.intro = description;
+        date = d;
+        this.id = id;
         this.is_liked = false;
         this.is_administrator = false;
     }
@@ -43,8 +44,8 @@ class MyGame implements Serializable {
         return is_liked;
     }
 
-    void setIs_administrator(boolean is_administrator) {
-        this.is_administrator = is_administrator;
+    void setIs_administrator() {
+        this.is_administrator = true;
     }
 
     void setIs_liked(boolean is_liked) {

@@ -20,6 +20,7 @@ class MyGameMatch {
         this.score2 = score2;
         this.js = jsonArray;
     }
+
     String getTeamName1() {
         return teamName1;
     }

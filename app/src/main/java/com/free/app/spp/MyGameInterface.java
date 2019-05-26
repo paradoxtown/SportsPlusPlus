@@ -14,8 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class MyGameInterface {
-    public static String BaseUrl = "http://114.116.156.240/api/";
+class MyGameInterface {
+    private static String BaseUrl = "http://114.116.156.240/api/";
     static JSONArray GetMySchedule(String username){
         try{
             URL url = new URL(BaseUrl+"MySchedule?username="+
@@ -30,7 +30,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -124,7 +124,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -197,7 +197,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -226,7 +226,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -298,7 +298,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -372,7 +372,7 @@ public class MyGameInterface {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while((str = reader.readLine())!=null){
                 buffer.append(str);
             }
@@ -432,7 +432,7 @@ public class MyGameInterface {
         }
         return 0;
     }
-    public static int PlayerScore(JSONArray playerlist)
+    static int PlayerScore(JSONArray playerlist)
     {
         try {
             //球员信息
@@ -494,7 +494,8 @@ public class MyGameInterface {
         }
         return 0;
     }
-    public static int MatchScore(JSONObject matchscore)
+
+    static int MatchScore(JSONObject matchscore)
     {
         try {
             URL url = new URL(BaseUrl+"MyMatch");
@@ -538,7 +539,7 @@ public class MyGameInterface {
         }
         return 0;
     }
-    public static int DeleteSchedule(String scheduleid)
+    static int DeleteSchedule(String scheduleid)
     {
         try {
             URL url = new URL(BaseUrl+"MySchedule");
@@ -584,7 +585,7 @@ public class MyGameInterface {
         }
         return 0;
     }
-    public static int DeleteMatch(String matchid)
+    static int DeleteMatch(String matchid)
     {
         try {
             URL url = new URL(BaseUrl+"MyMatch");
@@ -624,7 +625,8 @@ public class MyGameInterface {
         }
         return 0;
     }
-    public static int Validate(String para)
+
+    static int Validate(String para)
     {
         try {
             JSONObject dataob = new JSONObject(para);

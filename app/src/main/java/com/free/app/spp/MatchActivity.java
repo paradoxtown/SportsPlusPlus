@@ -7,10 +7,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
 import android.graphics.Typeface;
 import android.os.Bundle;
-
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.CellInfo;
@@ -20,14 +23,7 @@ import com.bin.david.form.data.format.bg.ICellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,13 +111,13 @@ public class MatchActivity extends AppCompatActivity {
     void setHeadView() throws JSONException, IOException {
         away_team = matchRet.getString("客场球队中文名");
         home_team = matchRet.getString("主场球队中文名");
-        setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"),matchRet.getString("胜率"));
+        setTextView(matchRet.getString("客场总分"), matchRet.getString("主场总分"), matchRet.getString("胜率"));
         setImageView();
     }
 
-    private void setTextView(String score1, String score2,String rate) {
+    private void setTextView(String score1, String score2, String rate) {
         int i = Integer.parseInt(rate);
-        String rate2 = Integer.toString(100-i);
+        String rate2 = Integer.toString(100 - i);
         TextView textView_vs = findViewById(R.id.textView_vs);
         TextView textView_score1 = findViewById(R.id.textView_score1);
         TextView textView_score2 = findViewById(R.id.textView_score2);
@@ -130,8 +126,8 @@ public class MatchActivity extends AppCompatActivity {
         textView_vs.setTextColor(Color.WHITE);
         textView_score1.setText(score1);
         textView_score2.setText(score2);
-        textView_rate1.setText(rate2+"%");////
-        textView_rate2.setText(rate+"%");                        ////
+        textView_rate1.setText(rate2 + "%");////
+        textView_rate2.setText(rate + "%");                        ////
         textView_score1.setTextColor(Color.WHITE);
         textView_score2.setTextColor(Color.WHITE);
         textView_rate1.setTextColor(Color.WHITE);            ////
@@ -195,16 +191,13 @@ public class MatchActivity extends AppCompatActivity {
                     if (!matchRet.getString("客场加时四").equals("0")) {
                         final Column<String> extra4Col = new Column<>("加时四", "extra4");
                         return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, extra3Col, extra4Col, totCol);
-                    }
-                    else {
+                    } else {
                         return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, extra3Col, totCol);
                     }
-                }
-                else {
+                } else {
                     return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, extra2Col, totCol);
                 }
-            }
-            else {
+            } else {
                 return new TableData<>("总览", list, nameCol, sec1Col, sec2Col, sec3Col, sec4Col, extra1Col, totCol);
             }
         }
@@ -276,12 +269,11 @@ public class MatchActivity extends AppCompatActivity {
     private void setTeamTableConfig(JSONArray data) throws JSONException {
         List<PlayerItem> home_list = new ArrayList<>();
         List<PlayerItem> away_list = new ArrayList<>();
-        for (int i = 0; i < data.length(); i ++) {
+        for (int i = 0; i < data.length(); i++) {
             JSONObject playerData = data.getJSONObject(i);
             if (playerData.getString("主客场").equals(home_team)) {
                 home_list.add(getPlayerItemObject(playerData));
-            }
-            else away_list.add(getPlayerItemObject(playerData));
+            } else away_list.add(getPlayerItemObject(playerData));
         }
         SmartTable table1 = findViewById(R.id.table1);
         SmartTable table2 = findViewById(R.id.table2);

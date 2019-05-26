@@ -23,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class PersonalCenterFragment extends Fragment {
     private AllMap allMap = new AllMap();
     private List<String> attentionSet = new ArrayList<>();
     private List<String> attentionOfflineSet = new ArrayList<>();
-    private SharedPreferences sp ;
+    private SharedPreferences sp;
     private SharedPreferences.Editor e;
     private LinearLayout attentionLayout;
     private LinearLayout attentionOfflineLayout;
@@ -111,7 +110,7 @@ public class PersonalCenterFragment extends Fragment {
                 MyGame tmp = matchList.get(position);
                 Intent intent = new Intent(getActivity(), MyGameActivity.class);
                 intent.putExtra("123", tmp);
-                intent.putExtra("UserName",userNameContent);
+                intent.putExtra("UserName", userNameContent);
                 startActivity(intent);
             }
         });
@@ -149,7 +148,7 @@ public class PersonalCenterFragment extends Fragment {
                         JSONObject jso = (JSONObject) jsonArray.get(i);
                         jso = (JSONObject) jso.get("team");
                         String cnName2 = allMap.getCnNameFromCnLocName(jso.getString("球队中文名"));
-                        if (cnName.equals(cnName2)){
+                        if (cnName.equals(cnName2)) {
                             isLiked = true;
                             System.out.println("isLiked " + isLiked);
                             break;
@@ -198,8 +197,7 @@ public class PersonalCenterFragment extends Fragment {
                         attentionList.setVisibility(View.GONE);
                         isVisible = true;
                     }
-                }
-                else {
+                } else {
                     modifyPassword.setVisibility(View.VISIBLE);
                     logout.setVisibility(View.VISIBLE);
                     attentionList.setVisibility(View.GONE);
@@ -244,8 +242,7 @@ public class PersonalCenterFragment extends Fragment {
                         logout.setVisibility(View.VISIBLE);
                         attentionOfflineList.setVisibility(View.GONE);
                     }
-                }
-                else {
+                } else {
                     modifyPassword.setVisibility(View.VISIBLE);
                     logout.setVisibility(View.VISIBLE);
                     attentionOfflineList.setVisibility(View.GONE);
