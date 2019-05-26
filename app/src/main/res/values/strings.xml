@@ -32,4 +32,6 @@
     <string name="update_data">更新数据</string>
     <string name="save">保存</string>
     <string name="attention_offline">关注的线下比赛</string>
+    <string name="create">创建</string>
+    <string name="add">添加</string>
 </resources>

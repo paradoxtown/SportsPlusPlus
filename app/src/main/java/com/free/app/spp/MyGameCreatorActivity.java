@@ -7,9 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,13 +15,15 @@ import android.view.View.OnClickListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.spark.submitbutton.SubmitButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 
 public class MyGameCreatorActivity extends AppCompatActivity {
     ArrayList<String> A = new ArrayList<>();
@@ -39,14 +38,17 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         l = (ListView)findViewById(R.id.AdministerListView);
         //输入账号名，将之添加管理员
 
-        Button newAdButton = findViewById(R.id.NewAdButton);
+        Button newAdButton = findViewById(R.id.add_admin);
+//        newAdButton.setShadowEnabled(true);
+//        newAdButton.setShadowHeight(5);
+//        newAdButton.setCornerRadius(5);
         newAdButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateDialog();
             }
         });
-        Button saveButton = (Button)findViewById(R.id.SaveButton);
+        SubmitButton saveButton = findViewById(R.id.submit_button);
         final EditText nameEditText = (EditText)findViewById(R.id.match_name_edit);
         final EditText introEditText  =(EditText)findViewById(R.id.match_intro_edit);
         final Spinner s = (Spinner)findViewById(R.id.date_spinner);
@@ -93,7 +95,6 @@ public class MyGameCreatorActivity extends AppCompatActivity {
                 }
                 if(flag != 1){
                     Toast.makeText(MyGameCreatorActivity.this, "该用户不存在", Toast.LENGTH_LONG).show();
-                    return;
                 }
                 else {
                     Toast.makeText(MyGameCreatorActivity.this, "添加成功", Toast.LENGTH_LONG).show();

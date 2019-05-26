@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/my_game_head"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
@@ -35,6 +35,26 @@
             android:layout_marginBottom="2dp"
             android:textSize="15sp"
             android:text="@string/create_game" />
+
+        <!--<com.spark.submitbutton.SubmitButton-->
+            <!--android:id="@+id/add_new_game_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignBottom="@+id/my_game_head"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginEnd="6dp"-->
+            <!--android:layout_marginRight="6dp"-->
+            <!--android:layout_marginBottom="-19dp"-->
+            <!--android:text="@string/create_game"-->
+            <!--android:textColor="@color/gray"-->
+            <!--android:textSize="12sp"-->
+            <!--app:sub_btn_background="@color/white"-->
+            <!--app:sub_btn_duration="3000"-->
+            <!--app:sub_btn_line_color="@color/lightSlateGray"-->
+            <!--app:sub_btn_ripple_color="@color/lightSlateGray"-->
+            <!--app:sub_btn_tick_color="@color/white" />-->
+
     </RelativeLayout>
 
     <ListView

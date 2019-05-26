@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,17 +33,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="25dp"
-                android:hint="请输入比赛名（字数在10个字以内）" />
+                android:hint="比赛名（10个字以内）"
+                android:layout_marginStart="50dp" />
 
-            <Button
-                android:id="@+id/SaveButton"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:background="#00FFFF"
-                android:text="保存" />
+            <!--<Button-->
+                <!--android:id="@+id/SaveButton"-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_marginStart="50dp"-->
+                <!--android:layout_marginLeft="50dp"-->
+                <!--android:layout_marginTop="25dp"-->
+                <!--android:background="#00FFFF"-->
+                <!--android:text="保存" />-->
+
+            <com.spark.submitbutton.SubmitButton
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="-19dp"
+                android:text="@string/create"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:sub_btn_background="@color/white"
+                app:sub_btn_duration="3000"
+                app:sub_btn_line_color="@color/lightSlateGray"
+                app:sub_btn_ripple_color="@color/lightSlateGray"
+                app:sub_btn_tick_color="@color/white" />
 
         </LinearLayout>
 
@@ -71,7 +90,7 @@
         <TextView
             android:layout_width="160dp"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="开始时间"
             android:gravity="center"/>
 
@@ -102,9 +121,9 @@
             android:layout_marginTop="30dp"
             android:text="赛事简介"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000000"
-            />
+            android:layout_marginStart="30dp" />
 
         <EditText
             android:id="@+id/match_intro_edit"
@@ -113,7 +132,8 @@
             android:layout_marginLeft="30dp"
             android:hint="输入简介（字数在100字以内）"
             android:gravity="top"
-            android:background="@drawable/profile"/>
+            android:background="@drawable/profile"
+            android:layout_marginStart="30dp" />
     </LinearLayout>
 
     <View
@@ -125,28 +145,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="60dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp"
             android:text="添加管理员"
-            android:gravity="left"
+            android:gravity="center_vertical"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginStart="40dp" />
 
         <Button
-            android:id="@+id/NewAdButton"
+            android:id="@+id/add_admin"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
-            android:text="+"
+            android:text="@string/add"
             android:textSize="12sp"
             android:gravity="center"
             android:textColor="#000000"
-            />
+            android:layout_marginStart="50dp" />
+
+        <!--<info.hoang8f.widget.FButton-->
+            <!--android:id="@+id/add_admin"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="12sp"-->
+            <!--android:text="@string/add"-->
+            <!--android:layout_marginLeft="48dp"-->
+            <!--fbutton:buttonColor="@color/lightSlateGray"-->
+            <!--fbutton:cornerRadius="5dp"-->
+            <!--fbutton:shadowColor="@color/fbutton_color_amethyst"-->
+            <!--fbutton:shadowEnabled="true"-->
+            <!--fbutton:shadowHeight="5dp"-->
+            <!--android:layout_marginStart="48dp" />-->
+
     </LinearLayout>
 
     <View

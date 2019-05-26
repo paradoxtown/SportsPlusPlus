@@ -42,5 +42,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'me.spark:submitbutton:1.0.1'
+    // implementation 'com.github.jd-alexander:android-flat-button:v1.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
