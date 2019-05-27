@@ -21,12 +21,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
             android:background="@mipmap/head_img"
-            android:orientation="vertical"
-
-            >
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="96dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
@@ -36,19 +34,19 @@
                     android:layout_width="43dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    />
+                    android:gravity="center" />
 
                 <LinearLayout
-                    android:layout_width="151dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="65dp"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageView_away"
-                        android:layout_width="65dp"
-                        android:layout_height="66dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
                         android:contentDescription="主队"
                         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -71,7 +69,7 @@
                     android:text="@string/vs" />
 
                 <LinearLayout
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="65dp"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
@@ -85,18 +83,19 @@
 
                     <ImageView
                         android:id="@+id/imageView_home"
-                        android:layout_width="73dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
                         android:contentDescription="客队"
                         tools:srcCompat="@tools:sample/backgrounds/scenic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/textView_Awayrate"
                     android:layout_width="43dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    />
+                    android:gravity="center" />
             </LinearLayout>
         </LinearLayout>
 
