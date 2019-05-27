@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +51,7 @@ public class MyGameFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_game, container, false);
         super.onCreate(savedInstanceState);
         myGames = view.findViewById(R.id.my_game_list);
-        getSubforgame();
+        getLikedGame();
         getMySchedule();
         getAllSchedule();
 
@@ -69,6 +72,17 @@ public class MyGameFragment extends Fragment {
                 Intent i = new Intent(getActivity(), MyGameCreatorActivity.class);
                 i.putExtra("UserName", UserName);
                 startActivityForResult(i, 100);
+            }
+        });
+
+        RefreshLayout refreshLayout = view.findViewById(R.id.my_game_fragment_refresh);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshlayout) {
+                getLikedGame();
+                getMySchedule();
+                getAllSchedule();
+                refreshlayout.finishRefresh(2000);
             }
         });
         return view;
@@ -136,11 +150,11 @@ public class MyGameFragment extends Fragment {
         h.execute("POSTMySchedule", UserName, time, matchName, intro, s.toString());
     }
 
-    private void getSubforgame() {
+    private void getLikedGame() {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) throws JSONException {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject j = jsonArray.getJSONObject(i);
                     j = j.getJSONObject("赛程");

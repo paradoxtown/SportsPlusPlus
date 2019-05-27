@@ -63,12 +63,6 @@ public class MatchActivity extends AppCompatActivity {
                 refreshlayout.finishRefresh(2000);
             }
         });
-//        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
-//                refreshlayout.finishLoadMore(2000);
-//            }
-//        });
     }
 
     private void getMatch(String id) {

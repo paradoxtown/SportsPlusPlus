@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -77,17 +76,18 @@ public class MyGameCreatorActivity extends AppCompatActivity {
                     saveButton.reset();
                 } else {
                     saveButton.doResult(true);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     Intent intent = getIntent();
                     intent.putExtra("name", nameEditText.getText().toString())
                             .putExtra("intro", introEditText.getText().toString())
                             .putExtra("date", s.getSelectedItem().toString())
                             .putStringArrayListExtra("admin", A);
                     setResult(RESULT_OK, intent);
+                    // TODO : modified
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     finish();
                 }
             }

@@ -66,6 +66,7 @@ public class loginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         sp = getSharedPreferences("login", Context.MODE_PRIVATE);
         e = sp.edit();
+        e.apply();
         if (sp.getString("username", null) != null) {
             username = sp.getString("username", null);
             password = sp.getString("password", null);
