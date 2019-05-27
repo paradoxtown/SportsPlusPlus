@@ -51,8 +51,8 @@ public class MyGameActivity extends AppCompatActivity {
         UserName = i.getStringExtra("UserName");
         schedule_id = mg.getId();
         GetMyMatch();
-        TextView myGameName = (TextView) findViewById(R.id.my_match_name);
-        TextView myGameIntro = (TextView) findViewById(R.id.my_match_intro);
+        TextView myGameName = findViewById(R.id.my_match_name);
+        TextView myGameIntro = findViewById(R.id.my_match_intro);
         myGameName.setText(mg.getGameName());
         myGameIntro.setText(mg.getIntro());
         Button edit_schedule = findViewById(R.id.edit_schedule);

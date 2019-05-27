@@ -34,4 +34,8 @@
     <string name="attention_offline">关注的线下比赛</string>
     <string name="create">创建</string>
     <string name="add">添加</string>
+    <string name="begin_time">开始时间</string>
+    <string name="game_intro">赛事简介</string>
+    <string name="add_admin">比赛管理员</string>
+    <string name="submit_create">提交创建</string>
 </resources>

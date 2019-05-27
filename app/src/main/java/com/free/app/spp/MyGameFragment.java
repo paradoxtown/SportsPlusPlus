@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.spark.submitbutton.SubmitButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +24,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import info.hoang8f.widget.FButton;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,11 +62,12 @@ public class MyGameFragment extends Fragment {
             }
         });
 
-        Button createGameButton = view.findViewById(R.id.add_new_game_button);
+        FButton createGameButton = view.findViewById(R.id.add_new_game_button);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), MyGameCreatorActivity.class);
+                i.putExtra("UserName", UserName);
                 startActivityForResult(i, 100);
             }
         });

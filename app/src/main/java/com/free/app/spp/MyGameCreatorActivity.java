@@ -2,27 +2,28 @@ package com.free.app.spp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.view.View.OnClickListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.spark.submitbutton.SubmitButton;
+import com.unstoppable.submitbuttonview.SubmitButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
+import info.hoang8f.widget.FButton;
 
 
 public class MyGameCreatorActivity extends AppCompatActivity {
@@ -35,57 +36,77 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_game_creator);
 
-        l = (ListView)findViewById(R.id.AdministerListView);
-        //输入账号名，将之添加管理员
+        l = findViewById(R.id.AdministerListView);
 
-        Button newAdButton = findViewById(R.id.add_admin);
-//        newAdButton.setShadowEnabled(true);
-//        newAdButton.setShadowHeight(5);
-//        newAdButton.setCornerRadius(5);
+        //输入账号名，将之添加管理员
+        Intent i = this.getIntent();
+        String creatorName = i.getStringExtra("UserName");
+        A.add(creatorName);
+
+        SubmitButton cancelButton = findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        FButton newAdButton = findViewById(R.id.add_admin);
+//        newAdButton.setButtonColor(R.color.fbutton_color_green_sea);
+//        newAdButton.setShadowColor(R.color.spp_official_green);
         newAdButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateDialog();
             }
         });
-        SubmitButton saveButton = findViewById(R.id.submit_button);
-        final EditText nameEditText = (EditText)findViewById(R.id.match_name_edit);
-        final EditText introEditText  =(EditText)findViewById(R.id.match_intro_edit);
-        final Spinner s = (Spinner)findViewById(R.id.date_spinner);
+
+        final EditText nameEditText = findViewById(R.id.match_name_edit);
+        final EditText introEditText = findViewById(R.id.match_intro_edit);
+        final Spinner s = findViewById(R.id.date_spinner);
+
+        final SubmitButton saveButton = findViewById(R.id.submit_button);
         saveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (introEditText.getText().toString().trim().length() > 100) {
                     Toast.makeText(MyGameCreatorActivity.this, "介绍应在100个字符以内", Toast.LENGTH_LONG).show();
-                }
-                else if (nameEditText.getText().toString().trim().length() > 10) {
+                    saveButton.reset();
+                } else if (nameEditText.getText().toString().trim().length() > 10) {
                     Toast.makeText(MyGameCreatorActivity.this, "比赛名应在10个字符以内", Toast.LENGTH_LONG).show();
-                }
-                else {
+                    saveButton.reset();
+                } else {
+                    saveButton.doResult(true);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Intent intent = getIntent();
                     intent.putExtra("name", nameEditText.getText().toString())
                             .putExtra("intro", introEditText.getText().toString())
                             .putExtra("date", s.getSelectedItem().toString())
                             .putStringArrayListExtra("admin", A);
-
                     setResult(RESULT_OK, intent);
                     finish();
                 }
             }
         });
+
         adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, A);
         l.setAdapter(adp);
     }
+
     protected void validateUser(final String username) throws JSONException {
-        Http <JSONArray> h = new Http<>();
+        Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) throws JSONException {
                 JSONObject j = jsonArray.getJSONObject(0);
                 int flag = Integer.parseInt(j.getString("result"));
-                for(String name:A){
-                    if(name.contentEquals(username)){
-                        Toast.makeText(MyGameCreatorActivity.this, "该用户已经被添加为管理员了", Toast.LENGTH_LONG).show();
+                for (String name : A) {
+                    if (name.contentEquals(username)) {
+                        Toast.makeText(MyGameCreatorActivity.this, "重复添加（创建者默认存在）", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -93,21 +114,20 @@ public class MyGameCreatorActivity extends AppCompatActivity {
                     Toast.makeText(MyGameCreatorActivity.this, "请输入管理员用户名", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(flag != 1){
+                if (flag != 1) {
                     Toast.makeText(MyGameCreatorActivity.this, "该用户不存在", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     Toast.makeText(MyGameCreatorActivity.this, "添加成功", Toast.LENGTH_LONG).show();
                     A.add(username);
-                    adp = new ArrayAdapter<String>(MyGameCreatorActivity.this, android.R.layout.simple_list_item_1, A);
+                    adp = new ArrayAdapter<>(MyGameCreatorActivity.this, android.R.layout.simple_list_item_1, A);
                     l.setAdapter(adp);
                 }
             }
         });
         JSONObject p = new JSONObject();
-        p.put("method","user");
-        p.put("username",username);
-        h.execute("Validate",p.toString());
+        p.put("method", "user");
+        p.put("username", username);
+        h.execute("Validate", p.toString());
     }
 
     protected void CreateDialog() {

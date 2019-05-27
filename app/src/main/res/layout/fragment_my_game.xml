@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyGameFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MyGameFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,41 +19,21 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:textSize="20sp"
+            android:text="@string/my_game_list"
             android:textColor="@color/colorPureBlack"
-            android:text="@string/my_game_list" />
+            android:textSize="20sp" />
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/add_new_game_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/my_game_head"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="2dp"
-            android:textSize="15sp"
-            android:text="@string/create_game" />
-
-        <!--<com.spark.submitbutton.SubmitButton-->
-            <!--android:id="@+id/add_new_game_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignBottom="@+id/my_game_head"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginEnd="6dp"-->
-            <!--android:layout_marginRight="6dp"-->
-            <!--android:layout_marginBottom="-19dp"-->
-            <!--android:text="@string/create_game"-->
-            <!--android:textColor="@color/gray"-->
-            <!--android:textSize="12sp"-->
-            <!--app:sub_btn_background="@color/white"-->
-            <!--app:sub_btn_duration="3000"-->
-            <!--app:sub_btn_line_color="@color/lightSlateGray"-->
-            <!--app:sub_btn_ripple_color="@color/lightSlateGray"-->
-            <!--app:sub_btn_tick_color="@color/white" />-->
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="24dp"
+            android:text="@string/create_game"
+            fbutton:cornerRadius="5dp"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp" />
 
     </RelativeLayout>
 
@@ -61,6 +41,7 @@
         android:id="@+id/my_game_list"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
+
     </ListView>
 
 </LinearLayout>
