@@ -9,7 +9,7 @@ public class Match {
     private String guest_image;
     private String id;
 
-    Match(String hn, String gn,String hp,String gp,String hi,String gi,String id) {
+    Match(String hn, String gn, String hp, String gp, String hi, String gi, String id) {
         this.host_name = hn;
         this.guest_name = gn;
         this.host_points = hp;
@@ -31,8 +31,7 @@ public class Match {
         return guest_name;
     }
 
-    String getHost_name()
-    {
+    String getHost_name() {
         return host_name;
     }
 
@@ -43,7 +42,8 @@ public class Match {
     String getHost_image() {
         return host_image;
     }
-    public String getId(){
+
+    public String getId() {
         return id;
     }
 
@@ -52,12 +52,15 @@ public class Match {
 
 class MatchDate {
     private String date;
+
     MatchDate(String date) {
         this.date = date;
     }
+
     String getDate() {
         return date;
     }
+
     public void setDate(String aName) {
         this.date = aName;
     }

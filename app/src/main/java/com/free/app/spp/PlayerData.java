@@ -17,10 +17,20 @@ public class PlayerData implements Serializable {
     private String rebound;
     private String penalty;
 
-    public PlayerData(String tp,String as,String per,String ss,String to,String p,String s,String st,String t,String f,String bl,String rb,String pe)
-    {
-        this.ThreePoint = tp;this.assist = as;this.percent = per;this.session = ss;this.turnover = to;this.points = p;
-        this.shoot = s;this.steal = st;this.time = t;this.foul = f;this.block = bl;this.rebound = rb;this.penalty = pe;
+    public PlayerData(String tp, String as, String per, String ss, String to, String p, String s, String st, String t, String f, String bl, String rb, String pe) {
+        this.ThreePoint = tp;
+        this.assist = as;
+        this.percent = per;
+        this.session = ss;
+        this.turnover = to;
+        this.points = p;
+        this.shoot = s;
+        this.steal = st;
+        this.time = t;
+        this.foul = f;
+        this.block = bl;
+        this.rebound = rb;
+        this.penalty = pe;
     }
 
     public String getAssist() {

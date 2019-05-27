@@ -25,8 +25,8 @@ public class ArrangeFragment extends Fragment {
     private List mData = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_arrange,container,false);
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_arrange, container, false);
         super.onCreate(savedInstanceState);
         getMatch();
         return view;
@@ -36,7 +36,7 @@ public class ArrangeFragment extends Fragment {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray MatchInfo) throws JSONException, IOException {
+            public void onResponse(JSONArray MatchInfo) throws JSONException {
                 ret = MatchInfo;
                 dataHandle();
             }
@@ -46,10 +46,10 @@ public class ArrangeFragment extends Fragment {
 
     private void dataHandle() throws JSONException {
         String nowDate = null;
-        for(int i = 0;i < ret.length();i++){
+        for (int i = 0; i < ret.length(); i++) {
             JSONObject j = ret.getJSONObject(i);
             String date = j.getString("日期");
-            if(nowDate == null || !nowDate.contentEquals(date)){
+            if (nowDate == null || !nowDate.contentEquals(date)) {
                 nowDate = date;
                 mData.add(new MatchDate(date));
             }
@@ -58,9 +58,11 @@ public class ArrangeFragment extends Fragment {
             String guest = j.getString("客场球队中文名");
             String host_points = j.getString("主场总分");
             String guest_points = j.getString("客场总分");
-            String host_pic  = Maps.CntoEng.get(host) + ".png";if(host_pic.equals("76ers.png"))host_pic = "p" + host_pic;
-            String guest_pic  = Maps.CntoEng.get(guest) + ".png";if(guest_pic.equals("76ers.png"))guest_pic = "p" + guest_pic;
-            mData.add(new Match(host,guest,host_points,guest_points,host_pic,guest_pic,id));
+            String host_pic = Maps.CntoEng.get(host) + ".png";
+            if (host_pic.equals("76ers.png")) host_pic = "p" + host_pic;
+            String guest_pic = Maps.CntoEng.get(guest) + ".png";
+            if (guest_pic.equals("76ers.png")) guest_pic = "p" + guest_pic;
+            mData.add(new Match(host, guest, host_points, guest_points, host_pic, guest_pic, id));
         }
 
         Context mContext = view.getContext();

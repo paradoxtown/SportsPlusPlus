@@ -72,22 +72,22 @@ public class RecorderActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        editText1 = (EditText) findViewById(R.id.editText1);
-        editText2 = (EditText) findViewById(R.id.editText2);
-        editText3 = (EditText) findViewById(R.id.editText3);
-        editText4 = (EditText) findViewById(R.id.editText4);
-        editText5 = (EditText) findViewById(R.id.editText5);
-        editText6 = (EditText) findViewById(R.id.editText6);
-        editText7 = (EditText) findViewById(R.id.editText7);
-        editText8 = (EditText) findViewById(R.id.editText8);
-        editText9 = (EditText) findViewById(R.id.editText9);
-        editText10 = (EditText) findViewById(R.id.editText10);
-        editText11 = (EditText) findViewById(R.id.editText11);
-        editText12 = (EditText) findViewById(R.id.editText12);
-        editText13 = (EditText) findViewById(R.id.editText13);
-        editText14 = (EditText) findViewById(R.id.editText14);
-        editText15 = (EditText) findViewById(R.id.editText15);
-        editText16 = (EditText) findViewById(R.id.editText16);
+        editText1 = findViewById(R.id.editText1);
+        editText2 = findViewById(R.id.editText2);
+        editText3 = findViewById(R.id.editText3);
+        editText4 = findViewById(R.id.editText4);
+        editText5 = findViewById(R.id.editText5);
+        editText6 = findViewById(R.id.editText6);
+        editText7 = findViewById(R.id.editText7);
+        editText8 = findViewById(R.id.editText8);
+        editText9 = findViewById(R.id.editText9);
+        editText10 = findViewById(R.id.editText10);
+        editText11 = findViewById(R.id.editText11);
+        editText12 = findViewById(R.id.editText12);
+        editText13 = findViewById(R.id.editText13);
+        editText14 = findViewById(R.id.editText14);
+        editText15 = findViewById(R.id.editText15);
+        editText16 = findViewById(R.id.editText16);
         display();
         players = findViewById(R.id.my_game_players);
         Button updateButton = findViewById(R.id.update_data);
@@ -164,10 +164,7 @@ public class RecorderActivity extends AppCompatActivity {
     public boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-            return false;
-        }
-        return true;
+        return isNum.matches();
     }
 
     public void PUTAllplayer() throws JSONException {
@@ -715,7 +712,7 @@ class RecorderPlayer {
         this.id = id;
     }
 
-    public String getPlayerName() {
+    String getPlayerName() {
         return playerName;
     }
 
@@ -723,39 +720,39 @@ class RecorderPlayer {
         return position;
     }
 
-    public String getNumber() {
+    String getNumber() {
         return number;
     }
 
-    public String getScore() {
+    String getScore() {
         return score;
     }
 
-    public String getThreePoint() {
+    String getThreePoint() {
         return threePoint;
     }
 
-    public String getReb() {
+    String getReb() {
         return reb;
     }
 
-    public String getAssist() {
+    String getAssist() {
         return assist;
     }
 
-    public String getPen() {
+    String getPen() {
         return pen;
     }
 
-    public String getFoul() {
+    String getFoul() {
         return foul;
     }
 
-    public String getFault_() {
+    String getFault_() {
         return fault_;
     }
 
-    public String getId() {
+    String getId() {
         return id;
     }
 }

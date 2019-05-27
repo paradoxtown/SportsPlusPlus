@@ -3,21 +3,19 @@ package com.free.app.spp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,8 @@ public class DataActivity extends AppCompatActivity {
 
     private String name;
     private static JSONArray ret;
-    private ArrayList <TeamData> A = new ArrayList<>();
+    private ArrayList<TeamData> A = new ArrayList<>();
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class DataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
         this.setTitle("球队数据");
-        Toast.makeText(DataActivity.this,"data",Toast.LENGTH_SHORT).show();
+        Toast.makeText(DataActivity.this, "data", Toast.LENGTH_SHORT).show();
         Intent i = getIntent();
         name = i.getStringExtra("cnName");
         System.out.println(name);
@@ -59,11 +58,12 @@ public class DataActivity extends AppCompatActivity {
         });
         http.execute("GetTeamInfo", "");
     }
+
     private void Handle(JSONArray e) throws JSONException {
-        for(int i = 0; i < e.length(); i++){
+        for (int i = 0; i < e.length(); i++) {
             JSONObject j = e.getJSONObject(i);
             String cn_name = j.getString("球队中文名");
-            if(cn_name.contentEquals(Maps.CntoFull.get(name))){
+            if (cn_name.contentEquals(Maps.CntoFull.get(name))) {
                 String coach = j.getString("主教练");
                 String intro = j.getString("介绍");
                 JSONObject assist = j.getJSONObject("场均助攻");
@@ -99,7 +99,7 @@ public class DataActivity extends AppCompatActivity {
                 color.add(Color.parseColor("#00bfff"));
                 color.add(Color.parseColor("#2F4F4F"));
 
-                for (int t = 0; t < 4; t ++){
+                for (int t = 0; t < 4; t++) {
                     JSONObject jsonData = j.getJSONObject(title.get(t));
                     float data = 31 - Float.parseFloat(jsonData.getString("排名"));
                     axisXValues.add(new AxisValue(t).setLabel(title.get(t) + ": " + jsonData.getString("数值")));
@@ -137,10 +137,11 @@ public class DataActivity extends AppCompatActivity {
     }
 }
 
-class TeamData{
+class TeamData {
     private String data_info;
     private String data_value;
-    TeamData(String di,String dv){
+
+    TeamData(String di, String dv) {
         data_info = di;
         data_value = dv;
     }
@@ -154,16 +155,17 @@ class TeamData{
     }
 }
 
-class TeamDataAdapter extends BaseAdapter{
+class TeamDataAdapter extends BaseAdapter {
     private ArrayList<TeamData> mList;
     private Context mContext;
 
     TeamDataAdapter(ArrayList<TeamData> mList,
-                               Context mContext) {
+                    Context mContext) {
         super();
         this.mList = mList;
         this.mContext = mContext;
     }
+
     public int getCount() {
         if (mList == null) {
             return 0;
@@ -171,6 +173,7 @@ class TeamDataAdapter extends BaseAdapter{
             return this.mList.size();
         }
     }
+
     @Override
     public Object getItem(int position) {
         if (mList == null) {
@@ -179,6 +182,7 @@ class TeamDataAdapter extends BaseAdapter{
             return this.mList.get(position);
         }
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -212,8 +216,7 @@ class TeamDataAdapter extends BaseAdapter{
         return convertView;
     }
 
-    private class ViewHolder
-    {
+    private class ViewHolder {
         TextView description;
         TextView value;
     }

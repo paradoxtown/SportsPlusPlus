@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity {
-    private DataInfoSet A ;
+    private DataInfoSet A;
     private static JSONArray ret;
     @SuppressLint("HandlerLeak")
-    private static Handler handler = new Handler(){
+    private static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -45,7 +45,7 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         Intent i = getIntent();
-        player p = (player)i.getSerializableExtra("player");
+        player p = (player) i.getSerializableExtra("player");
         this.setTitle(p.getChiName());
         GetPlayerImage(p.getChiName());
         GetPlayerCareer(p);
@@ -58,18 +58,18 @@ public class PlayerActivity extends AppCompatActivity {
             public void onResponse(Bitmap playerImage) {
                 Message message = handler.obtainMessage();
                 message.what = 1;
-                message.obj=playerImage;
+                message.obj = playerImage;
                 handler.sendMessage(message);
             }
         });
-        http.execute("GetPlayerImage",playerName);
+        http.execute("GetPlayerImage", playerName);
     }
 
     private void GetPlayerCareer(final player p) {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray PlayerCareer) throws JSONException{
+            public void onResponse(JSONArray PlayerCareer) throws JSONException {
                 // TeamListFragment.this.initTeams(TeamInfo);
                 ret = PlayerCareer;
                 Handle(p);
@@ -101,7 +101,7 @@ public class PlayerActivity extends AppCompatActivity {
         draft_player.setText(p.getDraft());
         TextView compact_player = findViewById(R.id.compact_player);
         compact_player.setText(p.getContract());
-        for(int i = 0;i < ret.length();i++){
+        for (int i = 0; i < ret.length(); i++) {
             JSONObject j = ret.getJSONObject(i);
             switch (i) {
                 case 0:
@@ -116,45 +116,49 @@ public class PlayerActivity extends AppCompatActivity {
                 default:
                     break;
             }
-            newItem("三分" , j.getString("三分"));
-            newItem("助攻" , j.getString("助攻"));
-            newItem("命中率" , j.getString("命中率"));
-            newItem("场次" , j.getString("场次"));
-            newItem("失误" , j.getString("失误"));
-            newItem("得分" , j.getString("得分"));
-            newItem("投篮" , j.getString("投篮"));
-            newItem("抢断" , j.getString("抢断"));
-            newItem("时间" , j.getString("时间"));
-            newItem("犯规" , j.getString("犯规"));
-            newItem("盖帽" , j.getString("盖帽"));
-            newItem("篮板" , j.getString("篮板"));
-            newItem("罚球" , j.getString("罚球"));
+            newItem("三分", j.getString("三分"));
+            newItem("助攻", j.getString("助攻"));
+            newItem("命中率", j.getString("命中率"));
+            newItem("场次", j.getString("场次"));
+            newItem("失误", j.getString("失误"));
+            newItem("得分", j.getString("得分"));
+            newItem("投篮", j.getString("投篮"));
+            newItem("抢断", j.getString("抢断"));
+            newItem("时间", j.getString("时间"));
+            newItem("犯规", j.getString("犯规"));
+            newItem("盖帽", j.getString("盖帽"));
+            newItem("篮板", j.getString("篮板"));
+            newItem("罚球", j.getString("罚球"));
             setArray.add(A);
         }
-        NewListViewAdapter adp = new NewListViewAdapter(setArray,this);
+        NewListViewAdapter adp = new NewListViewAdapter(setArray, this);
         playerList.setAdapter(adp);
     }
 
-    public void newItem(String a, String b){
-        A.add(new DataInfo(a,b));
+    public void newItem(String a, String b) {
+        A.add(new DataInfo(a, b));
     }
 }
-class DataGridView extends GridView{
-    public DataGridView(android.content.Context context,android.util.AttributeSet attrs) {
+
+class DataGridView extends GridView {
+    public DataGridView(android.content.Context context, android.util.AttributeSet attrs) {
         super(context, attrs);
     }
+
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
                 MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
     }
 }
-class DataInfoSet{
+
+class DataInfoSet {
     private String description;
     private List<DataInfo> infoList;
-    DataInfoSet(String d){
+
+    DataInfoSet(String d) {
         description = d;
-        infoList = new ArrayList<>() ;
+        infoList = new ArrayList<>();
     }
 
     String getDescription() {
@@ -164,36 +168,41 @@ class DataInfoSet{
     List<DataInfo> getInfoList() {
         return infoList;
     }
-    public void add(DataInfo i){
+
+    public void add(DataInfo i) {
         infoList.add(i);
     }
 }
 
-class DataInfo{
+class DataInfo {
     private String dataDescription;
     private String data;
-    DataInfo(String dd,String d)
-    {
-        dataDescription = dd;data = d;
+
+    DataInfo(String dd, String d) {
+        dataDescription = dd;
+        data = d;
     }
+
     String getData() {
         return data;
     }
+
     String getDataDescription() {
         return dataDescription;
     }
 }
 
-class DataGridViewAdapter extends BaseAdapter{
+class DataGridViewAdapter extends BaseAdapter {
     private List<DataInfo> mList;
     private Context mContext;
 
     DataGridViewAdapter(List<DataInfo> mList,
-                               Context mContext) {
+                        Context mContext) {
         super();
         this.mList = mList;
         this.mContext = mContext;
     }
+
     public int getCount() {
         if (mList == null) {
             return 0;
@@ -201,6 +210,7 @@ class DataGridViewAdapter extends BaseAdapter{
             return this.mList.size();
         }
     }
+
     @Override
     public Object getItem(int position) {
         if (mList == null) {
@@ -209,6 +219,7 @@ class DataGridViewAdapter extends BaseAdapter{
             return this.mList.get(position);
         }
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -248,8 +259,7 @@ class DataGridViewAdapter extends BaseAdapter{
         return convertView;
     }
 
-    private class ViewHolder
-    {
+    private class ViewHolder {
         LinearLayout wrap;
         TextView data_info;
         TextView data_item;
@@ -262,7 +272,7 @@ class NewListViewAdapter extends BaseAdapter {
     private Context mContext;
 
     NewListViewAdapter(List<DataInfoSet> mList,
-                                   Context mContext) {
+                       Context mContext) {
         super();
         this.mList = mList;
         this.mContext = mContext;
@@ -297,8 +307,8 @@ class NewListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_data_list_item, null);
-            holder.gridView =  convertView.findViewById(R.id.player_data_grid);
-            holder.description =  convertView.findViewById(R.id.data_type_description);
+            holder.gridView = convertView.findViewById(R.id.player_data_grid);
+            holder.description = convertView.findViewById(R.id.data_type_description);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -307,7 +317,7 @@ class NewListViewAdapter extends BaseAdapter {
         if (this.mList != null) {
             if (holder.gridView != null) {
                 DataInfoSet d = this.mList.get(position);
-                DataGridViewAdapter gridViewAdapter = new DataGridViewAdapter(d.getInfoList(),mContext);
+                DataGridViewAdapter gridViewAdapter = new DataGridViewAdapter(d.getInfoList(), mContext);
                 holder.gridView.setAdapter(gridViewAdapter);
                 holder.description.setText(d.getDescription());
                 holder.description.setTextSize(18);

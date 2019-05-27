@@ -23,6 +23,7 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
     private Context mContext;
     private final int ITEM_NORMAL = 0;
     private final int ITEM_SECTION = 1;
+
     MatchAdapter(List mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
@@ -47,8 +48,7 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
     public int getItemViewType(int position) {
         if (mData.get(position) instanceof Match) {
             return ITEM_NORMAL;
-        }
-        else {
+        } else {
             return ITEM_SECTION;
         }
     }
@@ -62,7 +62,7 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
     public View getView(int position, View convertView, ViewGroup parent) {
         int itemViewType = getItemViewType(position);
         if (itemViewType == ITEM_NORMAL) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_match,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_match, parent, false);
             convertView.setBackgroundColor(Color.WHITE);
             LinearLayout teamItem = convertView.findViewById(R.id.team_item);
             TextView host_name = convertView.findViewById(R.id.host_name);
@@ -72,7 +72,7 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
             ImageView host_image = convertView.findViewById(R.id.host_image);
             ImageView guest_image = convertView.findViewById(R.id.guest_image);
 
-            teamItem.setBackgroundColor(Color.rgb(240,240,240));
+            teamItem.setBackgroundColor(Color.rgb(240, 240, 240));
             Match a = (Match) mData.get(position);
             String hp = a.getHost_points();
             String gp = a.getGuest_points();
@@ -84,22 +84,19 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
             guest_points.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             if (Integer.parseInt(hp) > Integer.parseInt(gp)) {
                 host_points.setTextColor(Color.BLACK);
-            }
-            else {
+            } else {
                 guest_points.setTextColor(Color.BLACK);
             }
             InputStream img = null;
             try {
                 img = mContext.getResources().getAssets().open(a.getHost_image());
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             host_image.setImageBitmap(BitmapFactory.decodeStream(img));
             try {
                 img = mContext.getResources().getAssets().open(a.getGuest_image());
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             guest_image.setImageBitmap(BitmapFactory.decodeStream(img));
@@ -109,9 +106,8 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if (itemViewType == ITEM_SECTION) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_date,parent,false);
+        } else if (itemViewType == ITEM_SECTION) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_date, parent, false);
             convertView.setBackgroundColor(Color.rgb(240, 240, 240));
             TextView dfn = convertView.findViewById(R.id.dfn);
             dfn.setTextColor(Color.BLACK);
