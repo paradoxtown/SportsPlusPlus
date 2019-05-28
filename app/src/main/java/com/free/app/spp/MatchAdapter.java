@@ -1,9 +1,11 @@
 package com.free.app.spp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,11 +73,32 @@ public class MatchAdapter extends BaseAdapter implements PinnedSectionListAdapte
             TextView guest_name = convertView.findViewById(R.id.guest_name);
             TextView host_points = convertView.findViewById(R.id.host_points);
             TextView guest_points = convertView.findViewById(R.id.guest_points);
+            TextView state = convertView.findViewById(R.id.state);
             ImageView host_image = convertView.findViewById(R.id.host_image);
             ImageView guest_image = convertView.findViewById(R.id.guest_image);
 
             teamItem.setBackgroundColor(Color.rgb(240, 240, 240));
             Match a = (Match) mData.get(position);
+            String s = a.getState();
+            GradientDrawable myGrad = (GradientDrawable)state.getBackground();
+            switch (s) {
+                case "0":
+                    state.setText("未进行");
+                    state.setTextColor(Color.parseColor("#00bfff"));
+                    myGrad.setStroke(5, Color.parseColor("#00bfff"));
+                    break;
+                case "1":
+                    state.setText("已结束");
+                    state.setTextColor(Color.parseColor("#FA8072"));
+                    myGrad.setStroke(5, Color.parseColor("#FA8072"));
+                    break;
+                case "2":
+                    state.setText("进行中");
+                    state.setTextColor(Color.parseColor("#2ecc71"));
+                    myGrad.setStroke(5, Color.parseColor("#2ecc71"));
+                    break;
+            }
+            state.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             String hp = a.getHost_points();
             String gp = a.getGuest_points();
             host_name.setText(a.getHost_name());

@@ -3,6 +3,7 @@ package com.free.app.spp;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,16 +44,19 @@ public class ArrangeFragment extends Fragment {
         http.execute("GetMatch", "");
     }
 
+    @SuppressWarnings("unchecked")
     private void dataHandle() throws JSONException {
         String nowDate = null;
         for (int i = 0; i < ret.length(); i++) {
             JSONObject j = ret.getJSONObject(i);
+            System.out.println(j.toString());
             String date = j.getString("日期");
             if (nowDate == null || !nowDate.contentEquals(date)) {
                 nowDate = date;
                 mData.add(new MatchDate(date));
             }
             String id = j.getString("id");
+            String state = j.getString("状态");
             String host = j.getString("主场球队中文名");
             String guest = j.getString("客场球队中文名");
             String host_points = j.getString("主场总分");
@@ -62,7 +65,7 @@ public class ArrangeFragment extends Fragment {
             if (host_pic.equals("76ers.png")) host_pic = "p" + host_pic;
             String guest_pic = Maps.CntoEng.get(guest) + ".png";
             if (guest_pic.equals("76ers.png")) guest_pic = "p" + guest_pic;
-            mData.add(new Match(host, guest, host_points, guest_points, host_pic, guest_pic, id));
+            mData.add(new Match(host, guest, host_points, guest_points, host_pic, guest_pic, id, state));
         }
 
         Context mContext = view.getContext();

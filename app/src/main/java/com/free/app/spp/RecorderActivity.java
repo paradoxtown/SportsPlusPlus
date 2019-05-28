@@ -113,6 +113,7 @@ public class RecorderActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("unchecked")
     protected void CreateDialog() {
         LayoutInflater li = LayoutInflater.from(RecorderActivity.this);
         final View v = li.inflate(R.layout.new_player_dialog, null);
@@ -124,9 +125,9 @@ public class RecorderActivity extends AppCompatActivity {
         ad.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditText player_name_edit = (EditText) v.findViewById(R.id.player_name_edit);
-                EditText player_team_edit = (EditText) v.findViewById(R.id.player_team_edit);
-                EditText player_pos_edit = (EditText) v.findViewById(R.id.player_pos_edit);
+                EditText player_name_edit = v.findViewById(R.id.player_name_edit);
+                EditText player_team_edit = v.findViewById(R.id.player_team_edit);
+                EditText player_pos_edit = v.findViewById(R.id.player_pos_edit);
                 String name = player_name_edit.getText().toString().trim();
                 String team = player_team_edit.getText().toString().trim();
                 String pos = player_pos_edit.getText().toString().trim();
@@ -155,10 +156,11 @@ public class RecorderActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @SuppressWarnings("unchecked")
     public void AddAllToRecord() {
         recordList = new ArrayList<>();
-        for (int i = 0; i < teamAList.size(); i++) recordList.add(teamAList.get(i));
-        for (int i = 0; i < teamBList.size(); i++) recordList.add(teamBList.get(i));
+        recordList.addAll(teamAList);
+        recordList.addAll(teamBList);
     }
 
     public boolean isNumeric(String str) {
@@ -171,7 +173,7 @@ public class RecorderActivity extends AppCompatActivity {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) {
                 System.out.println();
             }
         });
@@ -210,19 +212,19 @@ public class RecorderActivity extends AppCompatActivity {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) {
                 Toast.makeText(RecorderActivity.this, "成功添加球员", Toast.LENGTH_LONG).show();
             }
         });
         h.execute("POSTPlayer", match_id, team, name, pos);
     }
 
-
+    @SuppressWarnings("unchecked")
     public void GETAllplayer() throws JSONException {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) throws JSONException {
                 teamAList = new ArrayList<>();
                 teamBList = new ArrayList<>();
                 teamAList.add("队伍一");
@@ -259,7 +261,7 @@ public class RecorderActivity extends AppCompatActivity {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) {
                 System.out.println("success");
             }
         });
@@ -288,7 +290,7 @@ public class RecorderActivity extends AppCompatActivity {
                 !isNumeric(str5) || !isNumeric(str6) || !isNumeric(str7) || !isNumeric(str8) ||
                 !isNumeric(str9) || !isNumeric(str10) || !isNumeric(str11) || !isNumeric(str12) ||
                 !isNumeric(str13) || !isNumeric(str14) || !isNumeric(str15) || !isNumeric(str16)) {
-            Toast.makeText(RecorderActivity.this, "得分处请输入自然数！", Toast.LENGTH_LONG);
+            Toast.makeText(RecorderActivity.this, "得分处请输入自然数！", Toast.LENGTH_LONG).show();
         }
         if (!str5.contentEquals("0")) {
             overtime++;
@@ -307,7 +309,6 @@ public class RecorderActivity extends AppCompatActivity {
         }
         if (!str8.contentEquals("0")) {
             overtime++;
-            ;
             totScoreA += Integer.parseInt(str8);
             totScoreB += Integer.parseInt(str16);
         }

@@ -8,8 +8,9 @@ public class Match {
     private String host_image;
     private String guest_image;
     private String id;
+    private String state;
 
-    Match(String hn, String gn, String hp, String gp, String hi, String gi, String id) {
+    Match(String hn, String gn, String hp, String gp, String hi, String gi, String id, String state) {
         this.host_name = hn;
         this.guest_name = gn;
         this.host_points = hp;
@@ -17,6 +18,7 @@ public class Match {
         this.host_image = hi;
         this.guest_image = gi;
         this.id = id;
+        this.state = state;
     }
 
     String getHost_points() {
@@ -45,6 +47,10 @@ public class Match {
 
     public String getId() {
         return id;
+    }
+
+    String getState() {
+        return state;
     }
 
 }

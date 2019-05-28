@@ -14,10 +14,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="135dp"
             android:layout_height="80dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="20dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -41,7 +41,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -57,6 +57,16 @@
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="45dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@drawable/text_view_shape"
+            android:text="未进行"/>
 
         <LinearLayout
             android:layout_width="110dp"
