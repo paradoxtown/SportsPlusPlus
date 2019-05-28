@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/my_game_head"
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
@@ -28,11 +28,12 @@
 
         <info.hoang8f.widget.FButton
             android:id="@+id/add_new_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="12sp"
             android:text="@string/create_game"
             fbutton:cornerRadius="5dp"
             fbutton:shadowEnabled="true"

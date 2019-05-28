@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="30dp"
+                android:layout_width="34dp"
                 android:layout_height="30dp"
-                android:background="@mipmap/ball"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/ball" />
 
             <TextView
                 android:id="@+id/team_title"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
+                android:textColor="@color/colorPureBlack"
+                android:textSize="20sp"
                 android:text="@string/team_list" />
-        <!--<View-->
-            <!--android:id="@+id/aline"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#ff000000"-->
-            <!--&gt;</View>-->
         </LinearLayout>
     </LinearLayout>
 
@@ -44,6 +39,7 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:numColumns="2">
+
     </GridView>
 
 </LinearLayout>

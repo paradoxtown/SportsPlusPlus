@@ -163,7 +163,6 @@ public class MyGameFragment extends Fragment {
                     String id = j.getString("id");
                     myLikedMatchList.add(new MyGame(name, time, intro, id));
                 }
-
             }
         });
         h.execute("GetSubforgame", UserName);

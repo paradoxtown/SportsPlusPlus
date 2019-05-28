@@ -51,8 +51,6 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         });
 
         FButton newAdButton = findViewById(R.id.add_admin);
-//        newAdButton.setButtonColor(R.color.fbutton_color_green_sea);
-//        newAdButton.setShadowColor(R.color.spp_official_green);
         newAdButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
