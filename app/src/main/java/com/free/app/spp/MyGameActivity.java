@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -20,14 +21,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.apache.commons.collections4.Get;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,65 +50,102 @@ public class MyGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_game);
-
         Intent i = getIntent();
         MyGame mg = (MyGame) i.getSerializableExtra("123");
         is_admin = mg.getIs_administrator();
         UserName = i.getStringExtra("UserName");
         schedule_id = mg.getId();
+        setMultiSelect();
         GetMyMatch();
         TextView myGameName = findViewById(R.id.my_match_name);
         TextView myGameIntro = findViewById(R.id.my_match_intro);
         myGameName.setText(mg.getGameName());
         myGameIntro.setText(mg.getIntro());
-        Button edit_schedule = findViewById(R.id.edit_schedule);
-        if (is_admin) {
-            edit_schedule.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (is_admin) {
-                        CreateDialog();
-                    }
-                }
-            });
-        } else edit_schedule.setVisibility(View.GONE);
-
+//        Button edit_schedule = findViewById(R.id.edit_schedule);
+//        if (is_admin) {
+//            edit_schedule.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                if (is_admin) {
+//                    CreateDialog();
+//                }
+//                }
+//            });
+//        } else edit_schedule.setVisibility(View.GONE);
         dataHandle();
     }
 
-    protected void dataHandle() {
+    void setMultiSelect() {
+        final MultiChoicesCircleButton.Item item1 = new MultiChoicesCircleButton.Item("Exit", getResources().getDrawable(R.drawable.icon1), 30);
 
+        final MultiChoicesCircleButton.Item item2 = new MultiChoicesCircleButton.Item("Add Match", getResources().getDrawable(R.drawable.icon2), 90);
+
+        final MultiChoicesCircleButton.Item item3 = new MultiChoicesCircleButton.Item("Delete Game", getResources().getDrawable(R.drawable.icon3), 150);
+
+        List<MultiChoicesCircleButton.Item> buttonItems = new ArrayList<>();
+        buttonItems.add(item1);
+        buttonItems.add(item2);
+        buttonItems.add(item3);
+
+        MultiChoicesCircleButton multiChoicesCircleButton = findViewById(R.id.multiChoicesCircleButton);
+        multiChoicesCircleButton.setButtonItems(buttonItems);
+
+        multiChoicesCircleButton.setOnSelectedItemListener(new MultiChoicesCircleButton.OnSelectedItemListener() {
+            @Override
+            public void onSelected(MultiChoicesCircleButton.Item item, int index) {
+                if (item == item1) {
+                    finish();
+                } else if (item == item2) {
+                    if (is_admin) {
+                        CreateDialog();
+                    } else {
+                        Toast.makeText(MyGameActivity.this, "您没有权限", Toast.LENGTH_LONG).show();
+                    }
+                } else if (item == item3) {
+                    if (is_admin) {
+                        deleteGame();
+                    } else {
+                        Toast.makeText(MyGameActivity.this, "您没有权限", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
+//        multiChoicesCircleButton.setOnHoverItemListener(new MultiChoicesCircleButton.OnHoverItemListener() {
+//            @Override
+//            public void onHovered(MultiChoicesCircleButton.Item item, int index) {
+//                // Do something
+//            }
+//        });
+    }
+
+    void deleteGame() {
+        finish();
+    }
+
+    protected void dataHandle() {
         MyGameMatchAdapter myGameMatchAdapter = new MyGameMatchAdapter(mData, this);
         matches = findViewById(R.id.list_my_game_match);
         matches.setAdapter(myGameMatchAdapter);
         matches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
-                if (!(mData.get(position) == MatchDate.class)) {
-                    if (is_admin) {
-                        intent = new Intent(MyGameActivity.this, RecorderActivity.class);
-                    } else {
-                        intent = new Intent(MyGameActivity.this, OfflineMatchActivity.class);
-                    }
-                    try {
-                        PassData(intent, (MyGameMatch) mData.get(position));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    startActivity(intent);
+            Intent intent;
+            if (!(mData.get(position) == MatchDate.class)) {
+                if (is_admin) {
+                    intent = new Intent(MyGameActivity.this, RecorderActivity.class);
+                } else {
+                    intent = new Intent(MyGameActivity.this, OfflineMatchActivity.class);
                 }
-
-
+                try {
+                    PassData(intent, (MyGameMatch) mData.get(position));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            }
             }
         });
-//        matches.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//
-//            }
-//        });
     }
 
     protected void PassData(Intent i, MyGameMatch t) throws JSONException {
@@ -127,30 +170,31 @@ public class MyGameActivity extends AppCompatActivity {
         h.execute("POSTMyMatch", schedule_id, time, date, pos, host, guest);
     }
 
+    @SuppressWarnings("unchecked")
     protected void GetMyMatch() {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
-                mData = new ArrayList<>();
-                System.out.println("Successfully obtained");
-                JSONArray jsa = jsonArray;
-                if (jsa != null) {
-                    for (int i = 0; i < jsa.length(); i++) {
-                        JSONObject j = jsa.getJSONObject(i);
-                        String date = j.getString("日期");
-                        String time = j.getString("时间");
-                        String pos = j.getString("地点");
-                        String id = j.getString("id");
-                        String teamA = j.getString("主场");
-                        String teamB = j.getString("客场");
-                        String scoreA = j.getString("主场总分");
-                        String scoreB = j.getString("客场总分");
-                        mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j));
-                    }
-                    MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
-                    matches.setAdapter(adp);
+            public void onResponse(JSONArray jsonArray) throws JSONException {
+            mData = new ArrayList<>();
+            System.out.println("Successfully obtained");
+            JSONArray jsa = jsonArray;
+            if (jsa != null) {
+                for (int i = 0; i < jsa.length(); i++) {
+                    JSONObject j = jsa.getJSONObject(i);
+                    String date = j.getString("日期");
+                    String time = j.getString("时间");
+                    String pos = j.getString("地点");
+                    String id = j.getString("id");
+                    String teamA = j.getString("主场");
+                    String teamB = j.getString("客场");
+                    String scoreA = j.getString("主场总分");
+                    String scoreB = j.getString("客场总分");
+                    mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j));
                 }
+                MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
+                matches.setAdapter(adp);
+            }
             }
         });
         h.execute("GetMyMatch", schedule_id, "");
@@ -195,6 +239,7 @@ public class MyGameActivity extends AppCompatActivity {
         ad.setTitle("新的赛程安排");
         ad.setMessage("请输入新赛程的相关信息");
         ad.setView(v);
+        ad.setNegativeButton("取消", null);
         ad.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -234,7 +279,7 @@ public class MyGameActivity extends AppCompatActivity {
                     Toast.makeText(MyGameActivity.this, "请正确输入形如YYYY-MM-DD的日期格式", Toast.LENGTH_LONG).show();
                     mark = false;
                 }
-                if (match(date, "^[0-9]{4}\\-((0[1-9])|(1[0-2]))\\-[0-9]{2}$") && !isLegalDate(date)) {
+                if (!match(date, "^[0-9]{4}\\-((0[1-9])|(1[0-2]))\\-[0-9]{2}$") && !isLegalDate(date)) {
                     Toast.makeText(MyGameActivity.this, "请正确输入合法的日期", Toast.LENGTH_LONG).show();
                     mark = false;
                 }

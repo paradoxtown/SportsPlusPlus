@@ -78,10 +78,10 @@ public class MyGameFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) {
-                getLikedGame();
-                getMySchedule();
-                getAllSchedule();
-                refreshlayout.finishRefresh(2000);
+            getLikedGame();
+            getMySchedule();
+            getAllSchedule();
+            refreshlayout.finishRefresh(2000);
             }
         });
         return view;

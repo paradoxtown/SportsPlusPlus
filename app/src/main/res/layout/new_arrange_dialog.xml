@@ -4,72 +4,75 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="参赛队伍1："
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/teamA_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="长度在10个字符以内"/>
+        android:hint="长度在10个字符以内" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="参赛队伍2："
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/teamB_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="长度在10个字符以内"/>
+        android:hint="长度在10个字符以内" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="比赛地点："
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/pos_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="长度在10个字符以内"/>
+        android:hint="长度在10个字符以内" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="比赛时间"
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/time_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请按照HH:MM的格式输入"/>
+        android:hint="请按照HH:MM的格式输入" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="比赛日期"
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/date_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请按照YYYY-MM-DD的格式输入"/>
+        android:hint="请按照YYYY-MM-DD的格式输入" />
 
 
 </LinearLayout>

@@ -250,7 +250,7 @@ public class PersonalCenterFragment extends Fragment {
                 }
             }
         });
-        http.execute("GetSubforgame", userNameContent);
+        http.execute("GetMySchedule", userNameContent);
     }
 }
 

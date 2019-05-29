@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.free.app.spp.MyGameActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.free.app.spp.MyGameActivity">
 
     <LinearLayout
         android:id="@+id/my_game_head_back"
@@ -17,13 +16,14 @@
 
         <TextView
             android:id="@+id/my_match_name"
-            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
             android:text="六系篮球赛"
             android:textColor="@color/colorContentWhite"
-            android:textSize="40sp"/>
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/my_match_intro"
@@ -31,14 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:textColor="@color/colorContentWhite"
-            android:text="六系篮球赛，老少咸宜，不管你头发是多是少，在这里都将被公平对待。六系篮球赛，你真正热爱的好比赛。" />
+            android:textColor="@color/colorContentWhite" />
 
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
         android:layout_gravity="center_horizontal">
 
         <TextView
@@ -48,28 +48,42 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:textSize="20sp"
+            android:text="@string/schedule"
             android:textColor="@color/colorPureBlack"
-            android:text="@string/schedule" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/edit_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/my_game_schedule_head"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="2dp"
-            android:textSize="15sp"
-            android:text="@string/edit_schedule" />
+        <!--<info.hoang8f.widget.FButton-->
+        <!--android:id="@+id/edit_schedule"-->
+        <!--android:layout_width="75dp"-->
+        <!--android:layout_height="36dp"-->
+        <!--android:layout_alignBottom="@+id/my_game_schedule_head"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginEnd="25dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:text="@string/edit_schedule"-->
+        <!--android:textSize="12sp" />-->
+
     </RelativeLayout>
 
     <de.halfbit.pinnedsection.PinnedSectionListView
         android:id="@+id/list_my_game_match"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"/>
+        android:layout_marginTop="250dp"
+        android:divider="@null" />
 
-</LinearLayout>
+    <com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton
+        android:id="@+id/multiChoicesCircleButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:mccb_textColor="@color/colorAccent"
+        app:layout_behavior="@string/multi_choices_circle_button_behavior"
+        app:mccb_buttonColor="@color/colorAccent"
+        app:mccb_collapseRadius="40dp"
+        app:mccb_expandRadius="120dp"
+        app:mccb_icon="@drawable/plus"
+        app:mccb_showBackgroundShadow="false"
+        app:mccb_text="Choose" />
+
+</FrameLayout>

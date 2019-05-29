@@ -19,6 +19,7 @@ public class Http<T> extends AsyncTask<String, Void, T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected T doInBackground(String... params) {
 
         if (params[0].equals("GetMatch")) {
@@ -183,7 +184,7 @@ public class Http<T> extends AsyncTask<String, Void, T> {
             }
             return (T) (new JSONArray().put(result));
         }
-        if (params[0] == "Validate") {
+        if (params[0].equals("Validate")) {
             try {
                 result.put("result", "" + MyGameInterface.Validate(params[1]));
             } catch (JSONException e) {
