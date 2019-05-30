@@ -21,6 +21,7 @@ public class LoadImg<Bitmap> extends AsyncTask<String, Integer, Bitmap> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected Bitmap doInBackground(String... params) {
         if (params[0].equals("GetPlayerImage")) {
             return (Bitmap) HttpUtil.GetPlayerImage(params[1]);

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -81,7 +80,6 @@ public class MyGameCreatorActivity extends AppCompatActivity {
                             .putExtra("date", s.getSelectedItem().toString())
                             .putStringArrayListExtra("admin", A);
                     setResult(RESULT_OK, intent);
-                    // TODO : modified
                     try {
                         Thread.sleep(1500);
                     } catch (InterruptedException e) {
@@ -137,10 +135,11 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         ad.setTitle("新的管理员");
         ad.setMessage("请输入新管理员的用户名");
         ad.setView(v);
+        ad.setNegativeButton("取消", null);
         ad.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditText e = (EditText) v.findViewById(R.id.new_administrator_edit);
+                EditText e = v.findViewById(R.id.new_administrator_edit);
                 String text = e.getText().toString();
                 try {
                     validateUser(text);

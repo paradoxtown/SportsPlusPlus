@@ -568,7 +568,6 @@ class MyGameInterface {
             outputStream.flush();
             outputStream.close();
 
-
             int code = conn.getResponseCode();
             //获取结果
             if (code == 204)

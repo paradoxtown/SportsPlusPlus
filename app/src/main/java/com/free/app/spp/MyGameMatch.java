@@ -9,8 +9,9 @@ class MyGameMatch {
     private String place;
     private String score1, score2;
     private JSONObject js;
+    private String id;
 
-    MyGameMatch(String teamName1, String teamName2, String date, String time, String place, String score1, String score2, JSONObject jsonArray) {
+    MyGameMatch(String teamName1, String teamName2, String date, String time, String place, String score1, String score2, JSONObject jsonArray, String id) {
         this.teamName1 = teamName1;
         this.teamName2 = teamName2;
         this.time = time;
@@ -19,6 +20,7 @@ class MyGameMatch {
         this.score1 = score1;
         this.score2 = score2;
         this.js = jsonArray;
+        this.id = id;
     }
 
     String getTeamName1() {
@@ -47,5 +49,9 @@ class MyGameMatch {
 
     String getPlace() {
         return place;
+    }
+
+    String getId() {
+        return id;
     }
 }

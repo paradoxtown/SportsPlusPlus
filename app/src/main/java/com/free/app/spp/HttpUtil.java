@@ -35,7 +35,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -106,7 +106,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -143,7 +143,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -179,7 +179,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -219,7 +219,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -257,11 +257,11 @@ class HttpUtil {
 
 
             //获取结果
-            InputStream stream = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stream)
-            );
-            StringBuilder buffer = new StringBuilder();
+//            InputStream stream = conn.getInputStream();
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(stream)
+//            );
+//            StringBuilder buffer = new StringBuilder();
 
             int code = conn.getResponseCode();
             //获取结果
@@ -300,10 +300,10 @@ class HttpUtil {
 
 
             //获取结果
-            InputStream stream = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stream)
-            );
+//            InputStream stream = conn.getInputStream();
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(stream)
+//            );
             int code = conn.getResponseCode();
             if (code == 200) {
                 return 1;
@@ -431,7 +431,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             //System.out.println("test");
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
@@ -532,7 +532,7 @@ class HttpUtil {
                     new InputStreamReader(stream)
             );
             StringBuilder buffer = new StringBuilder();
-            String str = null;
+            String str;
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
@@ -563,10 +563,10 @@ class HttpUtil {
             conn.setReadTimeout(10000);
             conn.setRequestMethod("PUT");
             //获取结果
-            InputStream stream = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stream)
-            );
+//            InputStream stream = conn.getInputStream();
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(stream)
+//            );
             int code = conn.getResponseCode();
             if (code == 200) {
                 return 1;

@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class PersonalCenterFragment extends Fragment {
     private AllMap allMap = new AllMap();
     private List<String> attentionSet = new ArrayList<>();
     private List<String> attentionOfflineSet = new ArrayList<>();
-    private SharedPreferences sp;
     private SharedPreferences.Editor e;
     private LinearLayout attentionLayout;
     private LinearLayout attentionOfflineLayout;
@@ -80,7 +80,7 @@ public class PersonalCenterFragment extends Fragment {
 //        AttentionGameAdapterInPersonalCenter adp
 //                = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());
 //        attentionOfflineList.setAdapter(adp);
-        sp = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         e = sp.edit();
         attentionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,11 +107,8 @@ public class PersonalCenterFragment extends Fragment {
         attentionOfflineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MyGame tmp = matchList.get(position);
-                Intent intent = new Intent(getActivity(), MyGameActivity.class);
-                intent.putExtra("123", tmp);
-                intent.putExtra("UserName", userNameContent);
-                startActivity(intent);
+                MyGame myGame = matchList.get(position);
+                isAdmin(myGame);
             }
         });
 
@@ -150,7 +147,6 @@ public class PersonalCenterFragment extends Fragment {
                         String cnName2 = allMap.getCnNameFromCnLocName(jso.getString("球队中文名"));
                         if (cnName.equals(cnName2)) {
                             isLiked = true;
-                            System.out.println("isLiked " + isLiked);
                             break;
                         }
                     }
@@ -163,6 +159,30 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
         http.execute("RequestGet", userNameContent);
+    }
+
+    private void isAdmin(final MyGame myGame) {
+        Http<JSONArray> http = new Http<>();
+        http.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                String gameName = myGame.getGameName();
+                System.out.println(gameName + " " + userNameContent);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject j = jsonArray.getJSONObject(i);
+                    j = j.getJSONObject("赛程");
+                    String name = j.getString("名称");
+                    if (gameName.equals(name)) {
+                        myGame.setIs_administrator();
+                    }
+                }
+                Intent intent = new Intent(getActivity(), MyGameActivity.class);
+                intent.putExtra("MyGame", myGame);
+                intent.putExtra("UserName", userNameContent);
+                startActivity(intent);
+            }
+        });
+        http.execute("GetMySchedule", userNameContent);
     }
 
     private void getLikedTeam() {
@@ -215,6 +235,7 @@ public class PersonalCenterFragment extends Fragment {
             public void onResponse(JSONArray jsonArray) throws JSONException {
                 if (offlineIsVisible) {
                     matchList.clear();
+                    attentionOfflineSet.clear();
                     offlineMatch = jsonArray;
                     if (offlineMatch != null) {
                         for (int i = 0; i < offlineMatch.length(); i++) {
@@ -224,7 +245,10 @@ public class PersonalCenterFragment extends Fragment {
                             String intro = j.getString("简介");
                             String time = j.getString("创建时间");
                             String id = j.getString("id");
-                            matchList.add(new MyGame(name, time, intro, id));
+                            if (!attentionOfflineSet.contains(name)) {
+                                matchList.add(new MyGame(name, time, intro, id));
+                                attentionOfflineSet.add(name);
+                            }
                         }
                         AttentionGameAdapterInPersonalCenter adp
                                 = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());

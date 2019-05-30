@@ -29,6 +29,7 @@ import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class MyGameFragment extends Fragment {
@@ -58,7 +59,7 @@ public class MyGameFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), MyGameActivity.class);
-                i.putExtra("123", mData.get(position));
+                i.putExtra("MyGame", mData.get(position));
                 i.putExtra("UserName", UserName);
                 startActivity(i);
             }
@@ -78,10 +79,10 @@ public class MyGameFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) {
-            getLikedGame();
-            getMySchedule();
-            getAllSchedule();
-            refreshlayout.finishRefresh(2000);
+                getLikedGame();
+                getMySchedule();
+                getAllSchedule();
+                refreshlayout.finishRefresh(2000);
             }
         });
         return view;
@@ -91,7 +92,8 @@ public class MyGameFragment extends Fragment {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) throws JSONException {
+                mData.clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject j = jsonArray.getJSONObject(i);
                     String name = j.getString("名称");
@@ -118,7 +120,8 @@ public class MyGameFragment extends Fragment {
         Http<JSONArray> h = new Http<>();
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+            public void onResponse(JSONArray jsonArray) throws JSONException {
+                myAdministrationMatchList.clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject j = jsonArray.getJSONObject(i);
                     j = j.getJSONObject("赛程");
@@ -154,6 +157,7 @@ public class MyGameFragment extends Fragment {
         h.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) throws JSONException {
+                myLikedMatchList.clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject j = jsonArray.getJSONObject(i);
                     j = j.getJSONObject("赛程");
@@ -178,9 +182,24 @@ public class MyGameFragment extends Fragment {
                 String date = data.getStringExtra("date");
                 ArrayList<String> admins = data.getStringArrayListExtra("admin");
                 POSTMySchedule(date, name, intro, admins);
-                mData.add(new MyGame(name, date, intro, "50"));
+                mData.add(new MyGame(name, date, intro, "-1"));
                 MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext(), UserName);
                 myGames.setAdapter(myGameAdapter);
+            }
+        }
+        else {
+            // TODO: delete
+            if (resultCode == RESULT_OK) {
+                String id = data.getStringExtra("game_id");
+                System.out.println("get_game_id " + id);
+                for (MyGame myGame: mData) {
+                    if (myGame.getId().equals(id)) {
+                        mData.remove(myGame);
+                        MyGameAdapter myGameAdapter = new MyGameAdapter(mData, view.getContext(), UserName);
+                        myGames.setAdapter(myGameAdapter);
+                        break;
+                    }
+                }
             }
         }
     }

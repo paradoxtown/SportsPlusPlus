@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,10 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import org.apache.commons.collections4.Get;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +45,7 @@ public class MyGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_game);
         Intent i = getIntent();
-        MyGame mg = (MyGame) i.getSerializableExtra("123");
+        MyGame mg = (MyGame) i.getSerializableExtra("MyGame");
         is_admin = mg.getIs_administrator();
         UserName = i.getStringExtra("UserName");
         schedule_id = mg.getId();
@@ -110,17 +104,27 @@ public class MyGameActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        multiChoicesCircleButton.setOnHoverItemListener(new MultiChoicesCircleButton.OnHoverItemListener() {
-//            @Override
-//            public void onHovered(MultiChoicesCircleButton.Item item, int index) {
-//                // Do something
-//            }
-//        });
     }
 
     void deleteGame() {
-        finish();
+        Http<JSONArray> http = new Http<>();
+        http.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException {
+                if (jsonArray.getJSONObject(0).getInt("result") == 1){
+                    Intent intent = getIntent();
+                    System.out.println("game_id " + schedule_id);
+                    intent.putExtra("game_id", schedule_id);
+                    // TODO: delete
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(MyGameActivity.this, "删除失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        http.execute("DeleteSchedule", schedule_id);
     }
 
     protected void dataHandle() {
@@ -178,23 +182,22 @@ public class MyGameActivity extends AppCompatActivity {
             public void onResponse(JSONArray jsonArray) throws JSONException {
             mData = new ArrayList<>();
             System.out.println("Successfully obtained");
-            JSONArray jsa = jsonArray;
-            if (jsa != null) {
-                for (int i = 0; i < jsa.length(); i++) {
-                    JSONObject j = jsa.getJSONObject(i);
-                    String date = j.getString("日期");
-                    String time = j.getString("时间");
-                    String pos = j.getString("地点");
-                    String id = j.getString("id");
-                    String teamA = j.getString("主场");
-                    String teamB = j.getString("客场");
-                    String scoreA = j.getString("主场总分");
-                    String scoreB = j.getString("客场总分");
-                    mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j));
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject j = jsonArray.getJSONObject(i);
+                        String date = j.getString("日期");
+                        String time = j.getString("时间");
+                        String pos = j.getString("地点");
+                        String id = j.getString("id");
+                        String teamA = j.getString("主场");
+                        String teamB = j.getString("客场");
+                        String scoreA = j.getString("主场总分");
+                        String scoreB = j.getString("客场总分");
+                        mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j, id));
+                    }
+                    MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
+                    matches.setAdapter(adp);
                 }
-                MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
-                matches.setAdapter(adp);
-            }
             }
         });
         h.execute("GetMyMatch", schedule_id, "");
