@@ -13,17 +13,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.halfbit.pinnedsection.PinnedSectionListView;
+import info.hoang8f.widget.FButton;
 
 public class RecorderActivity extends AppCompatActivity {
     ArrayList recordList = new ArrayList<>();
@@ -53,9 +57,12 @@ public class RecorderActivity extends AppCompatActivity {
     EditText editText14;
     EditText editText15;
     EditText editText16;
+    TextView teamAname;
+    TextView teamBname;
     String teamA;
     String teamB;
     ListView players;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,10 @@ public class RecorderActivity extends AppCompatActivity {
         match_id = i.getStringExtra("id");
         teamA = i.getStringExtra("主场");
         teamB = i.getStringExtra("客场");
+        teamAname = (TextView) findViewById(R.id.team_A_name);
+        teamBname = (TextView) findViewById(R.id.team_B_name);
+        teamAname.setText(teamA);
+        teamBname.setText(teamB);
         String first = i.getStringExtra("第一节");
         try {
             GETAllplayer();
@@ -90,7 +101,7 @@ public class RecorderActivity extends AppCompatActivity {
         editText16 = findViewById(R.id.editText16);
         display();
         players = findViewById(R.id.my_game_players);
-        Button updateButton = findViewById(R.id.update_data);
+        FButton updateButton = (FButton) findViewById(R.id.update_data);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +115,7 @@ public class RecorderActivity extends AppCompatActivity {
                 System.out.println("###############################");
             }
         });
-        Button newPlayerButton = (Button) findViewById(R.id.newPlayerButton);
+        FButton newPlayerButton = (FButton) findViewById(R.id.newPlayerButton);
         newPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,24 +133,43 @@ public class RecorderActivity extends AppCompatActivity {
         ad.setTitle("新的球员");
         ad.setMessage("请输入新球员的相关信息");
         ad.setView(v);
+
+        Spinner player_team_spinner = v.findViewById(R.id.player_team_spinner);
+        String[] ss = new String[]{teamA, teamB};
+        ArrayAdapter<String> adpForSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ss);
+        adpForSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        player_team_spinner.setAdapter(adpForSpinner);
+
+        Spinner player_pos_spinner = v.findViewById(R.id.player_pos_spinner);
+        String[] sb = new String[]{"C", "PF", "SF", "SG", "PG"};
+        adpForSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sb);
+        adpForSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        player_pos_spinner.setAdapter(adpForSpinner);
+
         ad.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditText player_name_edit = v.findViewById(R.id.player_name_edit);
-                EditText player_team_edit = v.findViewById(R.id.player_team_edit);
-                EditText player_pos_edit = v.findViewById(R.id.player_pos_edit);
+                Spinner player_team_spinner = v.findViewById(R.id.player_team_spinner);
+                Spinner player_pos_spinner = v.findViewById(R.id.player_pos_spinner);
                 String name = player_name_edit.getText().toString().trim();
-                String team = player_team_edit.getText().toString().trim();
-                String pos = player_pos_edit.getText().toString().trim();
+                String team = (String) player_team_spinner.getSelectedItem();
+                team = team.trim();
+                String pos = (String) player_pos_spinner.getSelectedItem();
+                pos = pos.trim();
                 RecorderPlayer rp = new RecorderPlayer(name, pos, "", "", "", "", "", "", "", "");
-                if (team.contentEquals("team1")) {
+                if (name.contentEquals("")) {
+                    Toast.makeText(RecorderActivity.this, "请输入球员姓名！", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (team.contentEquals(teamA)) {
                     team = teamA;
                     teamAList.add(rp);
-                } else if (team.contentEquals("team2")) {
+                } else if (team.contentEquals(teamB)) {
                     team = teamB;
                     teamBList.add(rp);
                 } else {
-                    Toast.makeText(RecorderActivity.this, "请在所属队伍一栏中输入team1或team2！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RecorderActivity.this, "请选择所属队伍！", Toast.LENGTH_LONG).show();
                     return;
                 }
                 POSTplayer(team, name, pos);

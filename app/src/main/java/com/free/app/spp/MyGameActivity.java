@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -20,10 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -55,17 +60,14 @@ public class MyGameActivity extends AppCompatActivity {
         TextView myGameIntro = findViewById(R.id.my_match_intro);
         myGameName.setText(mg.getGameName());
         myGameIntro.setText(mg.getIntro());
-//        Button edit_schedule = findViewById(R.id.edit_schedule);
-//        if (is_admin) {
-//            edit_schedule.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                if (is_admin) {
-//                    CreateDialog();
-//                }
-//                }
-//            });
-//        } else edit_schedule.setVisibility(View.GONE);
+        RefreshLayout refreshLayout = findViewById(R.id.my_game_activity_refresh);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshlayout) {
+                GetMyMatch();
+                refreshlayout.finishRefresh(2000);
+            }
+        });
         dataHandle();
     }
 
@@ -128,26 +130,26 @@ public class MyGameActivity extends AppCompatActivity {
     }
 
     protected void dataHandle() {
-        MyGameMatchAdapter myGameMatchAdapter = new MyGameMatchAdapter(mData, this);
+        MyGameMatchAdapter myGameMatchAdapter = new MyGameMatchAdapter(mData, this, is_admin);
         matches = findViewById(R.id.list_my_game_match);
         matches.setAdapter(myGameMatchAdapter);
         matches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent;
-            if (!(mData.get(position) == MatchDate.class)) {
-                if (is_admin) {
-                    intent = new Intent(MyGameActivity.this, RecorderActivity.class);
-                } else {
-                    intent = new Intent(MyGameActivity.this, OfflineMatchActivity.class);
+                Intent intent;
+                if (!(mData.get(position) == MatchDate.class)) {
+                    if (is_admin) {
+                        intent = new Intent(MyGameActivity.this, RecorderActivity.class);
+                    } else {
+                        intent = new Intent(MyGameActivity.this, OfflineMatchActivity.class);
+                    }
+                    try {
+                        PassData(intent, (MyGameMatch) mData.get(position));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(intent);
                 }
-                try {
-                    PassData(intent, (MyGameMatch) mData.get(position));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                startActivity(intent);
-            }
             }
         });
     }
@@ -195,7 +197,7 @@ public class MyGameActivity extends AppCompatActivity {
                         String scoreB = j.getString("客场总分");
                         mData.add(new MyGameMatch(teamA, teamB, date, time, pos, scoreA, scoreB, j, id));
                     }
-                    MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this);
+                    MyGameMatchAdapter adp = new MyGameMatchAdapter(mData, MyGameActivity.this, is_admin);
                     matches.setAdapter(adp);
                 }
             }
@@ -306,10 +308,12 @@ class MyGameMatchAdapter extends BaseAdapter implements PinnedSectionListView.Pi
     private Context mContext;
     private final int ITEM_NORMAL = 0;
     private final int ITEM_SECTION = 1;
+    private boolean isAdmin = false;
 
-    MyGameMatchAdapter(ArrayList mData, Context mContext) {
+    MyGameMatchAdapter(ArrayList mData, Context mContext, boolean isAdmin) {
         this.mData = mData;
         this.mContext = mContext;
+        this.isAdmin = isAdmin;
     }
 
     @Override
@@ -341,6 +345,22 @@ class MyGameMatchAdapter extends BaseAdapter implements PinnedSectionListView.Pi
         return position;
     }
 
+    private void deleteMatch(MyGameMatch myGameMatch) {
+        Http<JSONArray> http = new Http<>();
+        http.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
+                if (jsonArray.getJSONObject(0).getInt("result") == 1) {
+                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(mContext, "删除失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        http.execute("DeleteMatch", myGameMatch.getId());
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int itemViewType = getItemViewType(position);
@@ -356,7 +376,7 @@ class MyGameMatchAdapter extends BaseAdapter implements PinnedSectionListView.Pi
             TextView place = convertView.findViewById(R.id.my_game_place);
 
             myGameMatchItem.setBackgroundColor(Color.rgb(240, 240, 240));
-            MyGameMatch a = (MyGameMatch) mData.get(position);
+            final MyGameMatch a = (MyGameMatch) mData.get(position);
             String p1 = a.getScore1();
             String p2 = a.getScore2();
             teamName1.setText(a.getTeamName1());
@@ -369,6 +389,21 @@ class MyGameMatchAdapter extends BaseAdapter implements PinnedSectionListView.Pi
             teamScore2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             time.setText(a.getTime());
             place.setText(a.getPlace());
+
+            final TextView deleteOneMatch = convertView.findViewById(R.id.delete_match);
+            if (isAdmin) {
+                deleteOneMatch.setVisibility(View.VISIBLE);
+            }
+            else {
+                deleteOneMatch.setVisibility(View.GONE);
+            }
+            deleteOneMatch.setFocusable(false);
+            deleteOneMatch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteMatch(a);
+                }
+            });
         } else if (itemViewType == ITEM_SECTION) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_date, parent, false);
             convertView.setBackgroundColor(Color.rgb(240, 240, 240));

@@ -26,11 +26,11 @@
         android:textSize="18sp"
         />
 
-    <EditText
-        android:id="@+id/player_team_edit"
+    <Spinner
+        android:id="@+id/player_team_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入所属队伍（输入team1或team2）"/>
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
         android:textSize="18sp"
         />
 
-    <EditText
-        android:id="@+id/player_pos_edit"
+    <Spinner
+        android:id="@+id/player_pos_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入球员在场上担任的位置"/>
+        />
 </LinearLayout>

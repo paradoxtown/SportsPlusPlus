@@ -6,25 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MyGameCreatorActivity">
+    tools:context=".MyGameCreatorActivity"
+    android:fitsSystemWindows="false">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="1">-->
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="85dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/match_name_edit"
                 android:layout_width="235dp"
                 android:layout_height="36dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/edit_text_bg"
                 android:hint=" 比赛名（10个字以内）" />
@@ -33,15 +34,14 @@
                 android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/match_name_edit"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="39dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="-2dp"
                 app:buttonText="取消创建" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <View
         android:layout_width="350dp"
@@ -50,14 +50,14 @@
         android:background="#C0C0C0" />
 
     <!--<View-->
-        <!--android:layout_width="350dp"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:background="#C0C0C0" />-->
+    <!--android:layout_width="350dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="#C0C0C0" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
@@ -70,9 +70,10 @@
 
         <Spinner
             android:id="@+id/date_spinner"
-            android:layout_width="243dp"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
-            android:entries="@array/days" />
+            />
+
     </LinearLayout>
 
     <View
@@ -81,85 +82,68 @@
         android:layout_gravity="center"
         android:background="#C0C0C0" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/match_intro_edit"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="1dp"
             android:layout_marginTop="17dp"
             android:gravity="center"
             android:text="@string/game_intro"
+            android:layout_marginStart="30dp"
             android:textColor="#000000"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/match_intro_edit"
-            android:layout_width="349dp"
-            android:layout_height="131dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="9dp"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_bg"
             android:gravity="top"
+            android:layout_gravity="center_horizontal"
             android:hint=" 输入简介（字数在100字以内）" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <View
-        android:layout_width="350dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#C0C0C0" />
-
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="17dp"
-            android:gravity="center_vertical"
+            android:layout_marginStart="30dp"
             android:text="@string/add_admin"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:layout_weight="2"
+            android:textSize="20sp"
+            tools:ignore="NestedWeights" />
 
         <info.hoang8f.widget.FButton
             android:id="@+id/add_admin"
-            android:layout_width="76dp"
+            android:layout_width="25dp"
             android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="42dp"
+            android:layout_marginEnd="38dp"
             android:text="@string/add"
             android:textSize="12sp"
+            android:layout_weight="1"
             fbutton:cornerRadius="5dp"
             fbutton:shadowEnabled="true"
             fbutton:shadowHeight="5dp" />
 
-    </RelativeLayout>
-
-    <View
-        android:layout_width="350dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#C0C0C0" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/AdministerListView"
+        android:layout_gravity="center_horizontal"
         android:layout_width="350dp"
-        android:layout_height="163dp"
-        android:layout_gravity="center"
+        android:layout_height="160dp"
         android:background="@drawable/edit_text_bg"
         android:divider="#C0C0C0"
         android:dividerHeight="1dp">
@@ -170,8 +154,9 @@
         android:id="@+id/submit_button"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         app:buttonText="@string/submit_create" />
+
 
 </LinearLayout>

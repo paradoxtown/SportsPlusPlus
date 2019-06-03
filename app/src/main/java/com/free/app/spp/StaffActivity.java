@@ -26,6 +26,7 @@ public class StaffActivity extends AppCompatActivity {
 
     private static JSONArray ret;
     private ArrayList<StaffItem> A = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class StaffActivity extends AppCompatActivity {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray PlayerInfo){
+            public void onResponse(JSONArray PlayerInfo) {
                 // TeamListFragment.this.initTeams(TeamInfo);
                 ret = PlayerInfo;
                 getInfo();
@@ -49,53 +50,78 @@ public class StaffActivity extends AppCompatActivity {
         });
         http.execute("GetPlayerInfo", teamName);
     }
-    public void getInfo()
-    {
-        Map<String,Object> mp = new HashMap<>();
-        mp.put("playerName","姓名");
-        mp.put("playerNumber","号码");
-        mp.put("playerPosition","场上位置");
-        mp.put("playerSalary","薪水");
-        mp.put("player",null);
 
-        try{
-            for(int i = 0;i < ret.length();i++) {
+    public void getInfo() {
+        Map<String, Object> mp = new HashMap<>();
+        mp.put("playerName", "姓名");
+        mp.put("playerNumber", "号码");
+        mp.put("playerPosition", "场上位置");
+        mp.put("playerSalary", "薪水");
+        mp.put("player", null);
+
+        try {
+            for (int i = 0; i < ret.length(); i++) {
                 JSONObject obj = ret.getJSONObject(i);
-                String ChiName = "无信息";if(obj.has("中文名"))ChiName= obj.getString("中文名");
-                String pos = "无信息";if(obj.has("位置"))pos = obj.getString("位置");
-                String weight = "无信息";if(obj.has("体重"))weight = obj.getString("体重");
-                String contract = "无信息";if(obj.has("合同"))contract = obj.getString("合同");
-                String nationality = "无信息";if(obj.has("国籍"))nationality = obj.getString("国籍");
-                String school = "无信息";if(obj.has("学校"))school = obj.getString("学校");
-                String number = "无信息";if(obj.has("序号"))number = obj.getString("序号");
-                String salary = "无信息";if(obj.has("本赛季薪金"))salary = obj.getString("本赛季薪金");
-                String team = "无信息";if(obj.has("球队"))team = obj.getString("球队");
-                String birth = "无信息";if(obj.has("生日"))birth = obj.getString("生日");
-                String EngName = "无信息";if(obj.has("英文名"))EngName = obj.getString("英文名");
-                String height = "无信息";if(obj.has("身高"))height = obj.getString("身高");
-                String draft = "无信息";if(obj.has("选秀"))draft = obj.getString("选秀");
-                player p = new player(ChiName,pos,weight,contract,nationality,school,number,salary,team,birth,EngName,height,draft);
-                System.out.println(pos);int begin,end;String num,po;
-                if(pos.contains("（")){begin = pos.indexOf("（"); end = pos.indexOf("）");num = pos.substring(begin + 1,end);po = pos.substring(0,begin);}
-                else{po = pos;num = "无信息";}
-                A.add(new StaffItem(num,po,salary,p));
+                String ChiName = "无信息";
+                if (obj.has("中文名") && !obj.getString("中文名").equals(""))
+                    ChiName = obj.getString("中文名");
+                String pos = "无信息";
+                if (obj.has("位置") && !obj.getString("位置").equals("")) pos = obj.getString("位置");
+                String weight = "无信息";
+                if (obj.has("体重") && !obj.getString("体重").equals("")) weight = obj.getString("体重");
+                String contract = "无信息";
+                if (obj.has("合同") && !obj.getString("合同").equals(""))
+                    contract = obj.getString("合同");
+                String nationality = "无信息";
+                if (obj.has("国籍") && !obj.getString("国籍").equals(""))
+                    nationality = obj.getString("国籍");
+                String school = "无信息";
+                if (obj.has("学校") && !obj.getString("学校").equals("")) school = obj.getString("学校");
+                String number = "无信息";
+                if (obj.has("序号") && !obj.getString("序号").equals("")) number = obj.getString("序号");
+                String salary = "无信息";
+                if (obj.has("本赛季薪金") && !obj.getString("本赛季薪金").equals(""))
+                    salary = obj.getString("本赛季薪金");
+                String team = "无信息";
+                if (obj.has("球队") && !obj.getString("球队").equals("")) team = obj.getString("球队");
+                String birth = "无信息";
+                if (obj.has("生日") && !obj.getString("生日").equals("")) birth = obj.getString("生日");
+                String EngName = "无信息";
+                if (obj.has("英文名") && !obj.getString("英文名").equals(""))
+                    EngName = obj.getString("英文名");
+                String height = "无信息";
+                if (obj.has("身高") && !obj.getString("身高").equals("")) height = obj.getString("身高");
+                String draft = "无信息";
+                if (obj.has("选秀") && !obj.getString("选秀").equals("")) draft = obj.getString("选秀");
+                player p = new player(ChiName, pos, weight, contract, nationality, school, number, salary, team, birth, EngName, height, draft);
+                System.out.println(pos);
+                int begin, end;
+                String num, po;
+                if (pos.contains("（")) {
+                    begin = pos.indexOf("（");
+                    end = pos.indexOf("）");
+                    num = pos.substring(begin + 1, end);
+                    po = pos.substring(0, begin);
+                } else {
+                    po = pos;
+                    num = "无信息";
+                }
+                A.add(new StaffItem(num, po, salary, p));
             }
             ListView StaffView = findViewById(R.id.staffview);
-            StaffAdapter adp = new StaffAdapter(A,this);
+            StaffAdapter adp = new StaffAdapter(A, this);
             StaffView.setAdapter(adp);
             StaffView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(StaffActivity.this,PlayerActivity.class);
+                    Intent intent = new Intent(StaffActivity.this, PlayerActivity.class);
                     StaffItem mp = A.get(position);
                     player p = mp.getPlayer();
-                    intent.putExtra("player",p);
+                    intent.putExtra("player", p);
                     startActivity(intent);
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -105,7 +131,7 @@ class StaffItem {
     private String playerNumber, playerPosition, playerSalary;
     private player player;
 
-    StaffItem(String pn, String pp, String ps, player p){
+    StaffItem(String pn, String pp, String ps, player p) {
         this.playerNumber = pn;
         this.playerPosition = pp;
         this.playerSalary = ps;
@@ -129,14 +155,15 @@ class StaffItem {
     }
 }
 
-class StaffAdapter extends BaseAdapter{
+class StaffAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<StaffItem> mList;
 
-    StaffAdapter(ArrayList<StaffItem>mList,Context mContext){
+    StaffAdapter(ArrayList<StaffItem> mList, Context mContext) {
         this.mContext = mContext;
         this.mList = mList;
     }
+
     public int getCount() {
         if (mList == null) {
             return 0;
@@ -144,6 +171,7 @@ class StaffAdapter extends BaseAdapter{
             return this.mList.size();
         }
     }
+
     @Override
     public Object getItem(int position) {
         if (mList == null) {
@@ -152,15 +180,15 @@ class StaffAdapter extends BaseAdapter{
             return this.mList.get(position);
         }
     }
+
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.player_list_item, null);
             holder.pic = convertView.findViewById(R.id.player_pic);
@@ -170,30 +198,30 @@ class StaffAdapter extends BaseAdapter{
             holder.salary = convertView.findViewById(R.id.player_salary);
             convertView.setTag(holder);
         }
-        if(this.mList != null){
-            holder = (ViewHolder)convertView.getTag();
+        if (this.mList != null) {
+            holder = (ViewHolder) convertView.getTag();
             StaffItem i = mList.get(position);
             holder.name.setText(i.getPlayer().getChiName());
             holder.number.setText(i.getPlayerNumber());
             holder.pos.setText(i.getPlayerPosition());
             holder.salary.setText(i.getPlayerSalary());
-            GetPlayerImage(i.getPlayer().getChiName(),holder.pic);
+            GetPlayerImage(i.getPlayer().getChiName(), holder.pic);
         }
         return convertView;
     }
 
-    private void GetPlayerImage(String playerName,final ImageView i) {
+    private void GetPlayerImage(String playerName, final ImageView i) {
         LoadImg<Bitmap> http = new LoadImg<>();
         http.setListener(new LoadImg.OnResponseListener<Bitmap>() {
             @Override
-            public void onResponse(Bitmap playerImage){
+            public void onResponse(Bitmap playerImage) {
                 i.setImageBitmap(playerImage);
             }
         });
-        http.execute("GetPlayerImage",playerName);
+        http.execute("GetPlayerImage", playerName);
     }
 
-    class ViewHolder{
+    class ViewHolder {
         ImageView pic;
         TextView name;
         TextView number;
@@ -202,4 +230,3 @@ class StaffAdapter extends BaseAdapter{
     }
 
 }
-

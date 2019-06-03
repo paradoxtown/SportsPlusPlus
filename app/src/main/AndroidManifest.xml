@@ -33,7 +33,6 @@
         <activity android:name=".DataActivity" />
         <activity android:name=".StaffActivity" />
         <activity android:name=".TeamActivity" />
-        <activity android:name=".SerialArrangeActivity" />
         <activity android:name=".MatchActivity" /> <!-- <activity android:name=".justloginregistertest.loginActivity"/> -->
         <activity
             android:name=".justloginregistertest.loginActivity"

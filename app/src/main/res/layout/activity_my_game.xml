@@ -66,12 +66,20 @@
 
     </RelativeLayout>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/my_game_activity_refresh"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:srlEnableLoadMore="false">
+
     <de.halfbit.pinnedsection.PinnedSectionListView
         android:id="@+id/list_my_game_match"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
         android:divider="@null" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <com.gjiazhe.multichoicescirclebutton.MultiChoicesCircleButton
         android:id="@+id/multiChoicesCircleButton"

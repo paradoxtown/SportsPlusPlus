@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import info.hoang8f.widget.FButton;
 
@@ -29,14 +30,40 @@ public class MyGameCreatorActivity extends AppCompatActivity {
     ArrayList<String> A = new ArrayList<>();
     ArrayAdapter<String> adp;
     ListView l;
+    ArrayList<String> dateToStart = new ArrayList<>();
 
+    protected void dateCalculation(){
+        Calendar cal = Calendar.getInstance();
+        int nowyear = cal.get(Calendar.YEAR);
+        int nowmonth = cal.get(Calendar.MONTH) + 1;
+        int nowday = cal.get(Calendar.DAY_OF_MONTH);
+        for(int i = 1;i <= 30;i++){
+            dateToStart.add(String.valueOf(nowyear) + "年" + String.valueOf(nowmonth) + "月" + String.valueOf(nowday) + "日");
+            nowday++;
+            if(nowmonth == 4 || nowmonth == 6 || nowmonth == 9 || nowmonth == 11)
+                if(nowday == 31){nowmonth++;nowday = 1;}
+                else if(nowmonth == 1 || nowmonth == 3 || nowmonth == 5 || nowmonth == 7 ||
+                        nowmonth == 8 || nowmonth == 10 || nowmonth == 12)
+                    if(nowday == 32){nowmonth++;nowday = 1;}
+                    else{
+                        if ((nowyear % 4 == 0 && nowyear % 100 != 0) || (nowyear % 100 == 0 && nowyear % 400 == 0)) {
+                            if(nowday == 30){nowmonth++;nowday = 1;}
+                        } else {
+                            if (nowday == 29){nowmonth++;nowday = 1;}
+                        }
+                    }
+            if(nowmonth == 13){
+                nowyear++;nowmonth = 1;
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_game_creator);
 
         l = findViewById(R.id.AdministerListView);
-
+        dateCalculation();
         //输入账号名，将之添加管理员
         Intent i = this.getIntent();
         String creatorName = i.getStringExtra("UserName");
@@ -61,6 +88,9 @@ public class MyGameCreatorActivity extends AppCompatActivity {
         final EditText nameEditText = findViewById(R.id.match_name_edit);
         final EditText introEditText = findViewById(R.id.match_intro_edit);
         final Spinner s = findViewById(R.id.date_spinner);
+        ArrayAdapter<String>adpForSpinner = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,dateToStart);
+        adpForSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s.setAdapter(adpForSpinner);
 
         final SubmitButton saveButton = findViewById(R.id.submit_button);
         saveButton.setOnClickListener(new OnClickListener() {
@@ -71,6 +101,14 @@ public class MyGameCreatorActivity extends AppCompatActivity {
                     saveButton.reset();
                 } else if (nameEditText.getText().toString().trim().length() > 10) {
                     Toast.makeText(MyGameCreatorActivity.this, "比赛名应在10个字符以内", Toast.LENGTH_LONG).show();
+                    saveButton.reset();
+                }
+                else if (nameEditText.getText().toString().trim().equals("")) {
+                    Toast.makeText(MyGameCreatorActivity.this, "比赛名不能为空！", Toast.LENGTH_LONG).show();
+                    saveButton.reset();
+                }
+                else if (introEditText.getText().toString().trim().equals("")) {
+                    Toast.makeText(MyGameCreatorActivity.this, "介绍不能为空！", Toast.LENGTH_LONG).show();
                     saveButton.reset();
                 } else {
                     saveButton.doResult(true);

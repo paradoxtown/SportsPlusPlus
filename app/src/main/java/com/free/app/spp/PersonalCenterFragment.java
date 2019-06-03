@@ -29,22 +29,31 @@ import java.util.List;
 
 public class PersonalCenterFragment extends Fragment {
     private boolean isVisible = true;
+    private boolean adminIsVisible = true;
     private boolean offlineIsVisible = true;
     private ListView attentionList;
+    private ListView adminOfflineList;
     private ListView attentionOfflineList;
+
     private List<TeamItem> teamList = new ArrayList<>();
-    private List<MyGame> matchList = new ArrayList<>();
+    private List<MyGame> adminMatchList = new ArrayList<>();
+    private List<MyGame> likedMatchList = new ArrayList<>();
+
     private LinearLayout modifyPassword;
     private LinearLayout logout;
     private String userNameContent;
     private JSONArray likedTeam;
-    private JSONArray offlineMatch;
+    private JSONArray adminOfflineMatch;
+    private JSONArray likedOfflineMatch;
     private AllMap allMap = new AllMap();
     private List<String> attentionSet = new ArrayList<>();
+    private List<String> adminOfflineSet = new ArrayList<>();
     private List<String> attentionOfflineSet = new ArrayList<>();
     private SharedPreferences.Editor e;
     private LinearLayout attentionLayout;
+    private LinearLayout adminOfflineLayout;
     private LinearLayout attentionOfflineLayout;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -54,12 +63,15 @@ public class PersonalCenterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         userNameContent = getActivity().getIntent().getStringExtra("UserName");
         attentionLayout = view.findViewById(R.id.attention_teams);
-        attentionOfflineLayout = view.findViewById(R.id.my_game_attention_teams);
+        adminOfflineLayout = view.findViewById(R.id.my_game_admin_games);
+        attentionOfflineLayout = view.findViewById(R.id.my_game_attention_games);
         modifyPassword = view.findViewById(R.id.modify_password);
         logout = view.findViewById(R.id.log_out);
         attentionList = view.findViewById(R.id.attention_list);
         attentionList.setVisibility(View.GONE);
-        attentionOfflineList = view.findViewById(R.id.my_game_attention_list);
+        adminOfflineList = view.findViewById(R.id.my_game_admin_games_list);
+        adminOfflineList.setVisibility(View.GONE);
+        attentionOfflineList = view.findViewById(R.id.my_game_attention_games_list);
         attentionOfflineList.setVisibility(View.GONE);
         TextView userName = view.findViewById(R.id.userName);
         TextView description = view.findViewById(R.id.description);
@@ -89,9 +101,16 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
-        attentionOfflineLayout.setOnClickListener(new View.OnClickListener() {
+        adminOfflineLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getOfflineAdminTeam();
+            }
+        });
+
+        attentionOfflineLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 getOfflineLikedTeam();
             }
         });
@@ -104,11 +123,19 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
+        adminOfflineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MyGame myGame = adminMatchList.get(position);
+                isAdmin(myGame);
+            }
+        });
+
         attentionOfflineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MyGame myGame = matchList.get(position);
-                isAdmin(myGame);
+                MyGame myGame = likedMatchList.get(position);
+                isOfflineAttention(myGame);
             }
         });
 
@@ -185,6 +212,13 @@ public class PersonalCenterFragment extends Fragment {
         http.execute("GetMySchedule", userNameContent);
     }
 
+    private void isOfflineAttention(final MyGame myGame) {
+        Intent intent = new Intent(getActivity(), MyGameActivity.class);
+        intent.putExtra("MyGame", myGame);
+        intent.putExtra("UserName", userNameContent);
+        startActivity(intent);
+    }
+
     private void getLikedTeam() {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
@@ -207,13 +241,19 @@ public class PersonalCenterFragment extends Fragment {
                         MyTeamAdapter adapter = new MyTeamAdapter(teamList, getActivity());
                         attentionList.setAdapter(adapter);
                         isVisible = false;
+                        offlineIsVisible = true;
+                        adminIsVisible = true;
+                        adminOfflineLayout.setVisibility(View.GONE);
+                        attentionOfflineLayout.setVisibility(View.GONE);
+                        adminOfflineList.setVisibility(View.GONE);
                         attentionList.setVisibility(View.VISIBLE);
-                        attentionOfflineLayout.setVisibility(View.VISIBLE);
                         modifyPassword.setVisibility(View.GONE);
                         logout.setVisibility(View.GONE);
                     } else {
                         modifyPassword.setVisibility(View.VISIBLE);
                         logout.setVisibility(View.VISIBLE);
+                        adminOfflineLayout.setVisibility(View.VISIBLE);
+                        attentionOfflineLayout.setVisibility(View.VISIBLE);
                         attentionList.setVisibility(View.GONE);
                         isVisible = true;
                     }
@@ -221,6 +261,8 @@ public class PersonalCenterFragment extends Fragment {
                     modifyPassword.setVisibility(View.VISIBLE);
                     logout.setVisibility(View.VISIBLE);
                     attentionList.setVisibility(View.GONE);
+                    adminOfflineLayout.setVisibility(View.VISIBLE);
+                    attentionOfflineLayout.setVisibility(View.VISIBLE);
                     isVisible = true;
                 }
             }
@@ -232,13 +274,14 @@ public class PersonalCenterFragment extends Fragment {
         Http<JSONArray> http = new Http<>();
         http.setListener(new Http.OnResponseListener<JSONArray>() {
             @Override
-            public void onResponse(JSONArray jsonArray) throws JSONException {
+            public void onResponse(JSONArray jsonArray) throws JSONException, IOException {
                 if (offlineIsVisible) {
-                    matchList.clear();
+                    likedMatchList.clear();
                     attentionOfflineSet.clear();
-                    offlineMatch = jsonArray;
-                    if (offlineMatch != null) {
-                        for (int i = 0; i < offlineMatch.length(); i++) {
+                    likedOfflineMatch = jsonArray;
+                    System.out.println(likedMatchList.toString());
+                    if (likedMatchList != null) {
+                        for (int i = 0; i < likedOfflineMatch.length(); i ++) {
                             JSONObject j = jsonArray.getJSONObject(i);
                             j = j.getJSONObject("赛程");
                             String name = j.getString("名称");
@@ -246,22 +289,25 @@ public class PersonalCenterFragment extends Fragment {
                             String time = j.getString("创建时间");
                             String id = j.getString("id");
                             if (!attentionOfflineSet.contains(name)) {
-                                matchList.add(new MyGame(name, time, intro, id));
+                                likedMatchList.add(new MyGame(name, time, intro, id));
                                 attentionOfflineSet.add(name);
                             }
                         }
-                        AttentionGameAdapterInPersonalCenter adp
-                                = new AttentionGameAdapterInPersonalCenter(matchList, getActivity());
-                        attentionOfflineList.setAdapter(adp);
+                        AttentionGameAdapterInPersonalCenter attentionOfflineAdp =
+                                new AttentionGameAdapterInPersonalCenter(likedMatchList, getActivity());
+                        attentionOfflineList.setAdapter(attentionOfflineAdp);
                         attentionOfflineList.setVisibility(View.VISIBLE);
                         attentionList.setVisibility(View.GONE);
-                        isVisible = true;
-                        logout.setVisibility(View.GONE);
                         modifyPassword.setVisibility(View.GONE);
+                        logout.setVisibility(View.GONE);
                         offlineIsVisible = false;
+                        isVisible = true;
+                        adminIsVisible = true;
                     } else {
                         isVisible = true;
+                        adminIsVisible = true;
                         offlineIsVisible = true;
+                        adminOfflineLayout.setVisibility(View.VISIBLE);
                         modifyPassword.setVisibility(View.VISIBLE);
                         logout.setVisibility(View.VISIBLE);
                         attentionOfflineList.setVisibility(View.GONE);
@@ -270,7 +316,65 @@ public class PersonalCenterFragment extends Fragment {
                     modifyPassword.setVisibility(View.VISIBLE);
                     logout.setVisibility(View.VISIBLE);
                     attentionOfflineList.setVisibility(View.GONE);
+                    isVisible = true;
+                    adminIsVisible = true;
                     offlineIsVisible = true;
+                }
+            }
+        });
+        http.execute("GetSubforgame", userNameContent);
+    }
+
+    private void getOfflineAdminTeam() {
+        Http<JSONArray> http = new Http<>();
+        http.setListener(new Http.OnResponseListener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) throws JSONException {
+                if (adminIsVisible) {
+                    adminMatchList.clear();
+                    adminOfflineSet.clear();
+                    adminOfflineMatch = jsonArray;
+                    System.out.println(adminOfflineMatch.toString());
+                    if (adminOfflineMatch != null) {
+                        for (int i = 0; i < adminOfflineMatch.length(); i++) {
+                            JSONObject j = jsonArray.getJSONObject(i);
+                            j = j.getJSONObject("赛程");
+                            String name = j.getString("名称");
+                            String intro = j.getString("简介");
+                            String time = j.getString("创建时间");
+                            String id = j.getString("id");
+                            if (!adminOfflineSet.contains(name)) {
+                                adminMatchList.add(new MyGame(name, time, intro, id));
+                                adminOfflineSet.add(name);
+                            }
+                        }
+                        AttentionGameAdapterInPersonalCenter adp
+                                = new AttentionGameAdapterInPersonalCenter(adminMatchList, getActivity());
+                        adminOfflineList.setAdapter(adp);
+                        adminOfflineList.setVisibility(View.VISIBLE);
+                        attentionOfflineLayout.setVisibility(View.GONE);
+                        attentionOfflineList.setVisibility(View.GONE);
+                        attentionList.setVisibility(View.GONE);
+                        isVisible = true;
+                        logout.setVisibility(View.GONE);
+                        modifyPassword.setVisibility(View.GONE);
+                        adminIsVisible = false;
+                        offlineIsVisible = true;
+                    } else {
+                        isVisible = true;
+                        adminIsVisible = true;
+                        offlineIsVisible = true;
+                        modifyPassword.setVisibility(View.VISIBLE);
+                        logout.setVisibility(View.VISIBLE);
+                        attentionOfflineLayout.setVisibility(View.VISIBLE);
+                        adminOfflineList.setVisibility(View.GONE);
+                    }
+                } else {
+                    modifyPassword.setVisibility(View.VISIBLE);
+                    logout.setVisibility(View.VISIBLE);
+                    attentionOfflineLayout.setVisibility(View.VISIBLE);
+                    adminOfflineList.setVisibility(View.GONE);
+                    adminIsVisible = true;
                 }
             }
         });
